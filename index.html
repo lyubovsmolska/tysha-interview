@@ -317,6 +317,7 @@ const UI={
   shTitle:L("My Tysha results","Meine Tysha-Ergebnisse","Мої результати Tysha"),
   shCalm:L("What calms me","Was mich beruhigt","Що мене заспокоює"),
   shFind:L("Find yours","Finde deine","Знайдіть свої"),
+  heavier:L("Your answers make this year about {p}% heavier.","Deine Antworten machen dieses Jahr etwa {p} % schwerer.","Ваші відповіді роблять цей рік приблизно на {p}% важчим."),
   preview:L("Preview","Vorschau","Перегляд"),
   pvNote:L("No consent needed, nothing is saved.","Kein Einverständnis nötig, nichts wird gespeichert.","Згода не потрібна, нічого не зберігається."),
   pvJump:L("Go to","Gehe zu","Перейти до"), pvReset:L("Clear answers","Antworten leeren","Очистити відповіді"), pvExit:L("Exit preview","Vorschau beenden","Вийти з перегляду"),
@@ -398,6 +399,35 @@ const HABITS=[
   {id:"time_when",kind:"chips",multi:true,title:L("When would it fit best?","Wann würde es am besten passen?","Коли це найкраще пасувало б?"),
    opts:[O("morning","Morning","Morgens","Зранку"),O("lunch","Lunch break","Mittagspause","Обідня перерва"),O("afterwork","After work","Nach der Arbeit","Після роботи"),O("evening","Evening","Abends","Увечері"),O("bed","Before sleep","Vor dem Schlafen","Перед сном")]}
 ];
+/* Cost page factors: causes make the whole year heavier (+8% each), effects add concrete costs, sick days, lost hours and moments */
+const FACTOR_QS=[
+  {id:"cost_causes",kind:"chips",multi:true,title:L("What drives your stress?","Was treibt deinen Stress?","Що спричиняє ваш стрес?"),
+   opts:[O("hours","Long hours, overtime","Lange Arbeitstage, Überstunden","Довгі робочі дні, понаднормові"),O("reachable","Always reachable","Immer erreichbar","Завжди на зв'язку"),O("pressure","Pressure, deadlines","Druck, Deadlines","Тиск, дедлайни"),O("care","Caring for kids or parents","Kinder oder Eltern versorgen","Догляд за дітьми чи батьками"),O("money","Money worries","Geldsorgen","Фінансові турботи"),O("conflict","Conflict at work or home","Konflikte im Job oder zu Hause","Конфлікти на роботі чи вдома"),O("notime","No time for myself","Keine Zeit für mich","Немає часу для себе"),O("change","A big life change","Eine große Lebensveränderung","Велика зміна в житті"),O("commute","Long commute","Langer Arbeitsweg","Довга дорога на роботу")]},
+  {id:"cost_effects",kind:"chips",multi:true,title:L("What does it do to you?","Was macht er mit dir?","Що він з вами робить?"),
+   opts:[O("sleep","Poor sleep","Schlechter Schlaf","Поганий сон"),O("pain","Headaches, neck or back pain","Kopf-, Nacken- oder Rückenschmerzen","Головний біль, біль у шиї чи спині"),O("sick","Getting sick more often","Öfter krank","Частіше хворію"),O("irritable","Irritable with loved ones","Gereizt mit Liebsten","Дратівливість із близькими"),O("focus","Less focus, more mistakes","Weniger Fokus, mehr Fehler","Менше фокусу, більше помилок"),O("cancel","Cancelling plans with friends","Treffen mit Freunden absagen","Скасовую зустрічі з друзями"),O("comfort","Comfort spending (food, shopping)","Frustkäufe (Essen, Shopping)","Компенсаторні витрати (їжа, шопінг)"),O("substances","More coffee, alcohol or smoking","Mehr Kaffee, Alkohol oder Rauchen","Більше кави, алкоголю чи куріння"),O("noexercise","Less movement","Weniger Bewegung","Менше руху")]}
+];
+const CAUSE_AMP=.08;
+const EFFECTS={ /* per year in a foggy year (EUR); breezy x0.5, storm x1.5 */
+  sleep:{cash:150,days:1,item:{k:"nights",em:"🛌",n:60,t:L("nights of poor sleep","Nächte mit schlechtem Schlaf","ночей поганого сну")}},
+  pain:{cash:400,days:2},
+  sick:{cash:100,days:4},
+  irritable:{item:{k:"tension",em:"💬",n:25,t:L("evenings with tension at home","Abende mit Spannung zu Hause","вечорів із напругою вдома")}},
+  focus:{raise:1,hours:20},
+  cancel:{item:{k:"meetups",em:"🫂",n:12,t:L("cancelled meetups with friends","abgesagte Treffen mit Freunden","скасованих зустрічей із друзями")}},
+  comfort:{cash:900},
+  substances:{cash:600,days:1},
+  noexercise:{days:1}
+};
+const WX_SCALE=[.5,1,1.5];
+function factorImpact(w,I){
+  const ws=WX_SCALE[w],x=CURX[I.cur]??1,a=S.answers;
+  const causes=Array.isArray(a.cost_causes)?a.cost_causes:[],effects=Array.isArray(a.cost_effects)?a.cost_effects:[];
+  const r={amp:Math.min(causes.length*CAUSE_AMP,.6),cash:0,days:0,hours:0,items:[]};
+  effects.forEach(k=>{const e=EFFECTS[k];if(!e)return;
+    r.cash+=((e.cash||0)*x+(e.raise||0)/100*I.net*12)*ws;r.days+=(e.days||0)*ws;r.hours+=(e.hours||0)*ws;
+    if(e.item)r.items.push(Object.assign({},e.item,{n:e.item.n*ws}))});
+  return r;
+}
 const WORTH_Q=[{id:"feeling",kind:"voice",title:L("How does it feel?","Wie fühlt sich das an?","Які відчуття?"),q:L("Seeing this, how does it feel? What would you miss most?","Wie fühlt sich das an? Was würdest du am meisten vermissen?","Як вам це? За чим ви сумували б найбільше?")}];
 const DONE_Q=[
   {id:"wishes",kind:"voice",title:L("Your wish","Dein Wunsch","Ваше побажання"),q:L("Any ideas or thoughts that would be nice to have in a future product?","Hast du Ideen oder Gedanken, was ein zukünftiges Produkt haben sollte?","Чи є у вас ідеї чи думки, що було б добре мати в майбутньому продукті?")},
@@ -415,7 +445,7 @@ const PAGES=[
   {id:"ch1",ch:1,title:UI.ch1Title,lede:UI.ch1Lede,qs:CH1},
   {id:"ch2",ch:2,title:UI.ch2Title,lede:UI.ch2Lede,qs:CH2},
   {id:"habits",ch:3,title:UI.habitsTitle,lede:UI.habitsLede,qs:HABITS},
-  {id:"worth",ch:4,title:UI.worthTitle,lede:UI.worthLede,qs:WORTH_Q},
+  {id:"worth",ch:4,title:UI.worthTitle,lede:UI.worthLede,qs:FACTOR_QS.concat(WORTH_Q)},
   {id:"results",title:UI.resultsTitle,lede:UI.resultsLede,qs:[]},
   {id:"done",title:UI.doneTitle,lede:UI.doneLede,qs:DONE_Q.concat(NOTES_Q)}
 ];
@@ -673,7 +703,8 @@ const COLS=["--l1","--l2","--l3"];
 
 /* tangible equivalents of one year in a given weather: money items (count × rough price) and time items */
 function equivalents(w){
-  const {I,R}=calcAll(),x=CURX[I.cur]??1,cash=R[w].cash,lv=I.levels[w];
+  const {I,R}=calcAll(),x=CURX[I.cur]??1,f=factorImpact(w,I),m=1+f.amp,cash=(R[w].cash+f.cash)*m,lv0=I.levels[w];
+  const lv={days:((+lv0.days||0)+f.days)*m,time:((+lv0.time||0)+f.hours)*m,hours:+lv0.hours||0,weeks:(+lv0.weeks||0)*m};
   const kids=Array.isArray(S.answers.life)&&S.answers.life.includes("kids");
   const money=[
     {k:"holiday",em:"🏖️",unit:1800*x,t:L("weeks of family holiday by the sea","Wochen Familienurlaub am Meer","тижнів сімейної відпустки біля моря")},
@@ -686,8 +717,9 @@ function equivalents(w){
   const time=[
     {k:"weekends",em:"☀️",n:(+lv.days||0)/2,t:L("weekends spent recovering instead of living","Wochenenden zum Erholen statt zum Leben","вихідних на відновлення замість життя")},
     {k:"evenings",em:"🌙",n:((+lv.time||0)+(+lv.hours||0)*(+lv.weeks||0))/3,t:L("evenings lost to worry and tiredness","Abende, die Sorgen und Müdigkeit nehmen","вечорів, забраних тривогою і втомою")}
-  ].filter(e=>e.n>=1);
-  return{I,money,time};
+  ].concat(f.items.map(e=>Object.assign(e,{n:e.n*m}))).filter(e=>e.n>=1);
+  const base=R[w].cash,heavier=base>0?Math.round((cash/base-1)*100):0;
+  return{I,money,time,heavier};
 }
 const nFmt=n=>n>=10?Math.round(n).toLocaleString(LOCALE[lang]):(Math.round(n*10)/10).toLocaleString(LOCALE[lang]);
 
@@ -698,6 +730,7 @@ function calcHTML(){
   return `<div class="card"><div class="ch"><span class="lab">${esc(tr(UI.wxQ))}</span></div><div class="wx" role="radiogroup">`+
     [0,1,2].map(i=>`<button type="button" class="wxb ${c.weather===i?"on":""}" data-weather="${i}" style="--c:var(${COLS[i]})" aria-pressed="${c.weather===i}">${WX_ICONS[i]}<b>${esc(tr(UI.wxNames[i]))}</b><span class="note">${esc(tr(UI.wxSub[i]))}</span></button>`).join("")+
     `</div></div>
+  ${FACTOR_QS.map(cardHTML).join("")}
   <div id="calcOut"></div>
   <details class="more card"><summary>${esc(tr(UI.settings))}</summary>
    <div class="inputs">
@@ -729,8 +762,9 @@ function countUp(root){
 }
 function equivHTML(w){
   if(w==null)return `<div class="card"><p class="note">${esc(tr(UI.pickWeather))}</p></div>`;
-  const {I,money,time}=equivalents(w);
+  const {I,money,time,heavier}=equivalents(w);
   return `<div class="card" style="--c:var(${COLS[w]})"><p class="eqhead">${esc(tr(UI.canTake[w]))}</p>
+   ${heavier>0?`<p class="note">${esc(tr(UI.heavier)).replace("{p}",heavier)}</p>`:""}
    <div class="eq">${money.map(e=>`<div class="eqi"><span class="em" aria-hidden="true">${e.em}</span><span class="eqn count" data-key="${e.k}" data-to="${e.n}">${nFmt(e.n)}</span><span>${esc(tr(e.t))}</span><small>${esc(tr(UI.each))} ${fmt(e.unit,I.cur)}</small></div>`).join("")}
    ${time.map(e=>`<div class="eqi time"><span class="em" aria-hidden="true">${e.em}</span><span class="eqn count" data-key="${e.k}" data-to="${e.n}">${nFmt(e.n)}</span><span>${esc(tr(e.t))}</span><small>${esc(tr(UI.timeBack))}</small></div>`).join("")}</div>
    ${I.isExample?`<p class="note">${esc(tr(UI.example))}</p>`:""}</div>`;
@@ -832,7 +866,7 @@ function doneHTML(p){
 function record(){const {I,R}=calcAll();
   return JSON.parse(JSON.stringify({form_version:FORM_VERSION,language:lang,code:codeValue(),consent:S.consent,started_at:S.startedAt,exported_at:nowIso(),
     answers:S.answers,score:scoreValue(),calc:{inputs:S.calc,used:{net:I.net,isExample:I.isExample,cur:I.cur,self:I.self},results:R.map(r=>({cash_year1:Math.round(r.cash),five_years:Math.round(r.five),lost_income:Math.round(r.lost),health_costs:Math.round(r.health),share_of_income:+r.share.toFixed(3)}))}}))}
-const ALL_Q=ABOUT.concat(CH1,CH2,HABITS,WORTH_Q,DONE_Q,NOTES_Q).filter(q=>q.kind!=="fork");
+const ALL_Q=ABOUT.concat(CH1,CH2,HABITS,FACTOR_QS,WORTH_Q,DONE_Q,NOTES_Q).filter(q=>q.kind!=="fork");
 const ANSWER_KEYS=[].concat(...ALL_Q.map(q=>q.kind==="voice"&&q.chips?[q.id,q.id+"_words"]:[q.id])).concat(["weather"]);
 function flatRow(rec){
   const r={saved_at:rec.saved_at,form_version:rec.form_version,language:rec.language,code:rec.code,consent:rec.consent?"yes":"no",started_at:rec.started_at,score:rec.score};
@@ -973,6 +1007,7 @@ app.addEventListener("change",e=>{
     else{let a=Array.isArray(S.answers[q])?S.answers[q].slice():[];a=t.checked?[...new Set([...a,k])]:a.filter(x=>x!==k);S.answers[q]=a;t.closest("label").classList.toggle("sel",t.checked)}
     if(q==="country"&&S.calc.presetAuto&&PRESETS[k]){Object.assign(S.calc,{preset:k,cur:PRESETS[k].cur},pick(PRESETS[k],["emp","repl","cov","wait","price"]))}
     persist();
+    if(q==="cost_causes"||q==="cost_effects")updateCalc();
     if(q==="working")renderKeepScroll();   /* opens the matching path */
     return}
   if(t.id==="k_preset"){const p=PRESETS[t.value];Object.assign(S.calc,{preset:t.value,presetAuto:false,cur:p.cur},pick(p,["emp","repl","cov","wait","price"]));persist();renderKeepScroll();const d=document.querySelector("details.more");if(d)d.open=true;return}
