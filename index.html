@@ -291,7 +291,9 @@ const UI={
   spendNow:L("a month on wellbeing today","im Monat heute für Wohlbefinden","на місяць на добробут сьогодні"),
   open:L("not answered yet","noch offen","ще без відповіді"),
   /* finish */
-  send:L("Send to Liubov","An Liubov senden","Надіслати Любові"), sent:L("Sent. Thank you!","Gesendet. Danke!","Надіслано. Дякую!"),
+  send:L("Send to Liubov","An Liubov senden","Надіслати Любові"), sent:L("Sent and saved. Thank you!","Gesendet und gespeichert. Danke!","Надіслано й збережено. Дякую!"),
+  sending:L("Sending…","Wird gesendet…","Надсилаю…"),
+  sentUnsure:L("We couldn't confirm it arrived. A copy of your answers is downloading: please send it to Liubov.","Wir konnten nicht bestätigen, dass es angekommen ist. Eine Kopie deiner Antworten wird heruntergeladen: bitte schick sie an Liubov.","Не вдалося підтвердити доставку. Копія ваших відповідей завантажується: будь ласка, надішліть її Любові."),
   sendFail:L("Couldn't send. Please download and send the file.","Senden fehlgeschlagen. Bitte herunterladen und Datei schicken.","Не вдалося. Завантажте й надішліть файл."),
   noSend:L("Download your answers and send the file to Liubov.","Lade deine Antworten herunter und schick die Datei an Liubov.","Завантажте відповіді й надішліть файл Любові."),
   print:L("Save as PDF","Als PDF speichern","Зберегти як PDF"), dlReport:L("Report (.html)","Bericht (.html)","Звіт (.html)"), dlData:L("Answers (.json)","Antworten (.json)","Відповіді (.json)"),
@@ -910,12 +912,20 @@ async function offerFile(filename,data,mime,msgEl){
   catch(e){if(e&&e.code==="declined")return;if(msgEl){msgEl.className="status err";msgEl.textContent="Download failed: "+(e&&e.code||"error")}}
 }
 async function sendToSheet(){
-  const msg=document.getElementById("saveMsg");
+  const msg=document.getElementById("saveMsg"),btn=document.getElementById("sendBtn");
   if(PREVIEW){msg.className="status";msg.textContent=tr(UI.pvSend);return}
   if(!S.consent){msg.className="status err";msg.textContent=tr(UI.needConsent);return}
   const rec=record();rec.saved_at=nowIso();
-  try{await fetch(SUBMIT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({row:flatRow(rec)})});msg.className="status ok";msg.textContent=tr(UI.sent)}
-  catch(e){msg.className="status err";msg.textContent=tr(UI.sendFail)}
+  if(!S.submissionId)S.submissionId=Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+  const row=flatRow(rec);row.submission_id=S.submissionId;   /* same id on a resend, so duplicates are easy to spot */
+  btn.disabled=true;msg.className="status";msg.textContent=tr(UI.sending);
+  let ok=false;
+  try{const r=await fetch(SUBMIT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({row})});
+    const j=await r.json();ok=!!(j&&j.ok)}catch(e){ok=false}
+  if(ok){S.sentAt=nowIso();persist();msg.className="status ok";msg.textContent=tr(UI.sent);return}
+  /* not confirmed: keep the answers safe with an automatic copy */
+  btn.disabled=false;msg.className="status err";msg.textContent=tr(UI.sentUnsure);
+  offerFile(`tysha-answers-${codeValue()||"anon"}-${stamp()}.json`,JSON.stringify(rec,null,2),"application/json",null);
 }
 
 /* ===== Voice studio: record each question in your own voice (works in the downloaded file) ===== */
