@@ -1,0 +1,1007 @@
+<!DOCTYPE html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Tysha Interview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one quiet column; the interview is a path of chapters, each question a card */
+:root{
+  --bg:#EAF0EE; --surface:#F8FBFA; --ink:#22302E; --muted:#6A7A74; --line:#D3DEDA;
+  --accent:#4C7770; --accent-ink:#FFFFFF; --accent-soft:#D8E6E2; --glow:rgba(76,119,112,.18);
+  --l1:#6E9A7E; --l2:#C0924A; --l3:#B05F6B; --ok:#3F7D5A;
+  --f-display:"Alegreya", Georgia, "Times New Roman", serif;
+  --f-body:"Golos Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111816; --surface:#18211F; --ink:#E2ECE8; --muted:#93A39D; --line:#293532;
+  --accent:#8DC0B5; --accent-ink:#0E1715; --accent-soft:#21322E; --glow:rgba(141,192,181,.16);
+  --l1:#8DBF9E; --l2:#DDAE63; --l3:#D88893; --ok:#86C4A0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111816; --surface:#18211F; --ink:#E2ECE8; --muted:#93A39D; --line:#293532;
+  --accent:#8DC0B5; --accent-ink:#0E1715; --accent-soft:#21322E; --glow:rgba(141,192,181,.16);
+  --l1:#8DBF9E; --l2:#DDAE63; --l3:#D88893; --ok:#86C4A0; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--f-body);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg)}
+header.top .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:14px}
+.brand{font:700 22px/1 var(--f-display);letter-spacing:.02em}
+.spacer{flex:1}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tabs a{font-size:13px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:999px}
+.tabs a.on{background:var(--accent-soft);color:var(--ink)}
+select,input,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 12px;max-width:100%}
+select{border-radius:999px;padding:5px 12px;font-size:13px}
+:is(select,input,textarea,button,a):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+textarea{width:100%;min-height:90px;resize:vertical;line-height:1.5}
+main{padding-block:8px 72px}
+/* path: dots joined by a line */
+.path{display:flex;align-items:center;margin:8px 0 2px;gap:0}
+.path button{width:12px;height:12px;border-radius:50%;border:2px solid var(--line);padding:0;background:var(--bg);cursor:pointer;flex:0 0 auto;position:relative;z-index:1}
+.path button.done{background:var(--accent);border-color:var(--accent);opacity:.55}
+.path button.on{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 5px var(--glow)}
+.path i{flex:1;height:2px;background:var(--line);min-width:6px}
+.path i.done{background:var(--accent);opacity:.55}
+.eyebrow{font:600 12px var(--f-body);text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin:18px 0 0}
+h1{font:700 clamp(30px,6vw,40px)/1.1 var(--f-display);margin:6px 0 6px;text-wrap:balance}
+.lede{color:var(--muted);margin:0 0 20px;max-width:48ch}
+.stack{display:grid;gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;display:grid;gap:12px}
+.card.recording{border-color:var(--accent);box-shadow:0 0 0 6px var(--glow)}
+.ch{display:flex;align-items:center;gap:10px}
+.ch h3{margin:0;font:700 20px/1.2 var(--f-display);flex:1;min-width:0}
+.ch .lab{font:600 14px var(--f-body);flex:1}
+.iconbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;flex:0 0 auto}
+.iconbtn svg{width:18px;height:18px}
+.iconbtn.on{background:var(--accent-soft);border-color:var(--accent)}
+.qtext{margin:-4px 0 0;color:var(--muted);font-size:14px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+label.pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;background:transparent;font-size:13px;line-height:1.35;position:relative}
+label.pill input{position:absolute;opacity:0;width:1px;height:1px}
+label.pill.sel{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+/* multiple choice: a compact checklist */
+.pills.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:4px 8px}
+.pills.list label.pill{border-radius:10px;padding:6px 10px 6px 32px;font-size:12.5px;border-color:transparent;background:var(--bg)}
+.pills.list label.pill::before{content:"";position:absolute;left:10px;top:50%;width:14px;height:14px;margin-top:-7px;border:1.5px solid var(--muted);border-radius:4px;box-sizing:border-box}
+.pills.list label.pill.sel{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.pills.list label.pill.sel::before{background:var(--accent);border-color:var(--accent)}
+.pills.list label.pill.sel::after{content:"";position:absolute;left:14.5px;top:50%;width:4px;height:8px;margin-top:-6px;border:solid var(--accent-ink);border-width:0 2px 2px 0;transform:rotate(45deg)}
+label.pill:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.microw{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mic{width:56px;height:56px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;cursor:pointer;position:relative;flex:0 0 auto}
+.mic svg{width:24px;height:24px}
+.mic.live::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--accent);opacity:.5}
+.michint{font-size:13px;color:var(--muted);flex:1;min-width:120px}
+.linkbtn{background:none;border:0;color:var(--muted);font:500 13px var(--f-body);cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row>*{min-width:0}
+.note{font-size:13px;color:var(--muted);margin:0}
+.consent{border-color:var(--accent)}
+.consent .eyebrow{margin:0}
+.consent label{display:flex;gap:10px;align-items:flex-start;font-weight:500;cursor:pointer}
+.consent input{margin-top:4px;width:20px;height:20px;flex:0 0 auto;accent-color:var(--accent)}
+.code4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.code4 label{display:grid;gap:4px;font-size:11px;color:var(--muted);line-height:1.3;align-content:end}
+.code4 input{text-align:center;font:500 18px var(--f-mono);text-transform:uppercase;padding:8px 4px;width:100%}
+.codeout{font:500 24px var(--f-mono);letter-spacing:.16em;text-align:center}
+.breath{display:grid;place-items:center;padding:8px 0 4px}
+.breath .orb{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 40% 35%,var(--accent-soft),var(--glow) 60%,transparent 72%);display:grid;place-items:center;font:500 13px var(--f-body);color:var(--muted)}
+.nav{display:flex;gap:10px;justify-content:space-between;margin-top:22px}
+button.btn{font:600 15px var(--f-body);border-radius:999px;padding:11px 22px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
+button.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button.btn:disabled{opacity:.4;cursor:not-allowed}
+.status{font-size:13px;min-height:1.3em;margin:0}
+.status.ok{color:var(--ok)} .status.err{color:var(--l3)}
+details.more{border-top:1px solid var(--line);padding-top:10px}
+details.more summary{cursor:pointer;color:var(--muted);font-size:13px}
+/* slider: move the dot */
+.sl{padding:16px 6px 2px}
+.sl input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:999px;border:0;padding:0;margin:0;cursor:pointer;
+  background:linear-gradient(90deg,var(--accent) 0 var(--p),var(--line) var(--p) 100%)}
+.sl.t-stress input[type=range]{background:linear-gradient(90deg,var(--l1),var(--l2) 55%,var(--l3))}
+.sl.t-wish input[type=range]{background:linear-gradient(90deg,var(--line),var(--accent))}
+.sl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:32px;height:32px;border-radius:50%;background:var(--surface);border:3px solid var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.18),0 0 0 8px var(--glow);cursor:grab}
+.sl input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--surface);border:3px solid var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.18),0 0 0 8px var(--glow);cursor:grab}
+.sl.untouched input[type=range]::-webkit-slider-thumb{border-style:dashed;background:var(--accent-soft)}
+.sl.untouched input[type=range]::-moz-range-thumb{border-style:dashed;background:var(--accent-soft)}
+.ends{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-top:10px}
+.slout{font:700 22px/1.2 var(--f-display);text-align:center;min-height:1.2em}
+.sl.untouched + .ends + .slout,.slout.hint{color:var(--muted);font:500 14px var(--f-body)}
+.branch{display:grid;gap:14px}
+.fork{display:flex;align-items:center;gap:10px;color:var(--accent);font:600 12px var(--f-body);text-transform:uppercase;letter-spacing:.1em;margin-top:6px}
+.fork::before,.fork::after{content:"";flex:1;height:1px;background:var(--line)}
+@media (prefers-reduced-motion:no-preference){.branch .card,.fork{animation:rise .5s ease both}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* cost page */
+.wx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.wxb{display:grid;justify-items:center;gap:2px;padding:14px 6px;border:1px solid var(--line);border-radius:18px;background:transparent;color:var(--ink);cursor:pointer;font:inherit}
+.wxb .wxi{width:40px;height:40px;color:var(--c)}
+.wxb b{font:700 16px var(--f-display)}
+.wxb.on{border-color:var(--c);box-shadow:inset 0 0 0 2px var(--c)}
+.eqhead{font:700 22px/1.25 var(--f-display);margin:0}
+.eq{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.eqi{display:grid;gap:2px;padding:14px;border-radius:18px;background:var(--accent-soft);font-size:14px;align-content:start}
+.eqi .em{font-size:24px;line-height:1}
+.eqn{font:500 28px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.2}
+.eqi small{color:var(--muted);font-size:12px}
+.eqi.time{background:transparent;border:1px dashed var(--c,var(--line))}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.inputs label{display:grid;gap:4px;font-size:12px;color:var(--muted)}
+.inputs input,.inputs select{width:100%;border-radius:10px;font-size:14px;padding:7px 10px}
+.tablewrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left;white-space:nowrap}
+td input{width:72px;padding:3px 6px;border-radius:8px}
+.meta{font:500 11px var(--f-mono);color:var(--muted)}
+.sub{font:600 12px var(--f-body);text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin:8px 0 0}
+/* results */
+.rbar{display:grid;gap:6px}
+.rbar .lab{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.rbar .lab b{color:var(--ink);font:600 14px var(--f-body)}
+.track{position:relative;height:12px;border-radius:999px;background:var(--line)}
+.track.t-stress{background:linear-gradient(90deg,var(--l1),var(--l2) 55%,var(--l3))}
+.track.t-wish{background:linear-gradient(90deg,var(--line),var(--accent))}
+.track .dot{position:absolute;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:var(--surface);border:3px solid var(--accent);box-shadow:0 0 0 6px var(--glow)}
+.msg{font:500 19px/1.4 var(--f-display);margin:0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.fact{border-radius:16px;background:var(--accent-soft);padding:12px;display:grid;gap:2px;font-size:13px}
+.fact b{font:500 22px var(--f-mono)}
+
+.pv{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 0;padding:10px 12px;border-radius:16px;border:1px dashed var(--l2);background:var(--surface);font-size:13px}
+.pv b{color:var(--l2);text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+.pv select{font-size:13px}
+.pv button{font:500 13px var(--f-body);border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:4px 12px;cursor:pointer}
+.srow{display:grid;gap:8px}
+.srow .stext{font:500 18px/1.4 var(--f-display);margin:0}
+.srow .sid{font:500 11px var(--f-mono);color:var(--muted)}
+.recbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);border-radius:999px;padding:8px 16px;cursor:pointer;border:1px solid var(--l3);background:transparent;color:var(--ink)}
+.recbtn::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--l3)}
+.recbtn.live{background:var(--l3);color:#fff}.recbtn.live::before{background:#fff;border-radius:2px}
+.done-dot{color:var(--ok);font-weight:600;font-size:13px}
+.shares{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.share{display:flex;align-items:center;justify-content:center;gap:6px;font:600 13px var(--f-body);text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:transparent;cursor:pointer}
+.share:hover{border-color:var(--accent);background:var(--accent-soft)}
+.share.main{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.sharetext{font:12.5px/1.5 var(--f-body);white-space:pre-wrap;background:var(--bg);border-radius:12px;padding:10px 12px;margin:0;color:var(--muted)}
+.taglist{display:flex;flex-wrap:wrap;gap:6px}
+.taglist span{border:1px solid var(--accent);border-radius:999px;padding:3px 11px;font-size:13px}
+#printArea{display:none}
+@media print{header.top,main,body::before{display:none!important}#printArea{display:block!important;color:#000;background:#fff}body{background:#fff}}
+@media (max-width:420px){.code4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-reduced-motion:no-preference){
+  .breath .orb{animation:breathe 8s ease-in-out infinite}
+  .mic.live::after{animation:ring 1.6s ease-out infinite}
+  .wxb.on .wxi{animation:bob 2.4s ease-in-out infinite}
+  .card,.wxb,label.pill{transition:border-color .2s,box-shadow .3s,background .2s}
+  .track .dot{transition:left .6s ease}
+}
+@keyframes breathe{0%,100%{transform:scale(.82)}50%{transform:scale(1.08)}}
+@keyframes ring{from{transform:scale(.9);opacity:.6}to{transform:scale(1.35);opacity:0}}
+@keyframes bob{50%{transform:translateY(-3px)}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="brand">Tysha</div>
+  <div class="spacer"></div>
+  <nav class="tabs" id="tabs"></nav>
+  <select id="lang" aria-label="Language">
+    <option value="en">English</option>
+    <option value="de">Deutsch</option>
+    <option value="uk">Українська</option>
+  </select>
+</div></header>
+<main class="wrap" id="app"></main>
+<div id="printArea"></div>
+
+<script>
+/* ===== Settings you can change ===== */
+const FORM_VERSION = "v0.6.1 (2026-11-09, own voice EN/DE/UK)";
+const CONTACT_EMAIL = "";       // address for data requests and for sending downloaded files
+const SUBMIT_URL = "";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
+const PLANNED_PRICE = 9.99;
+/* =================================== */
+
+const L=(en,de,uk)=>({en,de,uk});
+const O=(k,en,de,uk)=>({k,t:L(en,de,uk)});
+let lang="en";
+const tr=o=>o==null?"":(typeof o==="string"?o:(o[lang]??o.en));
+
+const UI={
+  interview:L("Interview","Interview","Інтерв'ю"), calculator:L("Cost page","Kosten-Seite","Сторінка витрат"), invite:L("Invitation","Einladung","Запрошення"),
+  next:L("Next","Weiter","Далі"), back:L("Back","Zurück","Назад"),
+  chapter:L("Chapter","Kapitel","Розділ"),
+  needConsent:L("Please tick the consent box first.","Bitte zuerst das Einverständnis bestätigen.","Спершу позначте згоду."),
+  hello:L("Hello, friend","Hallo, du","Привіт, друже"),
+  helloLede:L("10 calm minutes about how you feel and how you care for yourself. Skip anything, stop any time.","10 ruhige Minuten darüber, wie es dir geht und wie du für dich sorgst. Überspring, was du willst.","10 спокійних хвилин про те, як ви почуваєтеся і як дбаєте про себе. Можна пропустити будь-що."),
+  breathe:L("one breath","ein Atemzug","один вдих"),
+  consentHead:L("Consent:","Einverständnis:","Згода:"),
+  consent:L("With this I am confirming to share the information with Liubov Smolska (Tysha) which can be used for the product development reasons on the mental health tech product.",
+            "Hiermit bestätige ich, dass ich die Informationen mit Liubov Smolska (Tysha) teile und dass sie für die Produktentwicklung des Mental-Health-Tech-Produkts verwendet werden dürfen.",
+            "Цим я підтверджую, що ділюся інформацією з Любов'ю Смольською (Liubov Smolska, Tysha) і що її можна використовувати для розробки продукту у сфері технологій для психічного здоров'я."),
+  gdpr:L("Treated according to GDPR: stored under your anonymous code, used only for Tysha research, deleted on request. Not therapy.",
+         "Verarbeitung gemäß DSGVO: gespeichert unter deinem anonymen Code, nur für Tysha-Forschung, auf Wunsch gelöscht. Keine Therapie.",
+         "Обробка згідно з GDPR: зберігається під анонімним кодом, лише для досліджень Tysha, видаляється на запит. Не є терапією."),
+  crisis:L("In crisis? Pause and call 112 or a helpline (findahelpline.com).","In einer Krise? Pause machen, 112 oder TelefonSeelsorge 0800 111 0 111.","У кризі? Зробіть паузу й зателефонуйте 112 або на гарячу лінію (findahelpline.com)."),
+  codeHead:L("Your anonymous code","Dein anonymer Code","Ваш анонімний код"),
+  c1:L("Mother's name, 2 letters","Name der Mutter, 2 Buchst.","Ім'я мами, 2 літери"),
+  c2:L("Birth day (01–31)","Geburtstag (01–31)","День народж. (01–31)"),
+  c3:L("Birthplace, 2 letters","Geburtsort, 2 Buchst.","Місце народж., 2 літери"),
+  c4:L("Older siblings (0–9)","Ältere Geschwister (0–9)","Старших братів/сестер"),
+  codeNote:L("Only you know how it's built. Write it down.","Nur du weißt, wie er entsteht. Schreib ihn auf.","Лише ви знаєте, як він складається. Запишіть його."),
+  aboutTitle:L("About you","Über dich","Про вас"), aboutLede:L("Just a few taps.","Nur ein paar Klicks.","Лише кілька натискань."),
+  ch1Title:L("How are you feeling?","Wie fühlst du dich gerade?","Як ви зараз почуваєтеся?"),
+  ch1Lede:L("Move the dot to where you are today. There is no right or wrong.","Schieb den Punkt dahin, wo du heute stehst. Es gibt kein Richtig oder Falsch.","Пересуньте крапку туди, де ви сьогодні. Правильної відповіді немає."),
+  ch2Title:L("Your wish to change","Dein Wunsch nach Veränderung","Ваше бажання змін"),
+  ch2Lede:L("Your answers open the next steps of your path.","Deine Antworten öffnen die nächsten Schritte deines Wegs.","Ваші відповіді відкривають наступні кроки вашого шляху."),
+  forkYes:L("Your way so far","Dein bisheriger Weg","Ваш шлях досі"),
+  forkNo:L("Your first step","Dein erster Schritt","Ваш перший крок"),
+  habitsTitle:L("Apps, subscriptions and your time","Apps, Abos und deine Zeit","Застосунки, підписки і ваш час"),
+  habitsLede:L("What you use today, and what a calm daily routine is worth to you in money and minutes.","Was du heute nutzt und was dir eine ruhige tägliche Routine an Geld und Minuten wert ist.","Чим ви користуєтеся сьогодні і скільки грошей та хвилин вам варта спокійна щоденна рутина."),
+  worthTitle:L("What your mental health can cost you","Was dich deine mentale Gesundheit kosten kann","Скільки вам може коштувати ваше психічне здоров'я"),
+  worthLede:L("Pick your mental weather of the last 12 months and see what a year like this can take from you.","Wähle dein mentales Wetter der letzten 12 Monate und sieh, was dir so ein Jahr nehmen kann.","Оберіть свою ментальну погоду за останні 12 місяців і подивіться, що такий рік може у вас забрати."),
+  resultsTitle:L("Your results","Deine Ergebnisse","Ваші результати"),
+  resultsLede:L("A calm picture of where you are now. Not a diagnosis.","Ein ruhiges Bild davon, wo du gerade stehst. Keine Diagnose.","Спокійна картина того, де ви зараз. Не діагноз."),
+  doneTitle:L("Thank you","Danke","Дякую"), doneLede:L("A last wish, a few taps, then save.","Ein letzter Wunsch, ein paar Klicks, dann speichern.","Останнє побажання, кілька натискань — і збережіть."),
+  listen:L("Listen to the question","Frage anhören","Прослухати питання"),
+  showText:L("Show the question as text","Frage als Text zeigen","Показати питання текстом"),
+  tapSpeak:L("Tap and speak","Tippen und sprechen","Натисніть і говоріть"),
+  listening:L("Listening… tap to stop","Ich höre zu… zum Stoppen tippen","Слухаю… натисніть, щоб зупинити"),
+  typeInstead:L("type instead","lieber tippen","надрукувати"),
+  voiceLede:L("Tap play to hear a question, the microphone to answer, or just tap the chips.","Tippe auf Play, um eine Frage zu hören, aufs Mikrofon zum Antworten, oder tipp einfach die Chips an.","Натисніть ▶, щоб почути питання, мікрофон — щоб відповісти, або просто оберіть варіанти."),
+  noVoice:L("Voice typing works in Chrome, Edge and Safari. Here you can type.","Spracheingabe klappt in Chrome, Edge und Safari. Hier kannst du tippen.","Голосове введення працює в Chrome, Edge і Safari. Тут можна надрукувати."),
+  micBlocked:L("The microphone is blocked here. Allow it in the browser, or type.","Das Mikrofon ist hier blockiert. Im Browser erlauben oder tippen.","Мікрофон тут заблоковано. Дозвольте його в браузері або надрукуйте."),
+  moveDot:L("Move the dot","Schieb den Punkt","Пересуньте крапку"),
+  /* cost page */
+  wxQ:L("Your mental weather in the last 12 months?","Dein mentales Wetter in den letzten 12 Monaten?","Ваша ментальна погода за останні 12 місяців?"),
+  wxNames:[L("Breezy","Leichter Wind","Легкий вітер"),L("Fog","Nebel","Туман"),L("Storm","Sturm","Шторм")],
+  wxSub:[L("everyday stress","Alltagsstress","щоденний стрес"),L("sleepless, tired","schlaflos, müde","безсоння, втома"),L("burnout, depression","Burnout, Depression","вигорання, депресія")],
+  canTake:[L("Even a breezy year can take from you…","Auch ein windiges Jahr kann dir nehmen…","Навіть вітряний рік може забрати у вас…"),L("A foggy year can take from you…","Ein Nebeljahr kann dir nehmen…","Туманний рік може забрати у вас…"),L("A stormy year can take from you…","Ein Sturmjahr kann dir nehmen…","Штормовий рік може забрати у вас…")],
+  pickWeather:L("Pick your weather above to see what it can take.","Wähle oben dein Wetter, um zu sehen, was es dir nehmen kann.","Оберіть погоду вище, щоб побачити, що вона може забрати."),
+  each:L("each about","je etwa","кожне приблизно"),
+  timeBack:L("time you don't get back","Zeit, die nicht zurückkommt","час, який не повернеш"),
+  example:L("Example with 2,900 net/month","Beispiel mit 2.900 netto/Monat","Приклад: 2 900 чистих/міс."),
+  settings:L("Interviewer settings","Einstellungen für die Interviewerin","Налаштування інтерв'юера"),
+  netIncome:L("Net income / month","Netto / Monat","Чистий дохід / міс."), currency:L("Currency","Währung","Валюта"),
+  selfEmp:L("Self-employed","Selbstständig","Самозайнятість"), incomeProt:L("Income insurance","Einkommensschutz","Страхування доходу"),
+  buffer:L("Savings (months)","Rücklagen (Monate)","Заощадження (міс.)"), eap:L("Free employer sessions","Gratis-Sitzungen Arbeitgeber","Безкошт. сесії роботодавця"),
+  country:L("Country","Land","Країна"), empWeeks:L("Employer pays (weeks)","Arbeitgeber zahlt (Wochen)","Роботодавець платить (тиж.)"),
+  repl:L("Sick pay after (% net)","Krankengeld danach (% netto)","Лікарняні після (% чист.)"), cov:L("Therapy covered (%)","Therapie bezahlt (%)","Терапію покрито (%)"),
+  wait:L("Therapy wait (weeks)","Wartezeit (Wochen)","Очікування (тиж.)"), price:L("Private session price","Preis private Sitzung","Ціна приватної сесії"),
+  sickDays:L("Days off","Fehltage","Днів лікарняного"), hoursCut:L("Hours cut / week","Weniger Std. / Woche","Менше год / тиж."), weeksCut:L("Weeks reduced","Wochen reduziert","Тижнів скорочено"),
+  sessions:L("Therapy sessions","Therapiesitzungen","Сесій терапії"), other:L("Other costs","Sonstige Kosten","Інші витрати"),
+  career:L("Missed raise %","Verpasste Erhöhung %","Втрачене підвищення %"), hoursSpent:L("Hours spent","Aufgewendete Stunden","Витрачено годин"),
+  presetNote:L("Rough values per country; check and adjust. Equivalent prices are rough too.","Grobe Werte je Land; prüfen und anpassen. Auch die Vergleichspreise sind grob.","Орієнтовні значення; перевірте й змініть. Ціни для порівняння теж орієнтовні."),
+  /* results */
+  rStress:L("Stress today","Stress heute","Стрес сьогодні"), rWish:L("Wish to change","Wunsch nach Veränderung","Бажання змін"),
+  mHighReady:L("Your stress is high and your wish to change is strong. This is a good moment to start small.","Dein Stress ist hoch und dein Wunsch nach Veränderung stark. Ein guter Moment, klein anzufangen.","Ваш стрес високий, а бажання змін сильне. Гарний момент почати з малого."),
+  mHighFar:L("Your stress is high, but change feels far away. That's okay: one quiet moment a day is enough to begin.","Dein Stress ist hoch, aber Veränderung fühlt sich weit weg an. Das ist okay: ein ruhiger Moment am Tag reicht für den Anfang.","Стрес високий, але зміни здаються далекими. Це нормально: одного тихого моменту на день достатньо, щоб почати."),
+  mCalm:L("You're in calmer water now. A small ritual today keeps you steady on stormy days.","Du bist gerade in ruhigerem Wasser. Ein kleines Ritual heute hält dich an stürmischen Tagen stabil.","Зараз ви у спокійніших водах. Маленький ритуал сьогодні тримає вас у бурхливі дні."),
+  mMid:L("There is some pressure and some wish to change. A short daily pause can tip the balance.","Es gibt etwas Druck und etwas Wunsch nach Veränderung. Eine kurze tägliche Pause kann den Ausschlag geben.","Є певний тиск і певне бажання змін. Коротка щоденна пауза може переважити."),
+  mEmpty:L("Move the dots in chapters 1 and 2 to see your picture.","Schieb die Punkte in Kapitel 1 und 2, um dein Bild zu sehen.","Пересуньте крапки в розділах 1 і 2, щоб побачити свою картину."),
+  pathYes:L("You already care for yourself","Du sorgst schon für dich","Ви вже дбаєте про себе"),
+  pathNo:L("Your first steps","Deine ersten Schritte","Ваші перші кроки"),
+  since:L("for","seit","вже"), helps:L("It helps","Es hilft","Допомагає"),
+  helpStart:L("What could help you start","Was dir beim Start helfen könnte","Що може допомогти почати"),
+  calmHead:L("What calms and grounds you","Was dich beruhigt und erdet","Що вас заспокоює і заземлює"),
+  windowHead:L("Your daily window","Dein tägliches Zeitfenster","Ваше щоденне вікно"),
+  minDay:L("minutes a day","Minuten am Tag","хвилин на день"),
+  budget:L("a month for something that truly helps","im Monat für etwas, das wirklich hilft","на місяць за те, що справді допомагає"),
+  spendNow:L("a month on wellbeing today","im Monat heute für Wohlbefinden","на місяць на добробут сьогодні"),
+  open:L("not answered yet","noch offen","ще без відповіді"),
+  /* finish */
+  send:L("Send to Liubov","An Liubov senden","Надіслати Любові"), sent:L("Sent. Thank you!","Gesendet. Danke!","Надіслано. Дякую!"),
+  sendFail:L("Couldn't send. Please download and send the file.","Senden fehlgeschlagen. Bitte herunterladen und Datei schicken.","Не вдалося. Завантажте й надішліть файл."),
+  noSend:L("Download your answers and send the file to Liubov.","Lade deine Antworten herunter und schick die Datei an Liubov.","Завантажте відповіді й надішліть файл Любові."),
+  print:L("Save as PDF","Als PDF speichern","Зберегти як PDF"), dlReport:L("Report (.html)","Bericht (.html)","Звіт (.html)"), dlData:L("Answers (.json)","Antworten (.json)","Відповіді (.json)"),
+  notes:L("Interviewer notes","Notizen","Нотатки"), report:L("Personal report","Persönlicher Bericht","Особистий звіт"),
+  version:L("Version","Version","Версія"), started:L("Started","Begonnen","Розпочато"), exported:L("Exported","Exportiert","Експортовано"),
+  calcLede:L("Pick a weather and see what such a year can take.","Wähle ein Wetter und sieh, was so ein Jahr nehmen kann.","Оберіть погоду й подивіться, що такий рік може забрати."),
+  inviteLede:L("Edit, add the link, copy, send.","Bearbeiten, Link einfügen, kopieren, senden.","Відредагуйте, додайте посилання, скопіюйте, надішліть."),
+  link:L("Link or file name","Link oder Dateiname","Посилання або назва файлу"), copy:L("Copy message","Nachricht kopieren","Скопіювати"),
+  studio:L("Record my voice","Meine Stimme aufnehmen","Записати мій голос"),
+  studioLede:L("Read each question slowly and warmly. Your recordings replace the computer voice in the interview.","Lies jede Frage langsam und warm vor. Deine Aufnahmen ersetzen im Interview die Computerstimme.","Прочитайте кожне питання повільно й тепло. Ваші записи замінять комп'ютерний голос в інтерв'ю."),
+  studioTips:L("Quiet room, phone or laptop about 20 cm away, a small smile while speaking. Switch the language at the top to record the other languages.","Ruhiger Raum, Handy oder Laptop etwa 20 cm entfernt, beim Sprechen leicht lächeln. Oben die Sprache wechseln, um die anderen Sprachen aufzunehmen.","Тиха кімната, телефон чи ноутбук приблизно за 20 см, легка усмішка під час мовлення. Змініть мову вгорі, щоб записати інші мови."),
+  recStart:L("Record","Aufnehmen","Записати"), recStop:L("Stop","Stopp","Стоп"), recAgain:L("Record again","Neu aufnehmen","Записати знову"),
+  recDone:L("recorded","aufgenommen","записано"), recOf:L("of","von","з"), recDel:L("Delete","Löschen","Видалити"),
+  recZip:L("Download all recordings (.zip)","Alle Aufnahmen herunterladen (.zip)","Завантажити всі записи (.zip)"),
+  recZipNote:L("Send the .zip file to Claude in the chat. Claude builds your voice into the interview.","Schick die .zip-Datei im Chat an Claude. Claude baut deine Stimme ins Interview ein.","Надішліть .zip-файл Claude в чаті. Claude вбудує ваш голос в інтерв'ю."),
+  micNo:L("Recording needs the downloaded file, opened in Chrome, Edge or Safari, with the microphone allowed.","Aufnehmen geht in der heruntergeladenen Datei, geöffnet in Chrome, Edge oder Safari, mit erlaubtem Mikrofon.","Запис працює у завантаженому файлі, відкритому в Chrome, Edge або Safari, з дозволеним мікрофоном."),
+  shareHead:L("Share your results","Teile deine Ergebnisse","Поділіться результатами"),
+  shareLede:L("Send them to yourself, a friend or your story. You choose what leaves this page.","Schick sie dir selbst, einer Freundin oder in deine Story. Du entscheidest, was diese Seite verlässt.","Надішліть собі, другові чи в сторіз. Ви вирішуєте, що залишає цю сторінку."),
+  shareNative:L("Share…","Teilen…","Поділитися…"), shareCopy:L("Copy text","Text kopieren","Скопіювати текст"),
+  shareSms:L("Phone (SMS)","Handy (SMS)","Телефон (SMS)"), shareMail:L("Email","E-Mail","Email"),
+  shareCopied:L("Copied. Paste it into Instagram, LinkedIn or anywhere.","Kopiert. Füge es in Instagram, LinkedIn oder überall ein.","Скопійовано. Вставте в Instagram, LinkedIn чи будь-куди."),
+  shareHint:L("If nothing opens, use Copy text.","Wenn sich nichts öffnet: Text kopieren.","Якщо нічого не відкривається, скопіюйте текст."),
+  shTitle:L("My Tysha results","Meine Tysha-Ergebnisse","Мої результати Tysha"),
+  shCalm:L("What calms me","Was mich beruhigt","Що мене заспокоює"),
+  shFind:L("Find yours","Finde deine","Знайдіть свої"),
+  preview:L("Preview","Vorschau","Перегляд"),
+  pvNote:L("No consent needed, nothing is saved.","Kein Einverständnis nötig, nichts wird gespeichert.","Згода не потрібна, нічого не зберігається."),
+  pvJump:L("Go to","Gehe zu","Перейти до"), pvReset:L("Clear answers","Antworten leeren","Очистити відповіді"), pvExit:L("Exit preview","Vorschau beenden","Вийти з перегляду"),
+  pvSend:L("Preview: nothing is sent.","Vorschau: es wird nichts gesendet.","Перегляд: нічого не надсилається."),
+  copied:L("Copied","Kopiert","Скопійовано"), reset:L("Default text","Standardtext","Стандартний текст")
+};
+
+const INVITE_DEFAULT={
+  en:"Dear friend, I hope you are doing well. I am excited to share with you that I am working on the first prototype of Tysha mental health tech solution and I am delighted to invite you to the first interview on how do you treat yourself and especially your mental health, my friend. It will take about 10 minutes of your time. What I am especially happy to share with you is your individual report by the end of this interview that shows you how much your mental health is worth. This might be insightful and playful information to have.",
+  de:"Liebe Freundin, lieber Freund, ich hoffe, es geht dir gut. Ich freue mich sehr, dir zu erzählen, dass ich am ersten Prototyp von Tysha arbeite, einer Mental-Health-Tech-Lösung, und ich lade dich herzlich zum ersten Interview ein: wie du mit dir selbst umgehst, besonders mit deiner mentalen Gesundheit. Es dauert etwa 10 Minuten. Besonders freue ich mich, dass du am Ende deinen persönlichen Bericht bekommst, der zeigt, wie viel deine mentale Gesundheit wert ist. Das kann aufschlussreich und auch ein bisschen spielerisch sein.",
+  uk:"Дорогий друже, сподіваюся, у тебе все добре. Я рада поділитися, що працюю над першим прототипом Tysha — технологічного рішення для психічного здоров'я, і з радістю запрошую тебе на перше інтерв'ю про те, як ти ставишся до себе, і особливо до свого психічного здоров'я. Це займе близько 10 хвилин твого часу. Особливо радію, що наприкінці ти отримаєш свій індивідуальний звіт, який покаже, скільки варте твоє психічне здоров'я. Це може бути цікава й навіть трохи ігрова інформація."
+};
+
+/* ===== Shared option lists ===== */
+const CALM_OPTS=[O("music","Music","Musik","Музика"),O("nature","Nature, a walk","Natur, Spaziergang","Природа, прогулянка"),O("silence","Silence","Stille","Тиша"),O("lying","Lying down","Hinlegen","Полежати"),O("breath","Breathing","Atmen","Дихання"),O("bath","A bath or shower","Bad oder Dusche","Ванна чи душ"),O("people","Talking to someone","Mit jemandem reden","Розмова з кимось"),O("sport","Sport","Sport","Спорт"),O("pets","Pets","Haustiere","Домашні тварини"),O("sleep","Sleep","Schlaf","Сон"),O("nothing","Nothing really","Eigentlich nichts","Нічого особливо")];
+const DOING_OPTS=[O("meditation","Meditation","Meditation","Медитація"),O("yoga","Yoga","Yoga","Йога"),O("sport","Sport","Sport","Спорт"),O("nature","Walks, nature","Natur, Spaziergänge","Прогулянки, природа"),O("therapy","Therapy","Therapie","Терапія"),O("coach","Coaching","Coaching","Коучинг"),O("journal","Journaling","Tagebuch","Щоденник"),O("apps","Apps","Apps","Застосунки"),O("sleep","Better sleep","Besser schlafen","Кращий сон"),O("offline","Phone-free time","Handyfreie Zeit","Час без телефону"),O("friends","Talking to friends","Gespräche mit Freunden","Розмови з друзями")];
+const isYes=a=>a.working==="yes", isNo=a=>a.working==="no";
+
+/* ===== Questions =====
+   kind: chips (tap), slider (move the dot), voice (listen + mic, optional chips), number, text, fork (path divider)
+   show: optional function of the answers; the question appears only when it returns true */
+const ABOUT=[
+  {id:"age",kind:"chips",title:L("Age","Alter","Вік"),opts:["18–24","25–34","35–44","45–54","55+"].map(a=>O(a,a,a,a))},
+  {id:"country",kind:"chips",title:L("Country","Land","Країна"),opts:[O("DE","Germany","Deutschland","Німеччина"),O("AT","Austria","Österreich","Австрія"),O("CH","Switzerland","Schweiz","Швейцарія"),O("UA","Ukraine","Ukraine","Україна"),O("UK","UK","UK","Велика Британія"),O("US","USA","USA","США"),O("XX","Other","Anderes","Інша")]},
+  {id:"life",kind:"chips",multi:true,title:L("Life right now","Lebenssituation","Життя зараз"),opts:[O("single","Single","Single","Сам(а)"),O("couple","Couple","Paar","У парі"),O("kids","With kids","Mit Kindern","З дітьми"),O("carer","Caring for someone","Pflege Angehöriger","Доглядаю когось")]},
+  {id:"work",kind:"chips",title:L("Work","Arbeit","Робота"),opts:[O("employee","Employee","Angestellt","Найманий працівник"),O("lead","Leading a team","Führungskraft","Керую командою"),O("self","Self-employed / founder","Selbstständig / Gründer:in","Самозайнятий / засновник"),O("student","Student","Studium","Навчаюсь"),O("not_working","Not working now","Gerade ohne Job","Зараз не працюю")]},
+  {id:"income",kind:"chips",title:L("Income vs. your country","Einkommen im Landesvergleich","Дохід порівняно з країною"),opts:[O("below","Below average","Unter Durchschnitt","Нижче середнього"),O("around","Around average","Durchschnitt","Середній"),O("above","Above average","Über Durchschnitt","Вище середнього"),O("no_say","Rather not say","Keine Angabe","Не скажу")]}
+];
+const LV10=(a,b,c,d,e)=>[[2,a],[4,b],[6,c],[8,d],[10,e]];
+const CH1=[
+  {id:"stress",kind:"slider",tone:"stress",min:0,max:10,title:L("Your stress level today","Dein Stresslevel heute","Ваш рівень стресу сьогодні"),
+   q:L("How stressed do you feel these days, from 0 to 10?","Wie gestresst fühlst du dich in diesen Tagen, von 0 bis 10?","Наскільки напруженими ви почуваєтеся останнім часом, від 0 до 10?"),
+   lo:L("calm","ruhig","спокійно"),hi:L("at my limit","am Limit","на межі"),
+   words:LV10(L("calm","ruhig","спокійно"),L("a little tense","etwas angespannt","трохи напружено"),L("stressed","gestresst","стрес"),L("very stressed","sehr gestresst","сильний стрес"),L("at my limit","am Limit","на межі"))}
+];
+const CH2=[
+  {id:"wish",kind:"slider",tone:"wish",min:0,max:10,title:L("How strong is your wish to change this?","Wie stark ist dein Wunsch, daran etwas zu ändern?","Наскільки сильне ваше бажання це змінити?"),
+   q:L("How strong is your wish to change something about your stress, from 0 to 10?","Wie stark ist dein Wunsch, an deinem Stress etwas zu ändern, von 0 bis 10?","Наскільки сильне ваше бажання змінити щось у своєму стресі, від 0 до 10?"),
+   lo:L("not now","gerade nicht","не зараз"),hi:L("more than anything","mehr als alles","понад усе"),
+   words:LV10(L("not really","eher nicht","не дуже"),L("a little","ein bisschen","трохи"),L("quite a bit","ziemlich","досить"),L("strongly","stark","сильно"),L("more than anything","mehr als alles","понад усе"))},
+  {id:"working",kind:"chips",title:L("Are you already working on it?","Arbeitest du schon daran?","Ви вже над цим працюєте?"),opts:[O("yes","Yes","Ja","Так"),O("no","No","Nein","Ні")]},
+  /* --- path: No --- */
+  {id:"fork_no",kind:"fork",t:UI.forkNo,show:isNo},
+  {id:"n_want",kind:"chips",show:isNo,title:L("Do you want to change it?","Möchtest du es ändern?","Ви хочете це змінити?"),opts:[O("yes","Yes","Ja","Так"),O("maybe","Maybe, not sure","Vielleicht, unsicher","Можливо, не впевнений(а)"),O("not_now","Not right now","Gerade nicht","Не зараз")]},
+  {id:"n_calm",kind:"voice",show:isNo,title:L("What calms you down?","Was beruhigt dich?","Що вас заспокоює?"),q:L("What calms you down when it gets too much?","Was beruhigt dich, wenn es zu viel wird?","Що вас заспокоює, коли всього забагато?"),chips:{multi:true,opts:CALM_OPTS}},
+  {id:"n_ground",kind:"voice",show:isNo,title:L("What grounds you?","Was erdet dich?","Що вас заземлює?"),q:L("What brings you back to yourself, what grounds you?","Was bringt dich zu dir zurück, was erdet dich?","Що повертає вас до себе, що вас заземлює?"),
+   chips:{multi:true,opts:[O("body","Feeling my body","Meinen Körper spüren","Відчути своє тіло"),O("floor","Lying on the floor","Auf dem Boden liegen","Лежати на підлозі"),O("nature","Nature","Natur","Природа"),O("routine","A fixed routine","Feste Routine","Сталий розпорядок"),O("home","My home","Mein Zuhause","Мій дім"),O("people","People I love","Menschen, die ich liebe","Люди, яких люблю"),O("faith","Faith, spirituality","Glaube, Spiritualität","Віра, духовність"),O("hands","Doing something with my hands","Etwas mit den Händen tun","Робота руками")]}},
+  {id:"n_habit",kind:"voice",show:isNo,title:L("What could help you start a new habit?","Was könnte dir helfen, eine neue Gewohnheit zu starten?","Що може допомогти почати нову звичку?"),q:L("What would make it easy for you to start a new daily habit?","Was würde es dir leicht machen, eine neue tägliche Gewohnheit zu beginnen?","Що полегшило б вам початок нової щоденної звички?"),
+   chips:{multi:true,opts:[O("time","A fixed time","Eine feste Uhrzeit","Сталий час"),O("place","A fixed place at home","Ein fester Ort zu Hause","Своє місце вдома"),O("short","Short, 5–10 minutes","Kurz, 5–10 Minuten","Коротко, 5–10 хвилин"),O("reminder","A gentle reminder","Eine sanfte Erinnerung","М'яке нагадування"),O("together","Someone doing it with me","Jemand macht mit","Хтось поруч"),O("progress","Feeling that it works","Spüren, dass es wirkt","Відчуття, що працює"),O("nophone","No phone","Ohne Handy","Без телефону"),O("beautiful","Something beautiful to use","Etwas Schönes zum Benutzen","Щось гарне у використанні")]}},
+  /* --- path: Yes --- */
+  {id:"fork_yes",kind:"fork",t:UI.forkYes,show:isYes},
+  {id:"y_doing",kind:"voice",show:isYes,title:L("What do you do for yourself, and how do you care?","Was tust du für dich, und wie sorgst du für dich?","Що ви робите для себе і як дбаєте про себе?"),
+   q:L("What are you currently doing for yourself, and how do you take care of yourself?","Was tust du gerade für dich, und wie kümmerst du dich um dich?","Що ви зараз робите для себе і як про себе дбаєте?"),chips:{multi:true,opts:DOING_OPTS}},
+  {id:"y_since",kind:"slider",show:isYes,title:L("How long have you been doing it?","Wie lange machst du das schon?","Як довго ви це робите?"),q:L("How long have you been doing this?","Wie lange machst du das schon?","Як довго ви це робите?"),
+   steps:[O("lt1m","< 1 month","< 1 Monat","< 1 місяця"),O("1-3m","1–3 months","1–3 Monate","1–3 місяці"),O("3-6m","3–6 months","3–6 Monate","3–6 місяців"),O("6-12m","6–12 months","6–12 Monate","6–12 місяців"),O("1-2y","1–2 years","1–2 Jahre","1–2 роки"),O("2-5y","2–5 years","2–5 Jahre","2–5 років"),O("5y+","5+ years","5+ Jahre","5+ років")],
+   lo:L("just started","gerade angefangen","щойно почав(ла)"),hi:L("for years","seit Jahren","роками")},
+  {id:"y_why",kind:"chips",multi:true,show:isYes,title:L("What made you start?","Was hat dich zum Anfangen gebracht?","Що спонукало вас почати?"),
+   opts:[O("work","Stress at work","Stress im Job","Стрес на роботі"),O("burnout","Exhaustion, burnout","Erschöpfung, Burnout","Виснаження, вигорання"),O("sleep","Sleep problems","Schlafprobleme","Проблеми зі сном"),O("tension","Pain or tension","Schmerzen, Verspannung","Біль чи напруга"),O("advice","A doctor or therapist advised it","Ärztin oder Therapeut hat es empfohlen","Порадив лікар чи терапевт"),O("person","A friend or partner","Freund:in oder Partner:in","Друг чи партнер"),O("life","A big life change","Eine große Lebensveränderung","Велика зміна в житті"),O("curious","Curiosity","Neugier","Цікавість"),O("other","Something else","Etwas anderes","Щось інше")]},
+  {id:"y_helps",kind:"slider",show:isYes,min:0,max:10,title:L("Does it help?","Hilft es?","Чи допомагає це?"),q:L("How much does it help you, from 0 to 10?","Wie sehr hilft es dir, von 0 bis 10?","Наскільки це вам допомагає, від 0 до 10?"),
+   lo:L("not at all","gar nicht","зовсім ні"),hi:L("a lot","sehr","дуже"),
+   words:LV10(L("not at all","gar nicht","зовсім ні"),L("a little","ein bisschen","трохи"),L("somewhat","einigermaßen","певною мірою"),L("clearly","deutlich","помітно"),L("a lot","sehr","дуже"))},
+  {id:"y_open",kind:"chips",show:isYes,title:L("Are you open to trying something new?","Bist du offen, etwas Neues auszuprobieren?","Ви відкриті спробувати щось нове?"),opts:[O("yes","Yes","Ja","Так"),O("maybe","Maybe","Vielleicht","Можливо"),O("no","No, I'm happy as it is","Nein, ich bin zufrieden","Ні, мене все влаштовує")]},
+  {id:"y_down",kind:"voice",show:isYes,title:L("What helps you calm down?","Was hilft dir, runterzukommen?","Що допомагає вам розслабитися?"),q:L("What helps you calm down after a full day?","Was hilft dir, nach einem vollen Tag runterzukommen?","Що допомагає вам розслабитися після насиченого дня?"),chips:{multi:true,opts:CALM_OPTS}}
+];
+const HABITS=[
+  {id:"apps_used",kind:"chips",multi:true,title:L("Which apps do you use or have tried for your mind or sleep?","Welche Apps nutzt du oder hast du für Kopf oder Schlaf ausprobiert?","Якими застосунками для розуму чи сну ви користуєтеся або пробували?"),
+   opts:[O("headspace","Headspace","Headspace","Headspace"),O("calm","Calm","Calm","Calm"),O("7mind","7Mind","7Mind","7Mind"),O("balloon","Balloon","Balloon","Balloon"),O("insight","Insight Timer","Insight Timer","Insight Timer"),O("sleep","Sleep apps","Schlaf-Apps","Застосунки для сну"),O("fitness","Fitness, step apps","Fitness-, Schritt-Apps","Фітнес-застосунки"),O("wearable","Wearable app (Oura, Whoop…)","Wearable-App (Oura, Whoop…)","Застосунок ґаджета (Oura, Whoop…)"),O("none","None","Keine","Жодних")]},
+  {id:"apps_use",kind:"voice",title:L("How do you use them?","Wie nutzt du sie?","Як ви ними користуєтеся?"),q:L("How often do you use them, and what made you stay or stop?","Wie oft nutzt du sie, und warum bist du dabeigeblieben oder hast aufgehört?","Як часто ви ними користуєтеся і чому залишилися чи кинули?"),
+   chips:{opts:[O("never","Never","Nie","Ніколи"),O("stopped","Tried, stopped","Probiert, aufgehört","Пробував(ла), кинув(ла)"),O("sometimes","Sometimes","Manchmal","Іноді"),O("daily","Daily","Täglich","Щодня")]}},
+  {id:"abos",kind:"chips",multi:true,title:L("Which subscriptions do you pay for your wellbeing?","Welche Abos zahlst du für dein Wohlbefinden?","За які підписки для добробуту ви платите?"),
+   opts:[O("none","None","Keine","Жодних"),O("app","Mind or sleep app","Meditations- oder Schlaf-App","Застосунок для медитації чи сну"),O("gym","Gym or sports club","Fitnessstudio, Sportverein","Спортзал чи клуб"),O("studio","Yoga or Pilates studio","Yoga- oder Pilates-Studio","Студія йоги чи пілатесу"),O("therapy","Therapy or coaching (self-paid)","Therapie, Coaching (selbst bezahlt)","Терапія чи коучинг (власним коштом)"),O("massage","Massage, spa","Massage, Spa","Масаж, спа"),O("wearable","Wearable membership","Wearable-Mitgliedschaft","Підписка на ґаджет")]},
+  {id:"spend_now",kind:"slider",money:true,min:0,max:200,step:5,title:L("What do you spend on your wellbeing per month today?","Was gibst du heute im Monat für dein Wohlbefinden aus?","Скільки ви зараз витрачаєте на свій добробут на місяць?"),
+   q:L("Roughly, what do you spend per month on your wellbeing today?","Was gibst du heute ungefähr im Monat für dein Wohlbefinden aus?","Приблизно скільки ви витрачаєте на свій добробут на місяць?"),lo:L("nothing","nichts","нічого"),hi:L("200+","200+","200+")},
+  {id:"spend_wish",kind:"slider",money:true,min:0,max:50,step:1,title:L("Monthly budget for something that truly helps","Monatsbudget für etwas, das wirklich hilft","Місячний бюджет на те, що справді допомагає"),
+   q:L("How much would you spend per month on a solution that truly helps you feel calmer?","Wie viel würdest du im Monat für eine Lösung ausgeben, die dir wirklich hilft, ruhiger zu werden?","Скільки ви витрачали б на місяць на рішення, яке справді допомагає бути спокійнішим?"),lo:L("nothing","nichts","нічого"),hi:L("50+","50+","50+")},
+  {id:"time_daily",kind:"slider",title:L("How much time could you give a daily routine?","Wie viel Zeit könntest du einer täglichen Routine geben?","Скільки часу ви могли б приділяти щоденній рутині?"),
+   q:L("How many minutes a day could you give to a calm routine just for you?","Wie viele Minuten am Tag könntest du einer ruhigen Routine nur für dich geben?","Скільки хвилин на день ви могли б приділити спокійній рутині лише для себе?"),
+   steps:["0","3","5","10","15","20","30","45","60+"].map(m=>O(m,m+" min",m+" Min.",m+" хв")),lo:L("no time","keine Zeit","немає часу"),hi:L("an hour","eine Stunde","година")},
+  {id:"time_when",kind:"chips",multi:true,title:L("When would it fit best?","Wann würde es am besten passen?","Коли це найкраще пасувало б?"),
+   opts:[O("morning","Morning","Morgens","Зранку"),O("lunch","Lunch break","Mittagspause","Обідня перерва"),O("afterwork","After work","Nach der Arbeit","Після роботи"),O("evening","Evening","Abends","Увечері"),O("bed","Before sleep","Vor dem Schlafen","Перед сном")]}
+];
+const WORTH_Q=[{id:"feeling",kind:"voice",title:L("How does it feel?","Wie fühlt sich das an?","Які відчуття?"),q:L("Seeing this, how does it feel? What would you miss most?","Wie fühlt sich das an? Was würdest du am meisten vermissen?","Як вам це? За чим ви сумували б найбільше?")}];
+const DONE_Q=[
+  {id:"wishes",kind:"voice",title:L("Your wish","Dein Wunsch","Ваше побажання"),q:L("Any ideas or thoughts that would be nice to have in a future product?","Hast du Ideen oder Gedanken, was ein zukünftiges Produkt haben sollte?","Чи є у вас ідеї чи думки, що було б добре мати в майбутньому продукті?")},
+  {id:"pilot",kind:"chips",title:L("Join the Tysha pilot in 2027?","Beim Tysha-Pilot 2027 dabei sein?","Долучитися до пілоту Tysha у 2027?"),opts:[O("yes","Yes","Ja","Так"),O("maybe","Maybe","Vielleicht","Можливо"),O("no","No","Nein","Ні")]},
+  {id:"updates",kind:"chips",title:L("Newsletter and Tysha updates by email?","Newsletter und Tysha-Updates per E-Mail?","Розсилка й новини Tysha на email?"),opts:[O("yes","Yes, please","Ja, gern","Так, будь ласка"),O("no","No, thanks","Nein, danke","Ні, дякую")]},
+  {id:"email",kind:"text",title:L("Email (optional, only for the pilot and updates you chose; unsubscribe any time)","E-Mail (optional, nur für Pilot und gewählte Updates; jederzeit abmeldbar)","Email (необов'язково, лише для пілоту й обраних новин; відписатися можна будь-коли)")}
+];
+const NOTES_Q=[
+  {id:"best_quote",kind:"text",long:true,title:L("Best quote","Bestes Zitat","Найкраща цитата")},
+  {id:"surprise",kind:"text",long:true,title:L("Surprise or new idea","Überraschung, neue Idee","Несподіванка, нова ідея")}
+];
+const PAGES=[
+  {id:"welcome",title:L("Welcome","Willkommen","Вітання"),qs:[]},
+  {id:"about",title:UI.aboutTitle,lede:UI.aboutLede,qs:ABOUT},
+  {id:"ch1",ch:1,title:UI.ch1Title,lede:UI.ch1Lede,qs:CH1},
+  {id:"ch2",ch:2,title:UI.ch2Title,lede:UI.ch2Lede,qs:CH2},
+  {id:"habits",ch:3,title:UI.habitsTitle,lede:UI.habitsLede,qs:HABITS},
+  {id:"worth",ch:4,title:UI.worthTitle,lede:UI.worthLede,qs:WORTH_Q},
+  {id:"results",title:UI.resultsTitle,lede:UI.resultsLede,qs:[]},
+  {id:"done",title:UI.doneTitle,lede:UI.doneLede,qs:DONE_Q.concat(NOTES_Q)}
+];
+
+/* ===== Country presets (rough starting values to verify) ===== */
+const PRESETS={
+  DE:{name:"Germany",cur:"EUR",emp:6,repl:79,cov:100,wait:20,price:120},
+  AT:{name:"Austria",cur:"EUR",emp:6,repl:55,cov:30,wait:12,price:100},
+  CH:{name:"Switzerland",cur:"CHF",emp:3,repl:80,cov:90,wait:8,price:150},
+  UK:{name:"United Kingdom",cur:"GBP",emp:0,repl:25,cov:100,wait:18,price:70},
+  US:{name:"United States",cur:"USD",emp:1,repl:0,cov:50,wait:6,price:150},
+  UA:{name:"Ukraine",cur:"UAH",emp:1,repl:70,cov:0,wait:2,price:800},
+  XX:{name:"Other / custom",cur:"EUR",emp:2,repl:50,cov:50,wait:8,price:100}
+};
+/* rough price factor per currency for the equivalents (EUR = 1) */
+const CURX={EUR:1,CHF:1.2,GBP:.85,USD:1.1,UAH:25};
+const LEVEL_DEFAULTS=[
+  {days:3,hours:0,weeks:0,sessions:0,other:300,career:0,time:20},
+  {days:10,hours:4,weeks:12,sessions:6,other:600,career:1,time:40},
+  {days:91,hours:10,weeks:12,sessions:20,other:1500,career:3,time:120}
+];
+
+/* ===== State ===== */
+const nowIso=()=>new Date().toISOString();
+const pick=(o,keys)=>{const r={};keys.forEach(k=>r[k]=o[k]);return r};
+function freshState(){return{answers:{},code:{c1:"",c2:"",c3:"",c4:""},consent:false,startedAt:nowIso(),
+  calc:{preset:"DE",presetAuto:true,net:"",cur:"EUR",selfEmp:null,prot:"no",buffer:"",eap:0,weather:null,...pick(PRESETS.DE,["emp","repl","cov","wait","price"]),levels:JSON.parse(JSON.stringify(LEVEL_DEFAULTS))},page:0,invite:null,link:""}}
+let S=freshState();
+const STORE_KEY="tysha-interview-v3";
+try{const s=localStorage.getItem(STORE_KEY);if(s){const p=JSON.parse(s);if(p&&p.answers)S=Object.assign(freshState(),p)}}catch(e){}
+if(!(S.page>=0&&S.page<PAGES.length))S.page=0;
+let PREVIEW=false,realS=null;
+function persist(){if(PREVIEW)return;try{localStorage.setItem(STORE_KEY,JSON.stringify(S))}catch(e){}}
+try{const l=localStorage.getItem("tysha-lang");if(l)lang=l}catch(e){}
+if(!["en","de","uk"].includes(lang)){const n=(navigator.language||"en").slice(0,2);lang=n==="de"?"de":(n==="uk"||n==="ru")?"uk":"en"}
+
+const IN_VIEWER=!!window.claude;
+let userCap=null,downloads=null,isOwner=false;
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const TTS=!!window.speechSynthesis;
+const LOCALE={en:"en-GB",de:"de-DE",uk:"uk-UA"};
+
+const app=document.getElementById("app");
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=(n,cur)=>{if(n==null||isNaN(n))return"—";return Math.round(n).toLocaleString(LOCALE[lang])+" "+(cur||"")};
+const visible=q=>!q.show||q.show(S.answers);
+function codeValue(){const c=S.code;const a=(c.c1||"").trim().slice(0,2).toUpperCase(),b=(c.c2||"").replace(/\D/g,"").slice(0,2),d=(c.c3||"").trim().slice(0,2).toUpperCase(),e=(c.c4||"").replace(/\D/g,"").slice(0,1);
+  if(!a||!b||!d||e==="")return"";return a+b.padStart(2,"0")+d+e}
+
+const ICON={
+  play:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>`,
+  stop:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor"/></svg>`,
+  mic:`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`,
+  text:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`
+};
+const WX_ICONS=[
+ `<svg class="wxi" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="7" fill="currentColor"/><g stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 4v5M20 31v5M4 20h5M31 20h5M8.7 8.7l3.5 3.5M27.8 27.8l3.5 3.5M8.7 31.3l3.5-3.5M27.8 12.2l3.5-3.5"/></g></svg>`,
+ `<svg class="wxi" viewBox="0 0 40 40" aria-hidden="true"><path d="M11 24a7 7 0 0 1 1-13.9A9 9 0 0 1 29 12a6 6 0 0 1 0 12z" fill="currentColor"/><g stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".7"><path d="M8 29h22M12 34h18"/></g></svg>`,
+ `<svg class="wxi" viewBox="0 0 40 40" aria-hidden="true"><path d="M11 22a7 7 0 0 1 1-13.9A9 9 0 0 1 29 10a6 6 0 0 1 0 12z" fill="currentColor"/><path d="M21 22l-5 8h5l-3 8 9-11h-5l3-5z" fill="currentColor" opacity=".75"/></svg>`
+];
+
+/* ===== Views ===== */
+let view="interview";
+function readHash(){const h=(location.hash||"").slice(1);if(h==="preview"){view="interview";enterPreview();return}view=["calculator","invite","studio"].includes(h)?h:"interview"}
+function enterPreview(){if(PREVIEW)return;PREVIEW=true;realS=S;S=freshState();S.consent=true;S.page=realS.page||0}
+function exitPreview(){if(!PREVIEW)return;PREVIEW=false;S=realS||freshState();realS=null;try{history.replaceState(null,"","#start")}catch(_){}}
+readHash();window.addEventListener("hashchange",()=>{readHash();render()});
+function renderTabs(){
+  const el=document.getElementById("tabs");
+  if(!isOwner){el.innerHTML="";return}
+  el.innerHTML=[["interview",UI.interview],["preview",UI.preview],["calculator",UI.calculator],["invite",UI.invite],["studio",UI.studio]].map(([k,l])=>`<a href="#${k==="interview"?"start":k}" data-view="${k}" class="${(k==="preview"?PREVIEW&&view==="interview":view===k&&!(k==="interview"&&PREVIEW))?"on":""}">${esc(tr(l))}</a>`).join("");
+}
+document.getElementById("tabs").addEventListener("click",e=>{const a=e.target.closest("a[data-view]");if(!a)return;e.preventDefault();const v=a.dataset.view;if(v==="preview"){enterPreview();view="interview"}else{if(v==="interview")exitPreview();view=v}try{history.replaceState(null,"","#"+(v==="interview"?"start":v))}catch(_){}render()});
+const langSel=document.getElementById("lang");langSel.value=lang;document.documentElement.lang=lang;
+langSel.addEventListener("change",()=>{stopVoice();stopSpeak();lang=langSel.value;try{localStorage.setItem("tysha-lang",lang)}catch(e){}document.documentElement.lang=lang;render()});
+
+function render(){renderTabs();if(view==="studio")return renderStudio();if(view==="calculator")return renderCalcOnly();if(view==="invite")return renderInvite();renderInterview()}
+
+/* --- sliders --- */
+function sliderRange(q){return q.steps?{min:0,max:q.steps.length-1,step:1}:{min:q.min??0,max:q.max??10,step:q.step||1}}
+function sliderIndex(q){const v=S.answers[q.id],r=sliderRange(q);
+  if(v==null||v==="")return null;
+  if(q.steps){const i=q.steps.findIndex(s=>s.k===v);return i<0?null:i}
+  return Math.max(r.min,Math.min(r.max,+v))}
+function sliderLabel(q,i){
+  if(i==null)return "";
+  if(q.steps)return tr(q.steps[i].t);
+  if(q.money){const cur=S.calc.cur||"EUR";return fmt(i,cur)+(i>=q.max?"+":"")}
+  if(q.words){const w=q.words.find(([up])=>i<=up);return `${i} · ${tr(w[1])}`}
+  return String(i);
+}
+function sliderHTML(q){
+  const r=sliderRange(q),i=sliderIndex(q),touched=i!=null,pos=touched?i:(q.steps?Math.floor(r.max/2):Math.round((r.min+r.max)/2/r.step)*r.step);
+  const p=(pos-r.min)/(r.max-r.min)*100;
+  return `<div class="card" id="card_${q.id}" data-card="${q.id}"><div class="ch"><h3>${esc(tr(q.title))}</h3>
+   ${(TTS||hasAudio(q))&&q.q?`<button type="button" class="iconbtn" data-listen="${q.id}" aria-label="${esc(tr(UI.listen))}: ${esc(tr(q.q))}">${ICON.play}</button>`:""}</div>
+   <div class="sl t-${q.tone||"plain"} ${touched?"":"untouched"}" id="sl_${q.id}" style="--p:${p}%">
+    <input type="range" id="q_${q.id}" data-slider="${q.id}" min="${r.min}" max="${r.max}" step="${r.step}" value="${pos}" aria-label="${esc(tr(q.q||q.title))}" aria-valuetext="${esc(touched?sliderLabel(q,i):tr(UI.moveDot))}">
+   </div>
+   <div class="ends"><span>${esc(tr(q.lo))}</span><span>${esc(tr(q.hi))}</span></div>
+   <div class="slout ${touched?"":"hint"}" id="out_${q.id}">${esc(touched?sliderLabel(q,i):tr(UI.moveDot))}</div></div>`;
+}
+
+/* --- question cards --- */
+function chipsHTML(id,opts,multi){const v=S.answers[id];
+  return `<div class="pills ${multi?"list":""}" role="${multi?"group":"radiogroup"}">`+opts.map(o=>{const sel=multi?(Array.isArray(v)&&v.includes(o.k)):v===o.k;
+    return `<label class="pill ${sel?"sel":""}"><input type="${multi?"checkbox":"radio"}" name="q_${id}" id="q_${id}_${o.k}" data-q="${id}" data-k="${esc(o.k)}" ${multi?'data-multi="1"':""} ${sel?"checked":""}>${esc(tr(o.t))}</label>`}).join("")+`</div>`}
+const textKey=q=>q.chips?q.id+"_words":q.id;
+function cardHTML(q){
+  if(q.kind==="fork")return `<div class="fork">${esc(tr(q.t))}</div>`;
+  if(q.kind==="slider")return sliderHTML(q);
+  if(q.kind==="chips")return `<div class="card"><div class="ch"><span class="lab">${esc(tr(q.title))}</span></div>${chipsHTML(q.id,q.opts,q.multi)}</div>`;
+  if(q.kind==="number")return `<div class="card"><div class="ch"><span class="lab">${esc(tr(q.title))}</span></div><input type="number" inputmode="decimal" min="0" id="q_${q.id}" data-q="${q.id}" value="${esc(S.answers[q.id]??"")}" style="max-width:160px"></div>`;
+  if(q.kind==="text")return `<div class="card"><div class="ch"><span class="lab">${esc(tr(q.title))}</span></div>${q.long?`<textarea id="q_${q.id}" data-q="${q.id}">${esc(S.answers[q.id]||"")}</textarea>`:`<input id="q_${q.id}" data-q="${q.id}" value="${esc(S.answers[q.id]||"")}" style="width:100%">`}</div>`;
+  /* voice */
+  const tk=textKey(q),txt=S.answers[tk]||"",open=!!txt||!SR||typing[q.id];
+  return `<section class="card" id="card_${q.id}" data-card="${q.id}">
+    <div class="ch"><h3>${esc(tr(q.title))}</h3>
+      ${TTS||hasAudio(q)?`<button type="button" class="iconbtn" data-listen="${q.id}" aria-label="${esc(tr(UI.listen))}: ${esc(tr(q.q))}">${ICON.play}</button>`:""}
+      <button type="button" class="iconbtn ${showQ[q.id]?"on":""}" data-showq="${q.id}" aria-label="${esc(tr(UI.showText))}" aria-expanded="${!!showQ[q.id]}">${ICON.text}</button></div>
+    ${showQ[q.id]||!TTS?`<p class="qtext">${esc(tr(q.q))}</p>`:""}
+    ${q.chips?chipsHTML(q.id,q.chips.opts,q.chips.multi):""}
+    ${SR?`<div class="microw"><button type="button" class="mic" data-mic="${q.id}" aria-label="${esc(tr(UI.tapSpeak))}">${ICON.mic}</button><span class="michint" id="hint_${q.id}">${esc(tr(UI.tapSpeak))}</span>${open?"":`<button type="button" class="linkbtn" data-type="${q.id}">${esc(tr(UI.typeInstead))}</button>`}</div>`:""}
+    <textarea id="q_${tk}" data-q="${tk}" aria-label="${esc(tr(q.q))}" ${open?"":"hidden"}>${esc(txt)}</textarea>
+  </section>`;
+}
+const typing={},showQ={};
+function qsHTML(qs){
+  /* questions before the first fork render as usual; the branch after it is grouped so it can rise in */
+  const vis=qs.filter(visible),fi=vis.findIndex(q=>q.kind==="fork");
+  if(fi<0)return vis.map(cardHTML).join("");
+  return vis.slice(0,fi).map(cardHTML).join("")+`<div class="branch">${vis.slice(fi).map(cardHTML).join("")}</div>`;
+}
+
+function pvHTML(){if(!PREVIEW)return"";return `<div class="pv" role="status"><b>${esc(tr(UI.preview))}</b><span>${esc(tr(UI.pvNote))}</span><span style="flex:1"></span><select id="pvJump" aria-label="${esc(tr(UI.pvJump))}">${PAGES.map((pg,i)=>`<option value="${i}" ${i===S.page?"selected":""}>${pg.ch?esc(tr(UI.chapter))+" "+pg.ch+" · ":""}${esc(tr(pg.title))}</option>`).join("")}</select><button type="button" id="pvReset">${esc(tr(UI.pvReset))}</button><button type="button" id="pvExit">${esc(tr(UI.pvExit))}</button></div>`}
+function pathHTML(){return `<nav class="path" aria-label="Path">`+PAGES.map((p,i)=>(i?`<i class="${i<=S.page?"done":""}"></i>`:"")+`<button type="button" data-goto="${i}" class="${i===S.page?"on":(i<S.page?"done":"")}" aria-label="${esc(tr(p.title))}" title="${esc(tr(p.title))}" ${i===S.page?'aria-current="step"':""}></button>`).join("")+`</nav>`}
+function headHTML(p){return `<p class="eyebrow">${p.ch?esc(tr(UI.chapter))+" "+p.ch:"&nbsp;"}</p><h1>${esc(tr(p.title))}</h1>${p.lede?`<p class="lede">${esc(tr(p.lede))}</p>`:""}`}
+
+function renderInterview(){
+  stopVoice();stopSpeak();
+  const p=PAGES[S.page];let h=pvHTML()+pathHTML();
+  if(p.id==="welcome")h+=welcomeHTML();
+  else if(p.id==="worth")h+=headHTML(p)+`<div class="stack">${calcHTML()}${WORTH_Q.map(cardHTML).join("")}</div>`;
+  else if(p.id==="results")h+=headHTML(p)+resultsHTML();
+  else if(p.id==="done")h+=doneHTML(p);
+  else{const hasVoice=p.qs.some(q=>q.kind==="voice");
+    h+=headHTML(p)+(hasVoice&&!SR?`<p class="note" style="margin:-12px 0 16px">${esc(tr(UI.noVoice))}</p>`:"")+`<div class="stack">${qsHTML(p.qs)}</div>`}
+  h+=`<div class="nav"><button class="btn ghost" type="button" data-nav="-1" ${S.page===0?"disabled":""}>${esc(tr(UI.back))}</button>`+(S.page<PAGES.length-1?`<button class="btn" type="button" data-nav="1">${esc(tr(UI.next))}</button>`:"")+`</div><p class="status err" id="navMsg"></p>`;
+  app.innerHTML=h;
+  if(p.id==="worth")updateCalc();
+}
+
+function welcomeHTML(){const code=codeValue();
+  return `<p class="eyebrow">&nbsp;</p><h1>${esc(tr(UI.hello))}</h1><p class="lede">${esc(tr(UI.helloLede))}</p>
+  <div class="breath"><div class="orb">${esc(tr(UI.breathe))}</div></div>
+  <div class="stack">
+  <div class="card consent"><p class="eyebrow">${esc(tr(UI.consentHead))}</p>
+   <label><input type="checkbox" id="consent" ${S.consent?"checked":""}><span>${esc(tr(UI.consent))}</span></label>
+   <p class="note">${esc(tr(UI.gdpr))}${CONTACT_EMAIL?" "+esc(CONTACT_EMAIL):""}</p><p class="note">${esc(tr(UI.crisis))}</p></div>
+  <div class="card"><div class="ch"><h3>${esc(tr(UI.codeHead))}</h3></div>
+   <div class="code4">
+    <label>${esc(tr(UI.c1))}<input id="c1" data-code="c1" maxlength="2" autocomplete="off" value="${esc(S.code.c1)}"></label>
+    <label>${esc(tr(UI.c2))}<input id="c2" data-code="c2" maxlength="2" inputmode="numeric" autocomplete="off" value="${esc(S.code.c2)}"></label>
+    <label>${esc(tr(UI.c3))}<input id="c3" data-code="c3" maxlength="2" autocomplete="off" value="${esc(S.code.c3)}"></label>
+    <label>${esc(tr(UI.c4))}<input id="c4" data-code="c4" maxlength="1" inputmode="numeric" autocomplete="off" value="${esc(S.code.c4)}"></label>
+   </div>
+   <div class="codeout" id="codeOut">${esc(code||"· · · · · · ·")}</div>
+   <p class="note" style="text-align:center">${esc(tr(UI.codeNote))}</p></div>
+  </div>`}
+
+/* ===== Voice: listen (text-to-speech) and answer (speech-to-text) ===== */
+/* Soft female voice: best known female voices per language first, then any voice marked female, never a known male voice */
+const FEMALE={
+  en:["Sonia","Libby","Jenny","Aria","Emma","Ava","Serena","Samantha","Karen","Moira","Tessa","Martha","Kate","Hazel","Susan","Zira","Google UK English Female","Google US English"],
+  de:["Seraphina","Amala","Katja","Louisa","Hedda","Anna","Petra","Helena","Marlene","Vicki","Google Deutsch"],
+  uk:["Polina","Lesya","Google українська"]
+};
+const MALE=/\b(male|daniel|alex|fred|oliver|arthur|ryan|guy|thomas|george|david|mark|conrad|killian|stefan|markus|yannick|florian|ostap|rishi|aaron|eddy|reed|rocko|grandpa)\b/i;
+const FEM_HINT=/female|frau|woman|жіноч/i;
+function pickVoice(){
+  const all=(TTS?speechSynthesis.getVoices():[]).filter(v=>v.lang&&v.lang.toLowerCase().replace("_","-").startsWith(lang));
+  if(!all.length)return null;
+  const nice=v=>/natural|neural|online|premium|enhanced/i.test(v.name)?0:1;
+  for(const n of FEMALE[lang]||[]){const m=all.filter(v=>v.name.includes(n)&&!(/\bmale\b/i.test(v.name))).sort((a,b)=>nice(a)-nice(b));if(m.length)return m[0]}
+  return all.find(v=>FEM_HINT.test(v.name))||all.find(v=>!MALE.test(v.name))||all[0];
+}
+let rec=null,recId=null,recBase="",recFinal="";
+/* Your own recordings: "<lang>-<question id>" -> file path inside this artifact. Filled in by Claude from your .zip. */
+const VOICE_FILES={"de-apps_use":"audio/de-apps_use.mp3","de-feeling":"audio/de-feeling.mp3","de-n_calm":"audio/de-n_calm.mp3","de-n_ground":"audio/de-n_ground.mp3","de-n_habit":"audio/de-n_habit.mp3","de-spend_now":"audio/de-spend_now.mp3","de-spend_wish":"audio/de-spend_wish.mp3","de-stress":"audio/de-stress.mp3","de-time_daily":"audio/de-time_daily.mp3","de-wish":"audio/de-wish.mp3","de-wishes":"audio/de-wishes.mp3","de-y_doing":"audio/de-y_doing.mp3","de-y_down":"audio/de-y_down.mp3","de-y_helps":"audio/de-y_helps.mp3","de-y_since":"audio/de-y_since.mp3","en-apps_use":"audio/en-apps_use.mp3","en-feeling":"audio/en-feeling.mp3","en-n_calm":"audio/en-n_calm.mp3","en-n_ground":"audio/en-n_ground.mp3","en-n_habit":"audio/en-n_habit.mp3","en-spend_now":"audio/en-spend_now.mp3","en-spend_wish":"audio/en-spend_wish.mp3","en-stress":"audio/en-stress.mp3","en-time_daily":"audio/en-time_daily.mp3","en-wish":"audio/en-wish.mp3","en-wishes":"audio/en-wishes.mp3","en-y_doing":"audio/en-y_doing.mp3","en-y_helps":"audio/en-y_helps.mp3","en-y_since":"audio/en-y_since.mp3","uk-apps_use":"audio/uk-apps_use.mp3","uk-feeling":"audio/uk-feeling.mp3","uk-n_calm":"audio/uk-n_calm.mp3","uk-n_ground":"audio/uk-n_ground.mp3","uk-n_habit":"audio/uk-n_habit.mp3","uk-spend_now":"audio/uk-spend_now.mp3","uk-spend_wish":"audio/uk-spend_wish.mp3","uk-stress":"audio/uk-stress.mp3","uk-time_daily":"audio/uk-time_daily.mp3","uk-wish":"audio/uk-wish.mp3","uk-wishes":"audio/uk-wishes.mp3","uk-y_doing":"audio/uk-y_doing.mp3","uk-y_down":"audio/uk-y_down.mp3","uk-y_helps":"audio/uk-y_helps.mp3","uk-y_since":"audio/uk-y_since.mp3"};
+const hasAudio=q=>!!VOICE_FILES[lang+"-"+q.id];
+let player=null;
+function stopSpeak(){if(player){try{player.pause()}catch(e){}player=null}if(TTS){try{speechSynthesis.cancel()}catch(e){}}
+  document.querySelectorAll("[data-listen].on").forEach(b=>{b.classList.remove("on");b.innerHTML=ICON.play})}
+function speak(id,btn){
+  const q=ALL_Q.find(x=>x.id===id);if(!q)return;
+  const was=btn.classList.contains("on");stopSpeak();if(was)return;
+  const done=()=>{btn.classList.remove("on");btn.innerHTML=ICON.play;player=null};
+  btn.classList.add("on");btn.innerHTML=ICON.stop;
+  const f=VOICE_FILES[lang+"-"+id];
+  if(f){player=new Audio(f);player.onended=done;player.onerror=()=>{done();if(TTS)speakTTS(q,btn)};player.play().catch(()=>{done();if(TTS)speakTTS(q,btn)});return}
+  if(!TTS){done();return}
+  speakTTS(q,btn);
+}
+function speakTTS(q,btn){
+  btn.classList.add("on");btn.innerHTML=ICON.stop;
+  const u=new SpeechSynthesisUtterance(tr(q.q||q.title));u.lang=LOCALE[lang];
+  u.rate=.82;u.pitch=1.08;u.volume=.9;   /* slower and a little lighter = softer */
+  const v=pickVoice();if(v)u.voice=v;
+  u.onend=u.onerror=()=>{btn.classList.remove("on");btn.innerHTML=ICON.play};
+  btn.classList.add("on");btn.innerHTML=ICON.stop;speechSynthesis.speak(u);
+}
+function stopVoice(){if(rec){try{rec.stop()}catch(e){}}}
+function startVoice(id){
+  if(!SR)return;
+  if(rec){const same=recId===id;stopVoice();if(same)return}
+  const q=ALL_Q.find(x=>x.id===id);const tk=textKey(q);
+  const ta=document.getElementById("q_"+tk);ta.hidden=false;
+  recBase=(S.answers[tk]||"").trim();recFinal="";
+  rec=new SR();recId=id;rec.lang=LOCALE[lang];rec.continuous=true;rec.interimResults=true;
+  const card=document.getElementById("card_"+id),btn=card.querySelector("[data-mic]"),hint=document.getElementById("hint_"+id);
+  card.classList.add("recording");btn.classList.add("live");btn.innerHTML=ICON.stop;hint.textContent=tr(UI.listening);
+  rec.onresult=e=>{let interim="";for(let i=e.resultIndex;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)recFinal+=t+" ";else interim+=t}
+    const full=[recBase,(recFinal+interim).trim()].filter(Boolean).join(" ");ta.value=full;S.answers[tk]=[recBase,recFinal.trim()].filter(Boolean).join(" ");persist()};
+  rec.onerror=e=>{if(e.error==="not-allowed"||e.error==="service-not-allowed")hint.textContent=tr(UI.micBlocked)};
+  rec.onend=()=>{S.answers[tk]=ta.value.trim();persist();card.classList.remove("recording");btn.classList.remove("live");btn.innerHTML=ICON.mic;
+    if(hint.textContent===tr(UI.listening))hint.textContent=tr(UI.tapSpeak);rec=null;recId=null};
+  try{rec.start()}catch(e){rec=null;recId=null;card.classList.remove("recording");btn.classList.remove("live");btn.innerHTML=ICON.mic;hint.textContent=tr(UI.micBlocked)}
+}
+
+/* ===== Cost model (kept from v0.4; totals stay internal, the page shows equivalents) ===== */
+function calcInputs(){
+  const c=S.calc,w=S.answers.work;
+  const self=c.selfEmp!=null?c.selfEmp:w==="self";
+  const buffer=c.buffer!==""&&c.buffer!=null?+c.buffer:1;
+  const realNet=parseFloat(c.net);
+  return{net:realNet>0?realNet:2900,isExample:!(realNet>0),cur:c.cur||"EUR",self,prot:c.prot==="yes",buffer,eap:+c.eap||0,
+    emp:+c.emp||0,repl:+c.repl||0,cov:+c.cov||0,wait:+c.wait||0,price:+c.price||0,levels:c.levels}
+}
+function calcLevel(I,L){
+  const dN=I.net/30,hourly=I.net*12/52/40;
+  const covered=I.self?0:I.emp*7;const repl=I.self?(I.prot?.6:0):I.repl/100;
+  const Lsick=Math.max(0,(+L.days||0)-covered)*dN*(1-repl);
+  const Lhours=(+L.hours||0)*(+L.weeks||0)*hourly;
+  const Lcareer=(+L.career||0)/100*I.net*12;
+  const n=+L.sessions||0,eapUsed=Math.min(n,I.eap),rest=n-eapUsed,privWait=Math.min(rest,I.wait);
+  const Ctherapy=privWait*I.price+(rest-privWait)*I.price*(1-I.cov/100);
+  const Cother=+L.other||0;
+  let cash=Lsick+Lhours+Lcareer+Ctherapy+Cother;
+  cash+=Math.max(0,cash-I.buffer*I.net)*0.12;
+  const five=cash+Lcareer*4+cash*(Math.pow(1.05,5)-1);
+  return{lost:Lsick+Lhours+Lcareer,health:Ctherapy+Cother,cash,five,share:cash/(I.net*12),time:(+L.time||0)*hourly}
+}
+function calcAll(){const I=calcInputs();return{I,R:I.levels.map(l=>calcLevel(I,l))}}
+const COLS=["--l1","--l2","--l3"];
+
+/* tangible equivalents of one year in a given weather: money items (count × rough price) and time items */
+function equivalents(w){
+  const {I,R}=calcAll(),x=CURX[I.cur]??1,cash=R[w].cash,lv=I.levels[w];
+  const kids=Array.isArray(S.answers.life)&&S.answers.life.includes("kids");
+  const money=[
+    {k:"holiday",em:"🏖️",unit:1800*x,t:L("weeks of family holiday by the sea","Wochen Familienurlaub am Meer","тижнів сімейної відпустки біля моря")},
+    {k:"weekend",em:"🧳",unit:450*x,t:L("weekend trips for two","Wochenendtrips zu zweit","поїздок на вихідні удвох")},
+    {k:"rent",em:"🏠",unit:I.net*.33,t:L("months of rent","Monatsmieten","місяців оренди")},
+    {k:"dinner",em:"🍝",unit:60*x,t:L("dinners with your best friends","Abendessen mit deinen besten Freund:innen","вечерь із найкращими друзями")},
+    kids?{k:"kids",em:"🏊",unit:45*x,t:L("months of your child's swimming lessons","Monate Schwimmkurs für dein Kind","місяців уроків плавання для дитини")}
+        :{k:"concert",em:"🎶",unit:90*x,t:L("concert evenings","Konzertabende","вечорів на концертах")}
+  ].map(e=>Object.assign(e,{n:cash/e.unit}));
+  const time=[
+    {k:"weekends",em:"☀️",n:(+lv.days||0)/2,t:L("weekends spent recovering instead of living","Wochenenden zum Erholen statt zum Leben","вихідних на відновлення замість життя")},
+    {k:"evenings",em:"🌙",n:((+lv.time||0)+(+lv.hours||0)*(+lv.weeks||0))/3,t:L("evenings lost to worry and tiredness","Abende, die Sorgen und Müdigkeit nehmen","вечорів, забраних тривогою і втомою")}
+  ].filter(e=>e.n>=1);
+  return{I,money,time};
+}
+const nFmt=n=>n>=10?Math.round(n).toLocaleString(LOCALE[lang]):(Math.round(n*10)/10).toLocaleString(LOCALE[lang]);
+
+function calcHTML(){
+  const c=S.calc,I=calcInputs();
+  const presetOpts=Object.entries(PRESETS).map(([k,p])=>`<option value="${k}" ${c.preset===k?"selected":""}>${esc(p.name)}</option>`).join("");
+  const rows=[["days",UI.sickDays],["hours",UI.hoursCut],["weeks",UI.weeksCut],["sessions",UI.sessions],["other",UI.other],["career",UI.career],["time",UI.hoursSpent]];
+  return `<div class="card"><div class="ch"><span class="lab">${esc(tr(UI.wxQ))}</span></div><div class="wx" role="radiogroup">`+
+    [0,1,2].map(i=>`<button type="button" class="wxb ${c.weather===i?"on":""}" data-weather="${i}" style="--c:var(${COLS[i]})" aria-pressed="${c.weather===i}">${WX_ICONS[i]}<b>${esc(tr(UI.wxNames[i]))}</b><span class="note">${esc(tr(UI.wxSub[i]))}</span></button>`).join("")+
+    `</div></div>
+  <div id="calcOut"></div>
+  <details class="more card"><summary>${esc(tr(UI.settings))}</summary>
+   <div class="inputs">
+    <label>${esc(tr(UI.netIncome))}<input id="k_net" data-c="net" type="number" inputmode="decimal" min="0" value="${esc(c.net)}" placeholder="—"></label>
+    <label>${esc(tr(UI.currency))}<input id="k_cur" data-c="cur" value="${esc(c.cur)}" maxlength="4"></label>
+    <label>${esc(tr(UI.buffer))}<input id="k_buffer" data-c="buffer" type="number" min="0" step="0.5" value="${esc(c.buffer)}" placeholder="${I.buffer}"></label>
+    <label>${esc(tr(UI.selfEmp))}<select id="k_self"><option value="auto" ${c.selfEmp==null?"selected":""}>auto (${I.self?"✓":"–"})</option><option value="yes" ${c.selfEmp===true?"selected":""}>✓</option><option value="no" ${c.selfEmp===false?"selected":""}>–</option></select></label>
+    <label>${esc(tr(UI.incomeProt))}<select id="k_prot"><option value="no" ${c.prot!=="yes"?"selected":""}>–</option><option value="yes" ${c.prot==="yes"?"selected":""}>✓</option></select></label>
+    <label>${esc(tr(UI.eap))}<input id="k_eap" data-c="eap" type="number" min="0" value="${esc(c.eap)}"></label>
+    <label>${esc(tr(UI.country))}<select id="k_preset">${presetOpts}</select></label>
+    <label>${esc(tr(UI.empWeeks))}<input id="k_emp" data-c="emp" type="number" min="0" value="${esc(c.emp)}"></label>
+    <label>${esc(tr(UI.repl))}<input id="k_repl" data-c="repl" type="number" min="0" max="100" value="${esc(c.repl)}"></label>
+    <label>${esc(tr(UI.cov))}<input id="k_cov" data-c="cov" type="number" min="0" max="100" value="${esc(c.cov)}"></label>
+    <label>${esc(tr(UI.wait))}<input id="k_wait" data-c="wait" type="number" min="0" value="${esc(c.wait)}"></label>
+    <label>${esc(tr(UI.price))}<input id="k_price" data-c="price" type="number" min="0" value="${esc(c.price)}"></label>
+   </div>
+   <p class="note" style="margin-top:8px">${esc(tr(UI.presetNote))}</p>
+   <div class="tablewrap"><table><thead><tr><th></th>${UI.wxNames.map(n=>`<th>${esc(tr(n))}</th>`).join("")}</tr></thead><tbody>
+   ${rows.map(([k,l])=>`<tr><td>${esc(tr(l))}</td>${[0,1,2].map(i=>`<td><input id="lv_${i}_${k}" data-lv="${i}" data-f="${k}" type="number" min="0" value="${esc(c.levels[i][k])}"></td>`).join("")}</tr>`).join("")}
+   </tbody></table></div>
+  </details>`;
+}
+let lastCounts={};
+function countUp(root){
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  root.querySelectorAll(".count").forEach(el=>{const to=+el.dataset.to,key=el.dataset.key;
+    const from=lastCounts[key]??0;lastCounts[key]=to;if(reduce||from===to)return;
+    const t0=performance.now(),d=800;const step=t=>{const p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);el.textContent=nFmt(from+(to-from)*e);if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)});
+}
+function equivHTML(w){
+  if(w==null)return `<div class="card"><p class="note">${esc(tr(UI.pickWeather))}</p></div>`;
+  const {I,money,time}=equivalents(w);
+  return `<div class="card" style="--c:var(${COLS[w]})"><p class="eqhead">${esc(tr(UI.canTake[w]))}</p>
+   <div class="eq">${money.map(e=>`<div class="eqi"><span class="em" aria-hidden="true">${e.em}</span><span class="eqn count" data-key="${e.k}" data-to="${e.n}">${nFmt(e.n)}</span><span>${esc(tr(e.t))}</span><small>${esc(tr(UI.each))} ${fmt(e.unit,I.cur)}</small></div>`).join("")}
+   ${time.map(e=>`<div class="eqi time"><span class="em" aria-hidden="true">${e.em}</span><span class="eqn count" data-key="${e.k}" data-to="${e.n}">${nFmt(e.n)}</span><span>${esc(tr(e.t))}</span><small>${esc(tr(UI.timeBack))}</small></div>`).join("")}</div>
+   ${I.isExample?`<p class="note">${esc(tr(UI.example))}</p>`:""}</div>`;
+}
+function updateCalc(){const out=document.getElementById("calcOut");if(!out)return;out.innerHTML=equivHTML(S.calc.weather);countUp(out)}
+function renderCalcOnly(){
+  app.innerHTML=`<p class="eyebrow">&nbsp;</p><h1>${esc(tr(UI.worthTitle))}</h1><p class="lede">${esc(tr(UI.calcLede))}</p><div class="stack">${calcHTML()}
+   <div class="card"><div class="row">${!IN_VIEWER?`<button class="btn" type="button" id="printBtn">${esc(tr(UI.print))}</button>`:""}<button class="btn ghost" type="button" id="dlReport">${esc(tr(UI.dlReport))}</button></div><p class="status" id="saveMsg"></p></div></div>`;
+  updateCalc();
+}
+
+/* ===== Results ===== */
+const optLabel=(q,k)=>{const opts=q.kind==="chips"?q.opts:(q.chips&&q.chips.opts)||[];return tr((opts.find(o=>o.k===k)||{}).t)||k};
+const Q=id=>ALL_Q.find(q=>q.id===id);
+function labels(id){const v=S.answers[id];if(!Array.isArray(v))return v?[optLabel(Q(id),v)]:[];return v.map(k=>optLabel(Q(id),k))}
+function tags(list){return list.length?`<div class="taglist">${list.map(t=>`<span>${esc(t)}</span>`).join("")}</div>`:`<p class="note">${esc(tr(UI.open))}</p>`}
+function bar(id,label,tone){const q=Q(id),i=sliderIndex(q);
+  return `<div class="rbar"><div class="lab"><span>${esc(tr(label))}</span><b>${i==null?esc(tr(UI.open)):esc(sliderLabel(q,i))}</b></div><div class="track t-${tone}">${i==null?"":`<span class="dot" style="left:${i*10}%"></span>`}</div></div>`}
+function resultMessage(){const s=sliderIndex(Q("stress")),w=sliderIndex(Q("wish"));
+  if(s==null||w==null)return UI.mEmpty;
+  if(s>=7)return w>=6?UI.mHighReady:UI.mHighFar;
+  if(s<=4)return UI.mCalm;
+  return UI.mMid}
+function resultsHTML(){
+  const a=S.answers,s=sliderIndex(Q("stress"));
+  const pathCard=isYes(a)?`<div class="card"><div class="ch"><h3>${esc(tr(UI.pathYes))}</h3></div>${tags(labels("y_doing"))}
+     <p class="note">${a.y_since?esc(tr(UI.since))+" "+esc(sliderLabel(Q("y_since"),sliderIndex(Q("y_since")))):""}${a.y_since&&a.y_helps!=null?" · ":""}${a.y_helps!=null&&a.y_helps!==""?esc(tr(UI.helps))+": "+esc(sliderLabel(Q("y_helps"),sliderIndex(Q("y_helps")))):""}</p></div>`
+    :isNo(a)?`<div class="card"><div class="ch"><h3>${esc(tr(UI.pathNo))}</h3></div><p class="note">${esc(tr(UI.helpStart))}</p>${tags(labels("n_habit"))}</div>`:"";
+  const calm=[...new Set([].concat(labels("n_calm"),labels("n_ground"),labels("y_down")))];
+  const tIdx=sliderIndex(Q("time_daily")),mins=tIdx==null?null:Q("time_daily").steps[tIdx].k;
+  const wish=sliderIndex(Q("spend_wish")),now=sliderIndex(Q("spend_now")),cur=S.calc.cur||"EUR";
+  const facts=[];
+  if(mins!=null)facts.push(`<div class="fact"><b>${esc(mins)}</b><span>${esc(tr(UI.minDay))}${(a.time_when||[]).length?" · "+esc(labels("time_when").join(", ")):""}</span></div>`);
+  if(wish!=null)facts.push(`<div class="fact"><b>${esc(sliderLabel(Q("spend_wish"),wish))}</b><span>${esc(tr(UI.budget))}</span></div>`);
+  if(now!=null)facts.push(`<div class="fact"><b>${esc(sliderLabel(Q("spend_now"),now))}</b><span>${esc(tr(UI.spendNow))}</span></div>`);
+  let eq="";const w=S.calc.weather;
+  if(w!=null){const {money,time}=equivalents(w);const top=[money[0],money[3]].concat(time.slice(0,1)).filter(Boolean);
+    eq=`<div class="card" style="--c:var(${COLS[w]})"><div class="ch"><h3>${esc(tr(UI.canTake[w]))}</h3></div><div class="eq">${top.map(e=>`<div class="eqi ${e.unit?"":"time"}"><span class="em" aria-hidden="true">${e.em}</span><span class="eqn">${nFmt(e.n)}</span><span>${esc(tr(e.t))}</span></div>`).join("")}</div></div>`}
+  return `<div class="stack">
+   <div class="card">${bar("stress",UI.rStress,"stress")}${bar("wish",UI.rWish,"wish")}<p class="msg">${esc(tr(resultMessage()))}</p>${s!=null&&s>=9?`<p class="note">${esc(tr(UI.crisis))}</p>`:""}</div>
+   ${pathCard}
+   <div class="card"><div class="ch"><h3>${esc(tr(UI.calmHead))}</h3></div>${tags(calm)}</div>
+   ${facts.length?`<div class="card"><div class="ch"><h3>${esc(tr(UI.windowHead))}</h3></div><div class="facts">${facts.join("")}</div></div>`:""}
+   ${eq}${shareHTML()}</div>`;
+}
+
+/* ===== Share ===== */
+const SHARE_URL=/^https?:$/.test(location.protocol)&&!/claude\.ai|claudeusercontent/.test(location.host)?location.origin+location.pathname:"https://lyubovsmolska.github.io/tysha-interview/";
+function shareText(){
+  const a=S.answers,lines=[tr(UI.shTitle)+" 🌿"];
+  const si=sliderIndex(Q("stress")),wi=sliderIndex(Q("wish"));
+  if(si!=null)lines.push(tr(UI.rStress)+": "+sliderLabel(Q("stress"),si));
+  if(wi!=null)lines.push(tr(UI.rWish)+": "+sliderLabel(Q("wish"),wi));
+  if(si!=null&&wi!=null)lines.push(tr(resultMessage()));
+  const calm=[...new Set([].concat(labels("n_calm"),labels("n_ground"),labels("y_down")))];
+  if(calm.length)lines.push(tr(UI.shCalm)+": "+calm.slice(0,4).join(", "));
+  const w=S.calc.weather;
+  if(w!=null){const {money,time}=equivalents(w);const top=[money[0],money[3]].concat(time.slice(0,1)).filter(Boolean);
+    lines.push(tr(UI.canTake[w]).replace(/…$/,":")+" "+top.map(e=>nFmt(e.n)+" "+tr(e.t)).join(", "))}
+  lines.push("",tr(UI.shFind)+": "+SHARE_URL);
+  return lines.join("\n");
+}
+function shareHTML(){
+  const t=shareText(),e=encodeURIComponent(t),subj=encodeURIComponent(tr(UI.shTitle));
+  const native=!IN_VIEWER&&navigator.share;
+  const links=[
+    ["WhatsApp",`https://wa.me/?text=${e}`],
+    ["Telegram",`https://t.me/share/url?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(t.replace("\n\n"+tr(UI.shFind)+": "+SHARE_URL,""))}`],
+    [tr(UI.shareMail),`mailto:?subject=${subj}&body=${e}`],
+    [tr(UI.shareSms),`sms:?&body=${e}`],
+    ["LinkedIn",`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`],
+    ["Facebook",`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}`]
+  ];
+  return `<div class="card"><div class="ch"><h3>${esc(tr(UI.shareHead))}</h3></div><p class="note">${esc(tr(UI.shareLede))}</p>
+   <pre class="sharetext">${esc(t)}</pre>
+   <div class="shares">${native?`<button type="button" class="share main" id="shareNative">${esc(tr(UI.shareNative))}</button>`:""}
+    ${links.map(([l,h])=>`<a class="share" href="${esc(h)}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}
+    <button type="button" class="share ${native?"":"main"}" id="shareCopy">${esc(tr(UI.shareCopy))}</button></div>
+   <p class="status" id="shareMsg">${esc(tr(UI.shareHint))}</p></div>`;
+}
+
+/* ===== Finish ===== */
+function scoreValue(){const a=S.answers;let s=0;if(+a.spend_now>0)s+=2;if(a.pilot==="yes")s+=2;if(+a.spend_wish>=PLANNED_PRICE)s+=1;return s}
+function doneHTML(p){
+  const online=!IN_VIEWER&&!!SUBMIT_URL;
+  return headHTML(p)+`<div class="stack">${DONE_Q.map(cardHTML).join("")}
+  <div class="card"><div class="codeout">${esc(codeValue()||"—")}</div>
+   <div class="row" style="justify-content:center">
+    ${online?`<button class="btn" type="button" id="sendBtn">${esc(tr(UI.send))}</button>`:""}
+    ${!IN_VIEWER?`<button class="btn ${online?"ghost":""}" type="button" id="printBtn">${esc(tr(UI.print))}</button>`:""}
+    <button class="btn ghost" type="button" id="dlReport">${esc(tr(UI.dlReport))}</button>
+    <button class="btn ghost" type="button" id="dlData">${esc(tr(UI.dlData))}</button>
+   </div><p class="status" id="saveMsg" style="text-align:center">${online?"":esc(tr(UI.noSend))}</p>
+   <p class="meta" style="text-align:center">${esc(tr(UI.version))} ${esc(FORM_VERSION)}</p></div>
+  <details class="more card"><summary>${esc(tr(UI.notes))}</summary><div class="stack" style="margin-top:10px">${NOTES_Q.map(cardHTML).join("")}</div></details></div>`;
+}
+
+/* ===== Record, sheet row, report ===== */
+function record(){const {I,R}=calcAll();
+  return JSON.parse(JSON.stringify({form_version:FORM_VERSION,language:lang,code:codeValue(),consent:S.consent,started_at:S.startedAt,exported_at:nowIso(),
+    answers:S.answers,score:scoreValue(),calc:{inputs:S.calc,used:{net:I.net,isExample:I.isExample,cur:I.cur,self:I.self},results:R.map(r=>({cash_year1:Math.round(r.cash),five_years:Math.round(r.five),lost_income:Math.round(r.lost),health_costs:Math.round(r.health),share_of_income:+r.share.toFixed(3)}))}}))}
+const ALL_Q=ABOUT.concat(CH1,CH2,HABITS,WORTH_Q,DONE_Q,NOTES_Q).filter(q=>q.kind!=="fork");
+const ANSWER_KEYS=[].concat(...ALL_Q.map(q=>q.kind==="voice"&&q.chips?[q.id,q.id+"_words"]:[q.id])).concat(["weather"]);
+function flatRow(rec){
+  const r={saved_at:rec.saved_at,form_version:rec.form_version,language:rec.language,code:rec.code,consent:rec.consent?"yes":"no",started_at:rec.started_at,score:rec.score};
+  ANSWER_KEYS.forEach(k=>{const v=rec.answers[k];r[k]=Array.isArray(v)?v.join("; "):(v??"")});
+  const u=rec.calc.used,i=rec.calc.inputs;
+  Object.assign(r,{calc_net_income:u.isExample?"":u.net,calc_currency:u.cur,calc_self_employed:u.self?"yes":"no",calc_country_preset:i.preset,calc_employer_weeks:i.emp,calc_sick_pay_pct:i.repl,calc_therapy_cover_pct:i.cov,calc_wait_weeks:i.wait,calc_session_price:i.price});
+  rec.calc.results.forEach((x,n)=>{r[`L${n+1}_cash_year1`]=x.cash_year1;r[`L${n+1}_five_years`]=x.five_years});
+  return r;
+}
+function answerText(q){const a=S.answers;const parts=[];
+  if(q.kind==="slider"){const i=sliderIndex(q);return i==null?"—":sliderLabel(q,i)}
+  const opts=q.kind==="chips"?q.opts:(q.chips&&q.chips.opts);
+  if(opts){const v=a[q.id];if(Array.isArray(v)&&v.length)parts.push(v.map(k=>optLabel(q,k)).join(", "));else if(v!=null&&v!=="")parts.push(optLabel(q,v))}
+  else if(q.kind!=="voice"&&a[q.id]!=null&&a[q.id]!=="")parts.push(String(a[q.id]));
+  if(q.kind==="voice"){const t=a[textKey(q)];if(t)parts.push(t)}
+  return parts.join(" — ")||"—";
+}
+function reportInner(){
+  let h=`<h1 style="font-family:Georgia,serif;margin:0 0 4px">Tysha · ${esc(tr(UI.report))}</h1>
+  <p style="font:12px monospace;color:#555;margin:0 0 16px">${esc(codeValue()||"—")} · ${esc(tr(UI.version))} ${esc(FORM_VERSION)} · ${esc(tr(UI.started))}: ${esc(new Date(S.startedAt).toLocaleString())} · ${esc(tr(UI.exported))}: ${esc(new Date().toLocaleString())} · ${lang.toUpperCase()}</p>
+  <div style="border:2px solid #333;border-radius:14px;padding:14px;margin-bottom:14px;font-size:15px">${esc(tr(resultMessage()))}</div>`;
+  const w=S.calc.weather;
+  if(w!=null){const {I,money,time}=equivalents(w);
+    h+=`<div style="border:1px solid #999;border-radius:14px;padding:14px;margin-bottom:14px"><b>${esc(tr(UI.canTake[w]))}</b><ul style="margin:6px 0 0;padding-left:18px">`+
+      money.map(e=>`<li>${nFmt(e.n)} ${esc(tr(e.t))} <span style="color:#666">(${esc(tr(UI.each))} ${fmt(e.unit,I.cur)})</span></li>`).join("")+
+      time.map(e=>`<li>${nFmt(e.n)} ${esc(tr(e.t))}</li>`).join("")+`</ul></div>`}
+  PAGES.filter(p=>p.qs.length&&p.id!=="done").concat([{title:UI.doneTitle,qs:DONE_Q}]).forEach(p=>{
+    const qs=p.qs.filter(q=>q.kind!=="fork"&&visible(q));if(!qs.length)return;
+    h+=`<h2 style="font-family:Georgia,serif;font-size:17px;margin:16px 0 6px;border-bottom:1px solid #999">${p.ch?esc(tr(UI.chapter))+" "+p.ch+" · ":""}${esc(tr(p.title))}</h2>`;
+    qs.forEach(q=>{h+=`<p style="margin:6px 0;font-size:13px"><b>${esc(tr(q.q||q.title))}</b><br>${esc(answerText(q))}</p>`})});
+  return h+`<p style="font-size:11px;color:#555;margin-top:16px">${esc(tr(UI.gdpr))}</p>`;
+}
+function reportDoc(){return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tysha report ${esc(codeValue())}</title>
+<style>body{font:14px/1.5 -apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:20px;color:#111;background:#fff}button{font:600 14px sans-serif;padding:10px 18px;border-radius:999px;border:0;background:#4C7770;color:#fff;margin-bottom:16px}@media print{button{display:none}}</style></head>
+<body><button onclick="window.print()">${esc(tr(UI.print))}</button>${reportInner()}</body></html>`}
+const stamp=()=>new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
+async function offerFile(filename,data,mime,msgEl){
+  if(!IN_VIEWER){const b=new Blob([data],{type:mime});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);return}
+  if(!downloads){if(msgEl){msgEl.className="status err";msgEl.textContent="Downloads are not available here."}return}
+  try{await downloads.save({filename,data});if(msgEl){msgEl.className="status ok";msgEl.textContent="✓"}}
+  catch(e){if(e&&e.code==="declined")return;if(msgEl){msgEl.className="status err";msgEl.textContent="Download failed: "+(e&&e.code||"error")}}
+}
+async function sendToSheet(){
+  const msg=document.getElementById("saveMsg");
+  if(PREVIEW){msg.className="status";msg.textContent=tr(UI.pvSend);return}
+  if(!S.consent){msg.className="status err";msg.textContent=tr(UI.needConsent);return}
+  const rec=record();rec.saved_at=nowIso();
+  try{await fetch(SUBMIT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({row:flatRow(rec)})});msg.className="status ok";msg.textContent=tr(UI.sent)}
+  catch(e){msg.className="status err";msg.textContent=tr(UI.sendFail)}
+}
+
+/* ===== Voice studio: record each question in your own voice (works in the downloaded file) ===== */
+const REC_QS=()=>ALL_Q.filter(q=>q.q&&(q.kind==="voice"||q.kind==="slider"));
+const recs={};let mr=null,mrKey=null,mrStream=null,mrT0=0,mrTimer=null,studioMsg="";
+function idb(){return new Promise((res,rej)=>{try{const r=indexedDB.open("tysha-studio",1);r.onupgradeneeded=()=>r.result.createObjectStore("recs");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})}
+async function idbDo(mode,fn){try{const db=await idb();return await new Promise((res,rej)=>{const tx=db.transaction("recs",mode),st=tx.objectStore("recs");const r=fn(st);tx.oncomplete=()=>res(r&&r.result);tx.onerror=()=>rej(tx.error)})}catch(e){return null}}
+async function loadRecs(){try{const db=await idb();await new Promise(res=>{const st=db.transaction("recs").objectStore("recs");const c=st.openCursor();c.onsuccess=()=>{const cur=c.result;if(!cur)return res();const v=cur.value;recs[cur.key]={blob:v.blob,ext:v.ext,url:URL.createObjectURL(v.blob)};cur.continue()};c.onerror=()=>res()})}catch(e){}}
+function renderStudio(){
+  const qs=REC_QS(),n=qs.filter(q=>recs[lang+"-"+q.id]).length;
+  app.innerHTML=`<p class="eyebrow">${esc(lang.toUpperCase())} · ${n} ${esc(tr(UI.recOf))} ${qs.length} ${esc(tr(UI.recDone))}</p><h1>${esc(tr(UI.studio))}</h1><p class="lede">${esc(tr(UI.studioLede))}</p>
+  <div class="stack"><div class="card"><p class="note">${esc(tr(UI.studioTips))}</p>${studioMsg?`<p class="status err">${esc(studioMsg)}</p>`:""}</div>
+  ${qs.map(q=>{const k=lang+"-"+q.id,r=recs[k],live=mrKey===k;return `<div class="card srow"><span class="sid">${esc(k)}</span><p class="stext">${esc(tr(q.q))}</p>
+    <div class="row"><button type="button" class="recbtn ${live?"live":""}" data-rec="${k}">${esc(tr(live?UI.recStop:(r?UI.recAgain:UI.recStart)))}${live?` <span id="recTime">0:00</span>`:""}</button>
+    ${r&&!live?`<audio controls src="${r.url}" style="height:36px;max-width:100%"></audio><button type="button" class="linkbtn" data-recdel="${k}">${esc(tr(UI.recDel))}</button>`:""}</div></div>`}).join("")}
+  <div class="card"><button class="btn" type="button" id="recZip" ${Object.keys(recs).length?"":"disabled"}>${esc(tr(UI.recZip))}</button><p class="note">${esc(tr(UI.recZipNote))}</p><p class="status" id="zipMsg"></p></div></div>`;
+}
+async function toggleRec(key){
+  if(mr){const same=mrKey===key;try{mr.stop()}catch(e){}if(same)return;await new Promise(r=>setTimeout(r,300))}
+  stopSpeak();studioMsg="";
+  if(!navigator.mediaDevices||!window.MediaRecorder){studioMsg=tr(UI.micNo);return renderStudio()}
+  try{mrStream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}})}catch(e){studioMsg=tr(UI.micNo);return renderStudio()}
+  const type=["audio/webm;codecs=opus","audio/mp4","audio/webm"].find(t=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(t))||"";
+  const chunks=[];mr=new MediaRecorder(mrStream,type?{mimeType:type}:{});mrKey=key;
+  mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+  mr.onstop=async()=>{mrStream.getTracks().forEach(t=>t.stop());clearInterval(mrTimer);
+    const blob=new Blob(chunks,{type:mr.mimeType||type||"audio/webm"}),ext=/mp4|aac|m4a/.test(blob.type)?"m4a":"webm";
+    if(recs[key])URL.revokeObjectURL(recs[key].url);recs[key]={blob,ext,url:URL.createObjectURL(blob)};
+    await idbDo("readwrite",st=>st.put({blob,ext},key));mr=null;mrKey=null;renderStudio()};
+  mr.start();mrT0=Date.now();renderStudio();
+  mrTimer=setInterval(()=>{const el=document.getElementById("recTime");if(!el)return;const s=Math.floor((Date.now()-mrT0)/1000);el.textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0")},250);
+}
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+async function downloadZip(){
+  const m=document.getElementById("zipMsg");
+  try{if(!window.JSZip)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js");
+    const z=new JSZip();Object.entries(recs).forEach(([k,r])=>z.file(`${k}.${r.ext}`,r.blob));
+    const blob=await z.generateAsync({type:"blob"});const name=`tysha-voice-${stamp()}.zip`;
+    if(IN_VIEWER){if(!downloads)throw new Error("no downloads");await downloads.save({filename:name,data:new Uint8Array(await blob.arrayBuffer())})}
+    else{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800)}
+    m.className="status ok";m.textContent="✓"}
+  catch(e){m.className="status err";m.textContent="Download failed. Open the downloaded file in Chrome and try again."}
+}
+
+/* ===== Invitation ===== */
+function renderInvite(){
+  const text=S.invite&&S.invite[lang]!=null?S.invite[lang]:INVITE_DEFAULT[lang];
+  app.innerHTML=`<p class="eyebrow">&nbsp;</p><h1>${esc(tr(UI.invite))}</h1><p class="lede">${esc(tr(UI.inviteLede))}</p><div class="stack">
+  <div class="card"><textarea id="inviteText" style="min-height:220px">${esc(text)}</textarea>
+  <input id="inviteLink" value="${esc(S.link||"")}" placeholder="${esc(tr(UI.link))}" style="width:100%">
+  <div class="row"><button class="btn" type="button" id="copyInvite">${esc(tr(UI.copy))}</button><button class="btn ghost" type="button" id="resetInvite">${esc(tr(UI.reset))}</button></div><p class="status" id="inviteMsg"></p></div></div>`;
+}
+
+/* ===== Events ===== */
+function showNavMsg(){const m=document.getElementById("navMsg");if(m)m.textContent=tr(UI.needConsent);const c=document.getElementById("consent");if(c)c.focus()}
+function go(page){if(page>0&&!S.consent&&!PREVIEW){showNavMsg();return}S.page=Math.max(0,Math.min(PAGES.length-1,page));persist();render();window.scrollTo(0,0)}
+app.addEventListener("click",async e=>{
+  const t=e.target;const g=t.closest("[data-goto]");if(g)return go(+g.dataset.goto);
+  const n=t.closest("[data-nav]");if(n)return go(S.page+ +n.dataset.nav);
+  const ls=t.closest("[data-listen]");if(ls)return speak(ls.dataset.listen,ls);
+  const sq=t.closest("[data-showq]");if(sq){showQ[sq.dataset.showq]=!showQ[sq.dataset.showq];return renderKeepScroll()}
+  const mc=t.closest("[data-mic]");if(mc)return startVoice(mc.dataset.mic);
+  const ty=t.closest("[data-type]");if(ty){typing[ty.dataset.type]=true;const q=ALL_Q.find(x=>x.id===ty.dataset.type);const ta=document.getElementById("q_"+textKey(q));ta.hidden=false;ta.focus();ty.remove();return}
+  const wb=t.closest("[data-weather]");if(wb){S.calc.weather=+wb.dataset.weather;S.answers.weather=["breezy","fog","storm"][S.calc.weather];persist();
+    document.querySelectorAll("[data-weather]").forEach(b=>{const on=b===wb;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});updateCalc();return}
+  const rb=t.closest("[data-rec]");if(rb)return toggleRec(rb.dataset.rec);
+  const rd=t.closest("[data-recdel]");if(rd){const k=rd.dataset.recdel;if(recs[k])URL.revokeObjectURL(recs[k].url);delete recs[k];await idbDo("readwrite",st=>st.delete(k));return renderStudio()}
+  if(t.id==="recZip")return downloadZip();
+  if(t.id==="shareCopy"){const m=document.getElementById("shareMsg");try{await navigator.clipboard.writeText(shareText());m.className="status ok";m.textContent=tr(UI.shareCopied)}catch(_){m.className="status err";m.textContent="Ctrl/Cmd + C"}return}
+  if(t.id==="shareNative"){try{await navigator.share({title:tr(UI.shTitle),text:shareText()})}catch(_){}return}
+  if(t.id==="pvReset"){const pg=S.page;S=freshState();S.consent=true;S.page=pg;render();return}
+  if(t.id==="pvExit"){exitPreview();view="interview";render();window.scrollTo(0,0);return}
+  if(t.id==="sendBtn")return sendToSheet();
+  if(t.id==="printBtn"){document.getElementById("printArea").innerHTML=reportInner();window.print();return}
+  if(t.id==="dlReport")return offerFile(`tysha-report-${codeValue()||"anon"}-${stamp()}.html`,reportDoc(),"text/html",document.getElementById("saveMsg"));
+  if(t.id==="dlData")return offerFile(`tysha-answers-${codeValue()||"anon"}-${stamp()}.json`,JSON.stringify(record(),null,2),"application/json",document.getElementById("saveMsg"));
+  if(t.id==="copyInvite"){const txt=document.getElementById("inviteText").value+(S.link?"\n\n"+S.link:"");const m=document.getElementById("inviteMsg");
+    try{await navigator.clipboard.writeText(txt);m.className="status ok";m.textContent=tr(UI.copied)}catch(_){const ta=document.getElementById("inviteText");ta.focus();ta.select();m.className="status";m.textContent="Ctrl/Cmd + C"}return}
+  if(t.id==="resetInvite"){if(S.invite)delete S.invite[lang];persist();renderInvite();return}
+});
+function renderKeepScroll(){const y=window.scrollY;render();window.scrollTo(0,y)}
+app.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.id==="pvJump"){go(+t.value);return}
+  if(t.id==="consent"){S.consent=t.checked;persist();const m=document.getElementById("navMsg");if(m)m.textContent="";return}
+  if(t.dataset.q&&(t.type==="radio"||t.type==="checkbox")){
+    const q=t.dataset.q,k=t.dataset.k;
+    if(t.type==="radio"){S.answers[q]=k;t.closest(".pills").querySelectorAll("label.pill").forEach(l=>l.classList.toggle("sel",l.contains(t)))}
+    else{let a=Array.isArray(S.answers[q])?S.answers[q].slice():[];a=t.checked?[...new Set([...a,k])]:a.filter(x=>x!==k);S.answers[q]=a;t.closest("label").classList.toggle("sel",t.checked)}
+    if(q==="country"&&S.calc.presetAuto&&PRESETS[k]){Object.assign(S.calc,{preset:k,cur:PRESETS[k].cur},pick(PRESETS[k],["emp","repl","cov","wait","price"]))}
+    persist();
+    if(q==="working")renderKeepScroll();   /* opens the matching path */
+    return}
+  if(t.id==="k_preset"){const p=PRESETS[t.value];Object.assign(S.calc,{preset:t.value,presetAuto:false,cur:p.cur},pick(p,["emp","repl","cov","wait","price"]));persist();renderKeepScroll();const d=document.querySelector("details.more");if(d)d.open=true;return}
+  if(t.id==="k_self"){S.calc.selfEmp=t.value==="auto"?null:t.value==="yes";persist();updateCalc();return}
+  if(t.id==="k_prot"){S.calc.prot=t.value;persist();updateCalc();return}
+});
+app.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset.slider){const q=Q(t.dataset.slider),i=+t.value,r=sliderRange(q);
+    S.answers[q.id]=q.steps?q.steps[i].k:i;persist();
+    const box=document.getElementById("sl_"+q.id);box.classList.remove("untouched");box.style.setProperty("--p",((i-r.min)/(r.max-r.min)*100)+"%");
+    const out=document.getElementById("out_"+q.id);out.classList.remove("hint");out.textContent=sliderLabel(q,i);t.setAttribute("aria-valuetext",out.textContent);return}
+  if(t.dataset.code){S.code[t.dataset.code]=t.value;persist();const o=document.getElementById("codeOut");if(o)o.textContent=codeValue()||"· · · · · · ·";return}
+  if(t.dataset.q&&t.type!=="checkbox"&&t.type!=="radio"&&(t.tagName==="TEXTAREA"||t.tagName==="INPUT")){S.answers[t.dataset.q]=t.type==="number"?(t.value===""?"":+t.value):t.value;persist();return}
+  if(t.dataset.c){S.calc[t.dataset.c]=t.type==="number"?(t.value===""?"":+t.value):t.value;persist();updateCalc();return}
+  if(t.dataset.lv){S.calc.levels[+t.dataset.lv][t.dataset.f]=t.value===""?0:+t.value;persist();updateCalc();return}
+  if(t.id==="inviteText"){S.invite=S.invite||{};S.invite[lang]=t.value;persist();return}
+  if(t.id==="inviteLink"){S.link=t.value;persist();return}
+});
+if(TTS){try{speechSynthesis.getVoices()}catch(e){}if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=()=>{}}
+
+/* ===== Start ===== */
+render();
+loadRecs().then(()=>{if(view==="studio")render()});
+if(IN_VIEWER&&window.claude.use){(async()=>{
+  try{[userCap,downloads]=await Promise.all([claude.use("user"),claude.use("downloads")])}catch(e){}
+  if(userCap){try{isOwner=await userCap.isOwner()}catch(e){}}
+  renderTabs();
+})()}
+</script>
+
+</body></html>
