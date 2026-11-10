@@ -98,7 +98,7 @@ label.pill:focus-within{outline:2px solid var(--accent);outline-offset:2px}
 .consent .note{font-size:11.5px;line-height:1.5}
 .consent .eyebrow{font-size:10px}
 .hello{font-size:clamp(28px,6vw,36px)}
-.lede.serif{font:italic 400 23px/1.35 var(--f-display);color:var(--muted);max-width:26ch;margin-left:auto;text-align:right}
+.lede.serif{font:italic 400 19px/1.45 var(--f-display);color:var(--muted);max-width:34ch}
 .code4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .code4 label{display:grid;gap:4px;font-size:11px;color:var(--muted);line-height:1.3;align-content:end}
 .code4 input{text-align:center;font:500 18px var(--f-mono);text-transform:uppercase;padding:8px 4px;width:100%}
@@ -675,7 +675,7 @@ function renderInterview(){
 }
 
 function welcomeHTML(){const code=codeValue();
-  return `<p class="eyebrow">&nbsp;</p><h1 class="hello">${esc(tr(UI.hello))}</h1><p class="lede serif">${esc(tr(UI.helloLede))}</p>
+  return `<p class="eyebrow">&nbsp;</p><h1 class="hello">${esc(tr(UI.hello))}</h1><p class="lede serif">${esc(tr(UI.helloLede)).replace(/\.\s+/,".<br>")}</p>
   <div class="breath"><div class="orb"><span class="b-in">${esc(tr(UI.breatheIn))}</span><span class="b-out">${esc(tr(UI.breatheOut))}</span><span class="b-still">${esc(tr(UI.breathe))}</span></div></div>
   <div class="stack">
   <div class="card consent"><p class="eyebrow">${esc(tr(UI.consentHead))}</p>
