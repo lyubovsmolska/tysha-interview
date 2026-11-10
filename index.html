@@ -197,7 +197,7 @@ td input{width:72px;padding:3px 6px;border-radius:8px}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.6.1 (2026-11-09, own voice EN/DE/UK)";
+const FORM_VERSION = "v0.7.2 (2026-11-10)";
 const CONTACT_EMAIL = "";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -296,8 +296,13 @@ const UI={
   sentUnsure:L("We couldn't confirm it arrived. A copy of your answers is downloading: please send it to Liubov.","Wir konnten nicht bestätigen, dass es angekommen ist. Eine Kopie deiner Antworten wird heruntergeladen: bitte schick sie an Liubov.","Не вдалося підтвердити доставку. Копія ваших відповідей завантажується: будь ласка, надішліть її Любові."),
   sendFail:L("Couldn't send. Please download and send the file.","Senden fehlgeschlagen. Bitte herunterladen und Datei schicken.","Не вдалося. Завантажте й надішліть файл."),
   noSend:L("Download your answers and send the file to Liubov.","Lade deine Antworten herunter und schick die Datei an Liubov.","Завантажте відповіді й надішліть файл Любові."),
-  print:L("Save as PDF","Als PDF speichern","Зберегти як PDF"), dlReport:L("Report (.html)","Bericht (.html)","Звіт (.html)"), dlData:L("Answers (.json)","Antworten (.json)","Відповіді (.json)"),
-  notes:L("Interviewer notes","Notizen","Нотатки"), report:L("Personal report","Persönlicher Bericht","Особистий звіт"),
+  print:L("Save as PDF","Als PDF speichern","Зберегти як PDF"), dlReport:L("Mental Health Memo (.html)","Mental-Health-Memo (.html)","Нотатка про психічне здоров'я (.html)"), dlData:L("Answers (.json)","Antworten (.json)","Відповіді (.json)"),
+  notes:L("Interviewer notes","Notizen","Нотатки"), report:L("Mental Health Memo","Mental-Health-Memo","Нотатка про психічне здоров'я"),
+  commitHead:L("My daily commitment","Mein tägliches Versprechen","Моє щоденне зобов'язання"),
+  commitTime:L("Time I commit to myself","Zeit, die ich mir schenke","Час, який я дарую собі"),
+  commitWhen:L("Best time of my day","Beste Zeit an meinem Tag","Найкращий час мого дня"),
+  commitNone:L("not chosen yet","noch nicht gewählt","ще не обрано"),
+  perDayShort:L("a day","am Tag","на день"),
   version:L("Version","Version","Версія"), started:L("Started","Begonnen","Розпочато"), exported:L("Exported","Exportiert","Експортовано"),
   calcLede:L("Pick a weather and see what such a year can take.","Wähle ein Wetter und sieh, was so ein Jahr nehmen kann.","Оберіть погоду й подивіться, що такий рік може забрати."),
   inviteLede:L("Edit, add the link, copy, send.","Bearbeiten, Link einfügen, kopieren, senden.","Відредагуйте, додайте посилання, скопіюйте, надішліть."),
@@ -890,6 +895,10 @@ function reportInner(){
   let h=`<h1 style="font-family:Georgia,serif;margin:0 0 4px">Tysha · ${esc(tr(UI.report))}</h1>
   <p style="font:12px monospace;color:#555;margin:0 0 16px">${esc(codeValue()||"—")} · ${esc(tr(UI.version))} ${esc(FORM_VERSION)} · ${esc(tr(UI.started))}: ${esc(new Date(S.startedAt).toLocaleString())} · ${esc(tr(UI.exported))}: ${esc(new Date().toLocaleString())} · ${lang.toUpperCase()}</p>
   <div style="border:2px solid #333;border-radius:14px;padding:14px;margin-bottom:14px;font-size:15px">${esc(tr(resultMessage()))}</div>`;
+  {const ti=sliderIndex(Q("time_daily")),when=labels("time_when");
+   h+=`<div style="background:#E3EEEA;border-radius:14px;padding:14px 16px;margin-bottom:14px"><div style="font:600 12px sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#4C7770;margin-bottom:6px">${esc(tr(UI.commitHead))}</div>
+    <table style="border-collapse:collapse;font-size:15px"><tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitTime))}</td><td style="padding:3px 0"><b>${ti==null?esc(tr(UI.commitNone)):esc(sliderLabel(Q("time_daily"),ti))+" "+esc(tr(UI.perDayShort))}</b></td></tr>
+    <tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitWhen))}</td><td style="padding:3px 0"><b>${when.length?esc(when.join(", ")):esc(tr(UI.commitNone))}</b></td></tr></table></div>`}
   const w=S.calc.weather;
   if(w!=null){const {I,money,time}=equivalents(w);
     h+=`<div style="border:1px solid #999;border-radius:14px;padding:14px;margin-bottom:14px"><b>${esc(tr(UI.canTake[w]))}</b><ul style="margin:6px 0 0;padding-left:18px">`+
@@ -901,7 +910,7 @@ function reportInner(){
     qs.forEach(q=>{h+=`<p style="margin:6px 0;font-size:13px"><b>${esc(tr(q.q||q.title))}</b><br>${esc(answerText(q))}</p>`})});
   return h+`<p style="font-size:11px;color:#555;margin-top:16px">${esc(tr(UI.gdpr))}</p>`;
 }
-function reportDoc(){return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tysha report ${esc(codeValue())}</title>
+function reportDoc(){return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tysha Mental Health Memo ${esc(codeValue())}</title>
 <style>body{font:14px/1.5 -apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:20px;color:#111;background:#fff}button{font:600 14px sans-serif;padding:10px 18px;border-radius:999px;border:0;background:#4C7770;color:#fff;margin-bottom:16px}@media print{button{display:none}}</style></head>
 <body><button onclick="window.print()">${esc(tr(UI.print))}</button>${reportInner()}</body></html>`}
 const stamp=()=>new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
@@ -1000,7 +1009,7 @@ app.addEventListener("click",async e=>{
   if(t.id==="pvExit"){exitPreview();view="interview";render();window.scrollTo(0,0);return}
   if(t.id==="sendBtn")return sendToSheet();
   if(t.id==="printBtn"){document.getElementById("printArea").innerHTML=reportInner();window.print();return}
-  if(t.id==="dlReport")return offerFile(`tysha-report-${codeValue()||"anon"}-${stamp()}.html`,reportDoc(),"text/html",document.getElementById("saveMsg"));
+  if(t.id==="dlReport")return offerFile(`tysha-mental-health-memo-${codeValue()||"anon"}-${stamp()}.html`,reportDoc(),"text/html",document.getElementById("saveMsg"));
   if(t.id==="dlData")return offerFile(`tysha-answers-${codeValue()||"anon"}-${stamp()}.json`,JSON.stringify(record(),null,2),"application/json",document.getElementById("saveMsg"));
   if(t.id==="copyInvite"){const txt=document.getElementById("inviteText").value+(S.link?"\n\n"+S.link:"");const m=document.getElementById("inviteMsg");
     try{await navigator.clipboard.writeText(txt);m.className="status ok";m.textContent=tr(UI.copied)}catch(_){const ta=document.getElementById("inviteText");ta.focus();ta.select();m.className="status";m.textContent="Ctrl/Cmd + C"}return}
