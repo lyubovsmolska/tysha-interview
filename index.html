@@ -189,12 +189,12 @@ body{background-attachment:fixed}
 .breath{position:relative}
 .breath::before,.breath::after{content:"";position:absolute;left:50%;top:50%;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:50%;border:1px solid var(--accent-mid);opacity:0}
 .stars{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
-.stars i{position:absolute;width:var(--s);height:var(--s);border-radius:50%;background:var(--star);opacity:.35;
-  box-shadow:0 0 calc(var(--s)*3) calc(var(--s)*.6) var(--star-glow)}
+.stars i{position:absolute;width:var(--s);height:var(--s);border-radius:50%;background:var(--star);opacity:.6;
+  box-shadow:0 0 calc(var(--s)*4) calc(var(--s)*1) var(--star-glow)}
 .stars i.cross::before,.stars i.cross::after{content:"";position:absolute;left:50%;top:50%;background:var(--star);border-radius:2px;transform:translate(-50%,-50%)}
-.stars i.cross::before{width:calc(var(--s)*5);height:1px}
-.stars i.cross::after{width:1px;height:calc(var(--s)*5)}
-:root{--star:#B8964F;--star-glow:rgba(214,186,120,.45)}
+.stars i.cross::before{width:calc(var(--s)*6);height:1.5px}
+.stars i.cross::after{width:1.5px;height:calc(var(--s)*6)}
+:root{--star:#A9822F;--star-glow:rgba(201,160,70,.55)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--star:#F3E6C4;--star-glow:rgba(243,230,196,.35)}}
 .taglist{display:flex;flex-wrap:wrap;gap:6px}
 .taglist span{background:var(--accent-soft);color:var(--ink);border:1px solid var(--accent);border-radius:999px;padding:3px 11px;font-size:13px}
@@ -213,7 +213,7 @@ body{background-attachment:fixed}
   .card{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
   .stack>.card:nth-child(2){animation-delay:.08s}.stack>.card:nth-child(3){animation-delay:.16s}.stack>.card:nth-child(4){animation-delay:.24s}
   #calcOut .card{animation:none}
-  .stars i{opacity:0;animation:twinkle var(--d) ease-in-out infinite var(--w)}
+  .stars i{opacity:.15;animation:twinkle var(--d) ease-in-out infinite var(--w)}
   .breath .orb{animation:breathe 11s ease-in-out infinite}
   .mic.live::after{animation:ring 1.6s ease-out infinite}
   .wxb.on .wxi{animation:bob 4s ease-in-out infinite}
@@ -227,7 +227,7 @@ body{background-attachment:fixed}
 @keyframes drift2{to{transform:translate(-12vmax,-8vmax) scale(.9)}}
 @keyframes drift3{to{transform:translate(10vmax,-12vmax) scale(1.08)}}
 @keyframes ripple{0%{transform:scale(.9);opacity:.5}100%{transform:scale(2);opacity:0}}
-@keyframes twinkle{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:var(--o);transform:scale(1)}}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:var(--o);transform:scale(1.15)}}
 @keyframes settle{0%{transform:scale(.97)}100%{transform:none}}
 @keyframes glow{0%,100%{box-shadow:0 0 0 5px var(--glow)}50%{box-shadow:0 0 0 10px var(--glow)}}
 </style>
@@ -1104,7 +1104,7 @@ if(TTS){try{speechSynthesis.getVoices()}catch(e){}if(speechSynthesis.onvoicescha
 /* ===== Start ===== */
 /* a quiet sky: tiny dots that twinkle slowly (same pattern on every visit) */
 (function(){const el=document.querySelector(".stars");if(!el)return;let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
-  let h="";for(let i=0;i<46;i++){const big=rnd()<.12;h+=`<i class="${big?"cross":""}" style="left:${(rnd()*100).toFixed(2)}%;top:${(rnd()*100).toFixed(2)}%;--s:${(big?2:1+rnd()*1.3).toFixed(2)}px;--d:${(5+rnd()*7).toFixed(1)}s;--w:${(-rnd()*12).toFixed(1)}s;--o:${(big?.9:.45+rnd()*.4).toFixed(2)}"></i>`}
+  let h="";for(let i=0;i<80;i++){const big=rnd()<.16;h+=`<i class="${big?"cross":""}" style="left:${(rnd()*100).toFixed(2)}%;top:${(rnd()*100).toFixed(2)}%;--s:${(big?2.6:1.8+rnd()*1.6).toFixed(2)}px;--d:${(4+rnd()*6).toFixed(1)}s;--w:${(-rnd()*10).toFixed(1)}s;--o:${(big?1:.7+rnd()*.3).toFixed(2)}"></i>`}
   el.innerHTML=h})();
 render();
 loadRecs().then(()=>{if(view==="studio")render()});
