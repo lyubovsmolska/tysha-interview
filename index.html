@@ -199,6 +199,17 @@ body{background-attachment:fixed}
 .stars i.cross::after{width:1px;height:calc(var(--s)*4)}
 :root{--star:#9DA3A8;--star-glow:rgba(190,198,205,.7)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--star:#E4E8EC;--star-glow:rgba(228,232,236,.35)}}
+.breath .orb{position:relative;box-shadow:0 10px 30px rgba(60,48,36,.10)}
+.breath .orb span{position:absolute;inset:0;display:grid;place-items:center;opacity:0}
+.breath .orb .b-still{opacity:1}
+@media (prefers-reduced-motion:no-preference){
+  .breath .orb .b-still{opacity:0}
+  .breath .orb .b-in{animation:lblIn 12s ease-in-out infinite}
+  .breath .orb .b-out{animation:lblOut 12s ease-in-out infinite}
+}
+/* 12 s cycle: breathe in 4.2 s, pause 1.2 s, breathe out 5.4 s, pause 1.2 s */
+@keyframes lblIn{0%{opacity:0}6%{opacity:1}38%{opacity:1}44%{opacity:0}100%{opacity:0}}
+@keyframes lblOut{0%,44%{opacity:0}50%{opacity:1}86%{opacity:1}92%,100%{opacity:0}}
 .taglist{display:flex;flex-wrap:wrap;gap:6px}
 .taglist span{background:var(--accent-soft);color:var(--ink);border:1px solid var(--accent);border-radius:999px;padding:3px 11px;font-size:13px}
 #printArea{display:none}
@@ -208,8 +219,8 @@ body{background-attachment:fixed}
   .ambient span:nth-child(1){animation:drift1 48s ease-in-out infinite alternate}
   .ambient span:nth-child(2){animation:drift2 62s ease-in-out infinite alternate}
   .ambient span:nth-child(3){animation:drift3 54s ease-in-out infinite alternate}
-  .breath::before{animation:ripple 11s ease-out infinite}
-  .breath::after{animation:ripple 11s ease-out infinite 5.5s}
+  .breath::before{animation:ripple 12s ease-out infinite}
+  .breath::after{animation:ripple 12s ease-out infinite .9s}
   label.pill.sel{animation:settle .7s cubic-bezier(.2,.7,.2,1)}
   .path button.on{animation:glow 6s ease-in-out infinite}
   .sl:not(.untouched) input[type=range]::-webkit-slider-thumb{animation:glow 6s ease-in-out infinite}
@@ -217,19 +228,19 @@ body{background-attachment:fixed}
   .stack>.card:nth-child(2){animation-delay:.08s}.stack>.card:nth-child(3){animation-delay:.16s}.stack>.card:nth-child(4){animation-delay:.24s}
   #calcOut .card{animation:none}
   .stars i{opacity:.15;animation:twinkle var(--d) ease-in-out infinite var(--w)}
-  .breath .orb{animation:breathe 11s ease-in-out infinite}
+  .breath .orb{animation:breathe 12s cubic-bezier(.45,0,.55,1) infinite}
   .mic.live::after{animation:ring 1.6s ease-out infinite}
   .wxb.on .wxi{animation:bob 4s ease-in-out infinite}
   .card,.wxb,label.pill{transition:border-color .4s,box-shadow .5s,background .4s,color .4s}
   .track .dot{transition:left .6s ease}
 }
-@keyframes breathe{0%,100%{transform:scale(.86)}50%{transform:scale(1.04)}}
+@keyframes breathe{0%{transform:scale(.74);box-shadow:0 6px 16px rgba(60,48,36,.06),0 0 0 0 var(--glow)}35%{transform:scale(1.14);box-shadow:0 16px 40px rgba(60,48,36,.12),0 0 0 14px rgba(120,140,110,.09)}45%{transform:scale(1.14);box-shadow:0 16px 40px rgba(60,48,36,.12),0 0 0 14px rgba(120,140,110,.09)}90%{transform:scale(.74);box-shadow:0 6px 16px rgba(60,48,36,.06),0 0 0 0 var(--glow)}100%{transform:scale(.74);box-shadow:0 6px 16px rgba(60,48,36,.06),0 0 0 0 var(--glow)}}
 @keyframes ring{from{transform:scale(.9);opacity:.6}to{transform:scale(1.35);opacity:0}}
 @keyframes bob{50%{transform:translateY(-2px)}}
 @keyframes drift1{to{transform:translate(14vmax,10vmax) scale(1.12)}}
 @keyframes drift2{to{transform:translate(-12vmax,-8vmax) scale(.9)}}
 @keyframes drift3{to{transform:translate(10vmax,-12vmax) scale(1.08)}}
-@keyframes ripple{0%{transform:scale(.9);opacity:.5}100%{transform:scale(2);opacity:0}}
+@keyframes ripple{0%,44%{transform:scale(1.1);opacity:0}48%{opacity:.55}90%,100%{transform:scale(2.1);opacity:0}}
 @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:var(--o);transform:scale(1.15)}}
 @keyframes settle{0%{transform:scale(.97)}100%{transform:none}}
 @keyframes glow{0%,100%{box-shadow:0 0 0 5px var(--glow)}50%{box-shadow:0 0 0 10px var(--glow)}}
@@ -271,6 +282,7 @@ const UI={
   hello:L("Hello, friend","Hallo, du","Привіт, друже"),
   helloLede:L("10 calm minutes about how you feel and how you care for yourself. Skip anything, stop any time.","10 ruhige Minuten darüber, wie es dir geht und wie du für dich sorgst. Überspring, was du willst.","10 спокійних хвилин про те, як ви почуваєтеся і як дбаєте про себе. Можна пропустити будь-що."),
   breathe:L("one breath","ein Atemzug","один вдих"),
+  breatheIn:L("breathe in","einatmen","вдих"), breatheOut:L("breathe out","ausatmen","видих"),
   consentHead:L("Consent:","Einverständnis:","Згода:"),
   consent:L("With this I am confirming to share the information with Liubov Smolska (Tysha) which can be used for the product development reasons on the mental health tech product.",
             "Hiermit bestätige ich, dass ich die Informationen mit Liubov Smolska (Tysha) teile und dass sie für die Produktentwicklung des Mental-Health-Tech-Produkts verwendet werden dürfen.",
@@ -663,7 +675,7 @@ function renderInterview(){
 
 function welcomeHTML(){const code=codeValue();
   return `<p class="eyebrow">&nbsp;</p><h1>${esc(tr(UI.hello))}</h1><p class="lede serif">${esc(tr(UI.helloLede))}</p>
-  <div class="breath"><div class="orb">${esc(tr(UI.breathe))}</div></div>
+  <div class="breath"><div class="orb"><span class="b-in">${esc(tr(UI.breatheIn))}</span><span class="b-out">${esc(tr(UI.breatheOut))}</span><span class="b-still">${esc(tr(UI.breathe))}</span></div></div>
   <div class="stack">
   <div class="card consent"><p class="eyebrow">${esc(tr(UI.consentHead))}</p>
    <label><input type="checkbox" id="consent" ${S.consent?"checked":""}><span>${esc(tr(UI.consent))}</span></label>
