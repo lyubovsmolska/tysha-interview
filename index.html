@@ -111,6 +111,12 @@ button.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line
 button.btn:disabled{opacity:.4;cursor:not-allowed}
 .status{font-size:13px;min-height:1.3em;margin:0}
 .status.ok{color:var(--ok)} .status.err{color:var(--l3)}
+.sentbox{display:grid;justify-items:center;gap:6px;text-align:center;padding:18px 16px;border-radius:20px;background:var(--accent-soft);border:1px solid var(--accent)}
+.sentbox .tick{width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+.sentbox .tick svg{width:22px;height:22px}
+.sentbox h3{margin:0;font:500 24px/1.2 var(--f-display)}
+.sentbox p{margin:0;font-size:13.5px;color:var(--muted);max-width:36ch}
+@media (prefers-reduced-motion:no-preference){.sentbox{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}}
 details.more{border-top:1px solid var(--line);padding-top:10px}
 details.more summary{cursor:pointer;color:var(--muted);font-size:13px}
 /* slider: move the dot */
@@ -264,10 +270,12 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.7.2 (2026-11-10)";
-const CONTACT_EMAIL = "";       // address for data requests and for sending downloaded files
+const FORM_VERSION = "v0.8.2 (2026-11-12)";
+const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
+const CONTACT_SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzuFfQZu-Zbyd3G_7DZQRHZYQoCJyoX_XFkMUAsArSwX_TX_cH0KefnqzxpPNV0WS9z/exec";  // SEPARATE Apps Script web app (/exec) bound to the sheet "Tysha – Contacts"; contact data never goes to SUBMIT_URL
+const CONTACT_CONSENT_VERSION = "c1 (2026-11-12)";
 /* =================================== */
 
 const L=(en,de,uk)=>({en,de,uk});
@@ -285,12 +293,13 @@ const UI={
   breathe:L("one breath","ein Atemzug","один вдих"),
   breatheIn:L("breathe in","einatmen","вдих"), breatheOut:L("breathe out","ausatmen","видих"),
   consentHead:L("Consent:","Einverständnis:","Згода:"),
-  consent:L("With this I am confirming to share the information with Liubov Smolska (Tysha) which can be used for the product development reasons on the mental health tech product.",
-            "Hiermit bestätige ich, dass ich die Informationen mit Liubov Smolska (Tysha) teile und dass sie für die Produktentwicklung des Mental-Health-Tech-Produkts verwendet werden dürfen.",
-            "Цим я підтверджую, що ділюся інформацією з Любов'ю Смольською (Liubov Smolska, Tysha) і що її можна використовувати для розробки продукту у сфері технологій для психічного здоров'я."),
+  consent:L("With this I am confirming to share the information with Tysha which can be used for the product development reasons on the mental health tech product.",
+            "Hiermit bestätige ich, dass ich die Informationen mit Tysha teile und dass sie für die Produktentwicklung des Mental-Health-Tech-Produkts verwendet werden dürfen.",
+            "Цим я підтверджую, що ділюся інформацією з Tysha і що її можна використовувати для розробки продукту у сфері технологій для психічного здоров'я."),
   gdpr:L("Treated according to GDPR: stored under your anonymous code, used only for Tysha research, deleted on request. Not therapy.",
          "Verarbeitung gemäß DSGVO: gespeichert unter deinem anonymen Code, nur für Tysha-Forschung, auf Wunsch gelöscht. Keine Therapie.",
          "Обробка згідно з GDPR: зберігається під анонімним кодом, лише для досліджень Tysha, видаляється на запит. Не є терапією."),
+  contact:L("Questions, or want your answers deleted? Write to","Fragen, oder sollen deine Antworten gelöscht werden? Schreib an","Питання або хочете видалити свої відповіді? Пишіть на"),
   crisis:L("In crisis? Pause and call 112 or a helpline (findahelpline.com).","In einer Krise? Pause machen, 112 oder TelefonSeelsorge 0800 111 0 111.","У кризі? Зробіть паузу й зателефонуйте 112 або на гарячу лінію (findahelpline.com)."),
   codeHead:L("Your anonymous code","Dein anonymer Code","Ваш анонімний код"),
   c1:L("Mother's name, 2 letters","Name der Mutter, 2 Buchst.","Ім'я мами, 2 літери"),
@@ -359,11 +368,34 @@ const UI={
   spendNow:L("a month on wellbeing today","im Monat heute für Wohlbefinden","на місяць на добробут сьогодні"),
   open:L("not answered yet","noch offen","ще без відповіді"),
   /* finish */
-  send:L("Send to Liuba","An Liuba senden","Надіслати Любі"), sent:L("Sent and saved. Thank you!","Gesendet und gespeichert. Danke!","Надіслано й збережено. Дякую!"),
+  send:L("Send to Tysha","An Tysha senden","Надіслати Tysha"), sent:L("Sent and saved. Thank you!","Gesendet und gespeichert. Danke!","Надіслано й збережено. Дякую!"),
   sending:L("Sending…","Wird gesendet…","Надсилаю…"),
-  sentUnsure:L("We couldn't confirm it arrived. A copy of your answers is downloading: please send it to Liuba.","Wir konnten nicht bestätigen, dass es angekommen ist. Eine Kopie deiner Antworten wird heruntergeladen: bitte schick sie an Liuba.","Не вдалося підтвердити доставку. Копія ваших відповідей завантажується: будь ласка, надішліть її Любі."),
+  anonNote:L("Your answers are sent anonymously: only your code goes with them, never your name or contact details. If you like, you can leave your contact separately in the next step.","Deine Antworten werden anonym gesendet: Nur dein Code geht mit, nie dein Name oder deine Kontaktdaten. Wenn du möchtest, kannst du deinen Kontakt im nächsten Schritt getrennt hinterlassen.","Ваші відповіді надсилаються анонімно: лише з вашим кодом, ніколи з ім'ям чи контактами. За бажання ви можете окремо залишити контакт на наступному кроці."),
+  ctEyebrow:L("Separate from your answers","Getrennt von deinen Antworten","Окремо від ваших відповідей"),
+  ctHead:L("Stay in touch (optional)","In Kontakt bleiben (optional)","Залишатися на зв'язку (необов'язково)"),
+  ctLede:L("If you'd like to join the pilot, partner with Tysha or get updates, leave your contact here. It goes to a separate list and is never linked to your answers or your code.","Wenn du beim Pilot dabei sein, mit Tysha zusammenarbeiten oder Updates bekommen möchtest, hinterlasse hier deinen Kontakt. Er kommt in eine getrennte Liste und wird nie mit deinen Antworten oder deinem Code verbunden.","Якщо хочете долучитися до пілоту, стати партнером Tysha чи отримувати новини, залиште тут контакт. Він потрапляє в окремий список і ніколи не поєднується з вашими відповідями чи кодом."),
+  ctPilot:L("Join the Tysha pilot in 2027","Beim Tysha-Pilot 2027 dabei sein","Долучитися до пілоту Tysha у 2027"),
+  ctPartner:L("Partner with Tysha","Partner von Tysha werden","Стати партнером Tysha"),
+  ctNews:L("Newsletter and Tysha updates by email","Newsletter und Tysha-Updates per E-Mail","Розсилка й новини Tysha на email"),
+  ctName:L("First name (optional)","Vorname (optional)","Ім'я (необов'язково)"),
+  ctCompany:L("Company (optional)","Firma (optional)","Компанія (необов'язково)"),
+  ctEmail:L("Email","E-Mail","Email"), ctPhone:L("Phone (optional)","Telefon (optional)","Телефон (необов'язково)"),
+  ctConsent:L("I agree that Tysha stores my contact details to contact me only about what I ticked above. I can withdraw at any time by writing to {email}; my details are then deleted.","Ich bin einverstanden, dass Tysha meine Kontaktdaten speichert, um mich nur zu dem zu kontaktieren, was ich oben angekreuzt habe. Ich kann jederzeit widerrufen, per E-Mail an {email}; meine Daten werden dann gelöscht.","Я погоджуюся, що Tysha зберігає мої контактні дані, щоб зв'язуватися зі мною лише щодо позначеного вище. Я можу будь-коли відкликати згоду, написавши на {email}; тоді мої дані буде видалено."),
+  ctGdpr:L("Legal basis: your consent (Art. 6(1)(a) GDPR). Stored separately from the interview, without your code. Kept until you withdraw, at the latest 24 months after the last contact. Newsletter only after a confirmation email.","Rechtsgrundlage: deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Getrennt vom Interview gespeichert, ohne deinen Code. Aufbewahrt bis zum Widerruf, höchstens 24 Monate nach dem letzten Kontakt. Newsletter erst nach einer Bestätigungs-E-Mail.","Правова підстава: ваша згода (ст. 6(1)(a) GDPR). Зберігається окремо від інтерв'ю, без вашого коду. До відкликання згоди, щонайбільше 24 місяці після останнього контакту. Розсилка лише після листа-підтвердження."),
+  ctSend:L("Send my contact","Kontakt senden","Надіслати контакт"),
+  ctNeedWhat:L("Please tick at least one option and enter an email or phone number.","Bitte mindestens eine Option ankreuzen und E-Mail oder Telefon angeben.","Позначте хоча б один варіант і вкажіть email або телефон."),
+  ctBadEmail:L("Please check the email address.","Bitte die E-Mail-Adresse prüfen.","Перевірте адресу email."),
+  ctNeedConsent:L("Please tick the consent box.","Bitte das Einverständnis ankreuzen.","Позначте згоду."),
+  ctSentHead:L("Thank you, we'll be in touch","Danke, wir melden uns","Дякуємо, ми зв'яжемося з вами"),
+  ctSentBody:L("Your contact was saved separately from your answers. To withdraw, write to {email}.","Dein Kontakt wurde getrennt von deinen Antworten gespeichert. Zum Widerrufen schreib an {email}.","Ваш контакт збережено окремо від відповідей. Щоб відкликати згоду, напишіть на {email}."),
+  ctFail:L("Couldn't send your contact. Please write to {email} instead.","Kontakt konnte nicht gesendet werden. Bitte schreib stattdessen an {email}.","Не вдалося надіслати контакт. Напишіть, будь ласка, на {email}."),
+  ctMailOnly:L("Want to join the pilot, partner with Tysha or get updates? Write to {email}. Your contact is kept separate from your answers.","Beim Pilot dabei sein, Partner werden oder Updates bekommen? Schreib an {email}. Dein Kontakt bleibt getrennt von deinen Antworten.","Хочете до пілоту, у партнери чи отримувати новини? Напишіть на {email}. Ваш контакт зберігається окремо від відповідей."),
+  sentAnon:L("Sent anonymously under your code","Anonym unter deinem Code gesendet","Надіслано анонімно під вашим кодом"),
+  sentHead:L("Your answers were sent to Tysha","Deine Antworten wurden an Tysha gesendet","Ваші відповіді надіслано Tysha"),
+  sentBody:L("Thank you for your time and trust. You can still save your Mental Health Memo below.","Danke für deine Zeit und dein Vertrauen. Dein Mental-Health-Memo kannst du unten weiterhin speichern.","Дякуємо за ваш час і довіру. Нижче ви ще можете зберегти свою нотатку про психічне здоров'я."),
+  sentUnsure:L("We couldn't confirm it arrived. A copy of your answers is downloading: please send it to Tysha.","Wir konnten nicht bestätigen, dass es angekommen ist. Eine Kopie deiner Antworten wird heruntergeladen: bitte schick sie an Tysha.","Не вдалося підтвердити доставку. Копія ваших відповідей завантажується: будь ласка, надішліть її Tysha."),
   sendFail:L("Couldn't send. Please download and send the file.","Senden fehlgeschlagen. Bitte herunterladen und Datei schicken.","Не вдалося. Завантажте й надішліть файл."),
-  noSend:L("Download your answers and send the file to Liuba.","Lade deine Antworten herunter und schick die Datei an Liuba.","Завантажте відповіді й надішліть файл Любі."),
+  noSend:L("Download your answers and send the file to Tysha.","Lade deine Antworten herunter und schick die Datei an Tysha.","Завантажте відповіді й надішліть файл Tysha."),
   print:L("Save as PDF","Als PDF speichern","Зберегти як PDF"), dlReport:L("Mental Health Memo (.html)","Mental-Health-Memo (.html)","Нотатка про психічне здоров'я (.html)"), dlData:L("Answers (.json)","Antworten (.json)","Відповіді (.json)"),
   notes:L("Interviewer notes","Notizen","Нотатки"), report:L("Mental Health Memo","Mental-Health-Memo","Нотатка про психічне здоров'я"),
   commitHead:L("My daily commitment","Mein tägliches Versprechen","Моє щоденне зобов'язання"),
@@ -467,8 +499,8 @@ const HABITS=[
    opts:[O("none","None","Keine","Жодних"),O("app","Mind or sleep app","Meditations- oder Schlaf-App","Застосунок для медитації чи сну"),O("gym","Gym or sports club","Fitnessstudio, Sportverein","Спортзал чи клуб"),O("studio","Yoga or Pilates studio","Yoga- oder Pilates-Studio","Студія йоги чи пілатесу"),O("therapy","Therapy or coaching (self-paid)","Therapie, Coaching (selbst bezahlt)","Терапія чи коучинг (власним коштом)"),O("massage","Massage, spa","Massage, Spa","Масаж, спа"),O("wearable","Wearable membership","Wearable-Mitgliedschaft","Підписка на ґаджет")]},
   {id:"spend_now",kind:"slider",money:true,min:0,max:200,step:5,title:L("What do you spend on your wellbeing per month today?","Was gibst du heute im Monat für dein Wohlbefinden aus?","Скільки ви зараз витрачаєте на свій добробут на місяць?"),
    q:L("Roughly, what do you spend per month on your wellbeing today?","Was gibst du heute ungefähr im Monat für dein Wohlbefinden aus?","Приблизно скільки ви витрачаєте на свій добробут на місяць?"),lo:L("nothing","nichts","нічого"),hi:L("200+","200+","200+")},
-  {id:"spend_wish",kind:"slider",money:true,min:0,max:50,step:1,title:L("Monthly budget for something that truly helps","Monatsbudget für etwas, das wirklich hilft","Місячний бюджет на те, що справді допомагає"),
-   q:L("How much would you spend per month on a solution that truly helps you feel calmer?","Wie viel würdest du im Monat für eine Lösung ausgeben, die dir wirklich hilft, ruhiger zu werden?","Скільки ви витрачали б на місяць на рішення, яке справді допомагає бути спокійнішим?"),lo:L("nothing","nichts","нічого"),hi:L("50+","50+","50+")},
+  {id:"spend_wish",kind:"slider",money:true,min:0,max:150,step:1,title:L("Additional monthly budget for something that truly helps","Zusätzliches Monatsbudget für etwas, das wirklich hilft","Додатковий місячний бюджет на те, що справді допомагає"),
+   q:L("How much would you spend per month on a solution that truly helps you feel calmer?","Wie viel würdest du im Monat für eine Lösung ausgeben, die dir wirklich hilft, ruhiger zu werden?","Скільки ви витрачали б на місяць на рішення, яке справді допомагає бути спокійнішим?"),lo:L("nothing","nichts","нічого"),hi:L("150+","150+","150+")},
   {id:"time_daily",kind:"slider",title:L("How much time could you give a daily routine?","Wie viel Zeit könntest du einer täglichen Routine geben?","Скільки часу ви могли б приділяти щоденній рутині?"),
    q:L("How many minutes a day could you give to a calm routine just for you?","Wie viele Minuten am Tag könntest du einer ruhigen Routine nur für dich geben?","Скільки хвилин на день ви могли б приділити спокійній рутині лише для себе?"),
    steps:["0","3","5","10","15","20","30","45","60+"].map(m=>O(m,m+" min",m+" Min.",m+" хв")),lo:L("no time","keine Zeit","немає часу"),hi:L("an hour","eine Stunde","година")},
@@ -507,10 +539,11 @@ function factorImpact(w,I){
 const WORTH_Q=[{id:"feeling",kind:"voice",title:L("How does it feel?","Wie fühlt sich das an?","Які відчуття?"),q:L("Seeing this, how does it feel? What would you miss most?","Wie fühlt sich das an? Was würdest du am meisten vermissen?","Як вам це? За чим ви сумували б найбільше?")}];
 const DONE_Q=[
   {id:"wishes",kind:"voice",title:L("Your wish","Dein Wunsch","Ваше побажання"),q:L("Any ideas or thoughts that would be nice to have in a future product?","Hast du Ideen oder Gedanken, was ein zukünftiges Produkt haben sollte?","Чи є у вас ідеї чи думки, що було б добре мати в майбутньому продукті?")},
-  {id:"pilot",kind:"chips",title:L("Join the Tysha pilot in 2027?","Beim Tysha-Pilot 2027 dabei sein?","Долучитися до пілоту Tysha у 2027?"),opts:[O("yes","Yes","Ja","Так"),O("maybe","Maybe","Vielleicht","Можливо"),O("no","No","Nein","Ні")]},
-  {id:"updates",kind:"chips",title:L("Newsletter and Tysha updates by email?","Newsletter und Tysha-Updates per E-Mail?","Розсилка й новини Tysha на email?"),opts:[O("yes","Yes, please","Ja, gern","Так, будь ласка"),O("no","No, thanks","Nein, danke","Ні, дякую")]},
-  {id:"email",kind:"text",title:L("Email (optional, only for the pilot and updates you chose; unsubscribe any time)","E-Mail (optional, nur für Pilot und gewählte Updates; jederzeit abmeldbar)","Email (необов'язково, лише для пілоту й обраних новин; відписатися можна будь-коли)")}
 ];
+/* Contact data (pilot, partner, newsletter, email, phone) lives only in CT: never in S.answers, never in localStorage,
+   never in the anonymous record; it is sent on its own to CONTACT_SUBMIT_URL after the anonymous answers. */
+const CONTACT_KEYS=["pilot","partner","updates","email"];   /* removed from older saved answers */
+let CT={interests:[],first_name:"",company:"",email:"",phone:""};
 const NOTES_Q=[
   {id:"best_quote",kind:"text",long:true,title:L("Best quote","Bestes Zitat","Найкраща цитата")},
   {id:"surprise",kind:"text",long:true,title:L("Surprise or new idea","Überraschung, neue Idee","Несподіванка, нова ідея")}
@@ -680,7 +713,7 @@ function welcomeHTML(){const code=codeValue();
   <div class="stack">
   <div class="card consent"><p class="eyebrow">${esc(tr(UI.consentHead))}</p>
    <label><input type="checkbox" id="consent" ${S.consent?"checked":""}><span>${esc(tr(UI.consent))}</span></label>
-   <p class="note">${esc(tr(UI.gdpr))}${CONTACT_EMAIL?" "+esc(CONTACT_EMAIL):""}</p><p class="note">${esc(tr(UI.crisis))}</p></div>
+   <p class="note">${esc(tr(UI.gdpr))}${CONTACT_EMAIL?` ${esc(tr(UI.contact))} <a href="mailto:${esc(CONTACT_EMAIL)}" style="color:inherit">${esc(CONTACT_EMAIL)}</a>.`:""}</p><p class="note">${esc(tr(UI.crisis))}</p></div>
   <div class="card"><div class="ch"><h3>${esc(tr(UI.codeHead))}</h3></div>
    <div class="code4">
     <label>${esc(tr(UI.c1))}<input id="c1" data-code="c1" maxlength="2" autocomplete="off" value="${esc(S.code.c1)}"></label>
@@ -923,25 +956,63 @@ function shareHTML(){
 }
 
 /* ===== Finish ===== */
-function scoreValue(){const a=S.answers;let s=0;if(+a.spend_now>0)s+=2;if(a.pilot==="yes")s+=2;if(+a.spend_wish>=PLANNED_PRICE)s+=1;return s}
+function sentBoxHTML(){return `<div class="sentbox" role="status"><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>${esc(tr(UI.sentHead))}</h3><p><b>${esc(tr(UI.sentAnon))}</b> · ${esc(codeValue()||"—")}</p><p>${esc(tr(UI.sentBody))}</p></div>`}
+function scoreValue(){const a=S.answers;let s=0;if(+a.spend_now>0)s+=2;if(+a.spend_wish>=PLANNED_PRICE)s+=1;return s}
+const mailLink=()=>`<a href="mailto:${esc(CONTACT_EMAIL)}" style="color:inherit">${esc(CONTACT_EMAIL)}</a>`;
+const withMail=o=>esc(tr(o)).replace("{email}",mailLink());
+function contactHTML(){
+  if(S.contactSentAt)return `<div class="sentbox" role="status"><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>${esc(tr(UI.ctSentHead))}</h3><p>${withMail(UI.ctSentBody)}</p></div>`;
+  if(IN_VIEWER||!CONTACT_SUBMIT_URL)return `<div class="card"><p class="eyebrow" style="margin:0">${esc(tr(UI.ctEyebrow))}</p><div class="ch"><h3>${esc(tr(UI.ctHead))}</h3></div><p class="note">${withMail(UI.ctMailOnly)}</p></div>`;
+  const ints=[["pilot",UI.ctPilot],["partner",UI.ctPartner],["newsletter",UI.ctNews]];
+  return `<div class="card" id="contactCard"><p class="eyebrow" style="margin:0">${esc(tr(UI.ctEyebrow))}</p><div class="ch"><h3>${esc(tr(UI.ctHead))}</h3></div>
+   <p class="note">${esc(tr(UI.ctLede))}</p>
+   <div class="pills list" role="group">${ints.map(([k,l])=>{const on=CT.interests.includes(k);return `<label class="pill ${on?"sel":""}"><input type="checkbox" data-ctint="${k}" ${on?"checked":""}>${esc(tr(l))}</label>`}).join("")}</div>
+   <div class="inputs">
+    <label>${esc(tr(UI.ctName))}<input data-ct="first_name" autocomplete="given-name" maxlength="60" value="${esc(CT.first_name)}"></label>
+    <label>${esc(tr(UI.ctCompany))}<input data-ct="company" autocomplete="organization" maxlength="100" value="${esc(CT.company)}"></label>
+    <label>${esc(tr(UI.ctEmail))}<input data-ct="email" type="email" inputmode="email" autocomplete="email" maxlength="120" value="${esc(CT.email)}"></label>
+    <label>${esc(tr(UI.ctPhone))}<input data-ct="phone" type="tel" autocomplete="tel" maxlength="30" value="${esc(CT.phone)}"></label>
+   </div>
+   <div class="card consent"><label><input type="checkbox" id="ctConsent"><span>${withMail(UI.ctConsent)}</span></label><p class="note">${esc(tr(UI.ctGdpr))}</p></div>
+   <div class="row" style="justify-content:center"><button class="btn" type="button" id="contactSend">${esc(tr(UI.ctSend))}</button></div>
+   <p class="status" id="ctMsg" style="text-align:center"></p></div>`;
+}
+async function sendContact(){
+  const m=document.getElementById("ctMsg"),btn=document.getElementById("contactSend");
+  const fail=t=>{m.className="status err";m.innerHTML=t};
+  if(PREVIEW){m.className="status";m.textContent=tr(UI.pvSend);return}
+  const email=CT.email.trim(),phone=CT.phone.trim();
+  if(!CT.interests.length||(!email&&!phone))return fail(esc(tr(UI.ctNeedWhat)));
+  if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))return fail(esc(tr(UI.ctBadEmail)));
+  if(!document.getElementById("ctConsent").checked)return fail(esc(tr(UI.ctNeedConsent)));
+  const yn=k=>CT.interests.includes(k)?"yes":"no";
+  const contact={first_name:CT.first_name.trim(),company:CT.company.trim(),email,phone,interest_pilot:yn("pilot"),interest_partner:yn("partner"),interest_newsletter:yn("newsletter"),language:lang,consent:"yes",consent_version:CONTACT_CONSENT_VERSION};
+  btn.disabled=true;m.className="status";m.textContent=tr(UI.sending);
+  let ok=false;
+  try{const r=await fetch(CONTACT_SUBMIT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({contact})});const j=await r.json();ok=!!(j&&j.ok)}catch(e){ok=false}
+  if(ok){CT={interests:[],first_name:"",company:"",email:"",phone:""};S.contactSentAt=true;persist();const box=document.getElementById("contactBox");if(box)box.innerHTML=contactHTML();return}
+  btn.disabled=false;fail(withMail(UI.ctFail));
+}
 function doneHTML(p){
   const online=!IN_VIEWER&&!!SUBMIT_URL;
   return headHTML(p)+`<div class="stack">${DONE_Q.map(cardHTML).join("")}
   <div class="card"><div class="codeout">${esc(codeValue()||"—")}</div>
+   <div id="sentBox">${S.sentAt?sentBoxHTML():""}</div>
    <div class="row" style="justify-content:center">
-    ${online?`<button class="btn" type="button" id="sendBtn">${esc(tr(UI.send))}</button>`:""}
+    ${online&&!S.sentAt?`<button class="btn" type="button" id="sendBtn">${esc(tr(UI.send))}</button>`:""}
     ${!IN_VIEWER?`<button class="btn ${online?"ghost":""}" type="button" id="printBtn">${esc(tr(UI.print))}</button>`:""}
     <button class="btn ghost" type="button" id="dlReport">${esc(tr(UI.dlReport))}</button>
     <button class="btn ghost" type="button" id="dlData">${esc(tr(UI.dlData))}</button>
-   </div><p class="status" id="saveMsg" style="text-align:center">${online?"":esc(tr(UI.noSend))}</p>
+   </div>${online&&!S.sentAt?`<p class="note" id="anonNote" style="text-align:center;max-width:44ch;margin:0 auto">${esc(tr(UI.anonNote))}</p>`:""}<p class="status" id="saveMsg" style="text-align:center">${online?"":esc(tr(UI.noSend))}</p>
    <p class="meta" style="text-align:center">${esc(tr(UI.version))} ${esc(FORM_VERSION)}</p></div>
+  <div id="contactBox">${S.sentAt||!online?contactHTML():""}</div>
   <details class="more card"><summary>${esc(tr(UI.notes))}</summary><div class="stack" style="margin-top:10px">${NOTES_Q.map(cardHTML).join("")}</div></details></div>`;
 }
 
 /* ===== Record, sheet row, report ===== */
 function record(){const {I,R}=calcAll();
   return JSON.parse(JSON.stringify({form_version:FORM_VERSION,language:lang,code:codeValue(),consent:S.consent,started_at:S.startedAt,exported_at:nowIso(),
-    answers:S.answers,score:scoreValue(),calc:{inputs:S.calc,used:{net:I.net,isExample:I.isExample,cur:I.cur,self:I.self},results:R.map(r=>({cash_year1:Math.round(r.cash),five_years:Math.round(r.five),lost_income:Math.round(r.lost),health_costs:Math.round(r.health),share_of_income:+r.share.toFixed(3)}))}}))}
+    answers:Object.fromEntries(Object.entries(S.answers).filter(([k])=>!CONTACT_KEYS.includes(k))),score:scoreValue(),calc:{inputs:S.calc,used:{net:I.net,isExample:I.isExample,cur:I.cur,self:I.self},results:R.map(r=>({cash_year1:Math.round(r.cash),five_years:Math.round(r.five),lost_income:Math.round(r.lost),health_costs:Math.round(r.health),share_of_income:+r.share.toFixed(3)}))}}))}
 const ALL_Q=ABOUT.concat(CH1,CH2,HABITS,FACTOR_QS,WORTH_Q,DONE_Q,NOTES_Q).filter(q=>q.kind!=="fork");
 const ANSWER_KEYS=[].concat(...ALL_Q.map(q=>q.kind==="voice"&&q.chips?[q.id,q.id+"_words"]:[q.id])).concat(["weather"]);
 function flatRow(rec){
@@ -977,7 +1048,7 @@ function reportInner(){
     const qs=p.qs.filter(q=>q.kind!=="fork"&&visible(q));if(!qs.length)return;
     h+=`<h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:17px;margin:16px 0 6px;border-bottom:1px solid #999">${p.ch?esc(tr(UI.chapter))+" "+p.ch+" · ":""}${esc(tr(p.title))}</h2>`;
     qs.forEach(q=>{h+=`<p style="margin:6px 0;font-size:13px"><b>${esc(tr(q.q||q.title))}</b><br>${esc(answerText(q))}</p>`})});
-  return h+`<p style="font-size:11px;color:#555;margin-top:16px">${esc(tr(UI.gdpr))}</p>`;
+  return h+`<p style="font-size:11px;color:#555;margin-top:16px">${esc(tr(UI.gdpr))}${CONTACT_EMAIL?" "+esc(tr(UI.contact))+" "+esc(CONTACT_EMAIL)+".":""}</p>`;
 }
 function reportDoc(){return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tysha Mental Health Memo ${esc(codeValue())}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@400;600&display=swap"><style>body{font:14px/1.55 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:20px;color:#111;background:#fff}button{font:600 14px sans-serif;padding:10px 18px;border-radius:999px;border:0;background:#66795C;color:#fff;margin-bottom:16px}@media print{button{display:none}}</style></head>
@@ -1000,7 +1071,9 @@ async function sendToSheet(){
   let ok=false;
   try{const r=await fetch(SUBMIT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({row})});
     const j=await r.json();ok=!!(j&&j.ok)}catch(e){ok=false}
-  if(ok){S.sentAt=nowIso();persist();msg.className="status ok";msg.textContent=tr(UI.sent);return}
+  if(ok){S.sentAt=nowIso();persist();msg.className="status";msg.textContent="";btn.remove();const an=document.getElementById("anonNote");if(an)an.remove();
+    const box=document.getElementById("sentBox");if(box){box.innerHTML=sentBoxHTML();box.scrollIntoView({behavior:"smooth",block:"center"})}
+    const cb=document.getElementById("contactBox");if(cb)cb.innerHTML=contactHTML();return}
   /* not confirmed: keep the answers safe with an automatic copy */
   btn.disabled=false;msg.className="status err";msg.textContent=tr(UI.sentUnsure);
   offerFile(`tysha-answers-${codeValue()||"anon"}-${stamp()}.json`,JSON.stringify(rec,null,2),"application/json",null);
@@ -1077,6 +1150,7 @@ app.addEventListener("click",async e=>{
   if(t.id==="pvReset"){const pg=S.page;S=freshState();S.consent=true;S.page=pg;render();return}
   if(t.id==="pvExit"){exitPreview();view="interview";render();window.scrollTo(0,0);return}
   if(t.id==="sendBtn")return sendToSheet();
+  if(t.id==="contactSend")return sendContact();
   if(t.id==="printBtn"){document.getElementById("printArea").innerHTML=reportInner();window.print();return}
   if(t.id==="dlReport")return offerFile(`tysha-mental-health-memo-${codeValue()||"anon"}-${stamp()}.html`,reportDoc(),"text/html",document.getElementById("saveMsg"));
   if(t.id==="dlData")return offerFile(`tysha-answers-${codeValue()||"anon"}-${stamp()}.json`,JSON.stringify(record(),null,2),"application/json",document.getElementById("saveMsg"));
@@ -1089,6 +1163,7 @@ app.addEventListener("change",e=>{
   const t=e.target;
   if(t.id==="pvJump"){go(+t.value);return}
   if(t.id==="consent"){S.consent=t.checked;persist();const m=document.getElementById("navMsg");if(m)m.textContent="";return}
+  if(t.dataset.ctint){const k=t.dataset.ctint;CT.interests=t.checked?[...new Set([...CT.interests,k])]:CT.interests.filter(x=>x!==k);t.closest("label").classList.toggle("sel",t.checked);return}
   if(t.dataset.q&&(t.type==="radio"||t.type==="checkbox")){
     const q=t.dataset.q,k=t.dataset.k;
     if(t.type==="radio"){S.answers[q]=k;t.closest(".pills").querySelectorAll("label.pill").forEach(l=>l.classList.toggle("sel",l.contains(t)))}
@@ -1114,6 +1189,7 @@ app.addEventListener("input",e=>{
   if(t.dataset.lv){S.calc.levels[+t.dataset.lv][t.dataset.f]=t.value===""?0:+t.value;persist();updateCalc();return}
   if(t.id==="inviteText"){S.invite=S.invite||{};S.invite[lang]=t.value;persist();return}
   if(t.id==="inviteLink"){S.link=t.value;persist();return}
+  if(t.dataset.ct){CT[t.dataset.ct]=t.value;return}   /* contact fields: memory only, not saved in the browser */
 });
 if(TTS){try{speechSynthesis.getVoices()}catch(e){}if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=()=>{}}
 
