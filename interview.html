@@ -334,7 +334,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.1-interview (2026-11-14)";
+const FORM_VERSION = "v0.20.2-interview (2026-11-14)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -481,7 +481,8 @@ const UI={
   ctConsent:L("I agree that Tysha stores my contact details to contact me only about what I ticked above. I can withdraw at any time by writing to {email}; my details are then deleted.","Ich bin einverstanden, dass Tysha meine Kontaktdaten speichert, um mich nur zu dem zu kontaktieren, was ich oben angekreuzt habe. Ich kann jederzeit widerrufen, per E-Mail an {email}; meine Daten werden dann gelöscht.","Я погоджуюся, що Tysha зберігає мої контактні дані, щоб зв'язуватися зі мною лише щодо позначеного вище. Я можу будь-коли відкликати згоду, написавши на {email}; тоді мої дані буде видалено."),
   ctGdpr:L("Legal basis: your consent (Art. 6(1)(a) GDPR). Stored separately from the interview, without your code. Kept until you withdraw, at the latest 24 months after the last contact. Newsletter only after a confirmation email.","Rechtsgrundlage: deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Getrennt vom Interview gespeichert, ohne deinen Code. Aufbewahrt bis zum Widerruf, höchstens 24 Monate nach dem letzten Kontakt. Newsletter erst nach einer Bestätigungs-E-Mail.","Правова підстава: ваша згода (ст. 6(1)(a) GDPR). Зберігається окремо від інтерв'ю, без вашого коду. До відкликання згоди, щонайбільше 24 місяці після останнього контакту. Розсилка лише після листа-підтвердження."),
   ctSend:L("Send my contact","Kontakt senden","Надіслати контакт"),
-  ctNeedWhat:L("Please tick at least one option and enter an email or phone number.","Bitte mindestens eine Option ankreuzen und E-Mail oder Telefon angeben.","Позначте хоча б один варіант і вкажіть email або телефон."),
+  ctNeedWhat:L("Please tick at least one option.","Bitte mindestens eine Option ankreuzen.","Позначте хоча б один варіант."),
+  ctNeedEmail:L("Please enter your email address.","Bitte deine E-Mail-Adresse angeben.","Вкажіть, будь ласка, адресу email."),
   ctBadEmail:L("Please check the email address.","Bitte die E-Mail-Adresse prüfen.","Перевірте адресу email."),
   ctNeedConsent:L("Please tick the consent box.","Bitte das Einverständnis ankreuzen.","Позначте згоду."),
   ctSentHead:L("Thank you, we'll be in touch","Danke, wir melden uns","Дякуємо, ми зв'яжемося з вами"),
@@ -1257,7 +1258,7 @@ function contactHTML(solo){
     <label>${esc(tr(UI.ctName))} *<input data-ct="first_name" autocomplete="given-name" maxlength="60" required aria-required="true" value="${esc(CT.first_name)}"></label>
     <label>${esc(tr(UI.ctLast))} *<input data-ct="last_name" autocomplete="family-name" maxlength="60" required aria-required="true" value="${esc(CT.last_name)}"></label>
     <label>${esc(tr(UI.ctCompany))}<input data-ct="company" autocomplete="organization" maxlength="100" value="${esc(CT.company)}"></label>
-    <label>${esc(tr(UI.ctEmail))}<input data-ct="email" type="email" inputmode="email" autocomplete="email" maxlength="120" value="${esc(CT.email)}"></label>
+    <label>${esc(tr(UI.ctEmail))} *<input data-ct="email" type="email" required aria-required="true" inputmode="email" autocomplete="email" maxlength="120" value="${esc(CT.email)}"></label>
     <label>${esc(tr(UI.ctPhone))}<input data-ct="phone" type="tel" autocomplete="tel" maxlength="30" value="${esc(CT.phone)}"></label>
    </div>
    <div class="card consent"><label><input type="checkbox" id="ctConsent"><span>${withMail(UI.ctConsent)}</span></label><p class="note">${esc(tr(UI.ctGdpr))}</p></div>
@@ -1270,8 +1271,9 @@ async function sendContact(){
   if(PREVIEW){m.className="status";m.textContent=tr(UI.pvSend);return}
   const email=CT.email.trim(),phone=CT.phone.trim();
   if(!CT.first_name.trim()||!CT.last_name.trim())return fail(esc(tr(UI.ctNeedName)));
-  if(!CT.interests.length||(!email&&!phone))return fail(esc(tr(UI.ctNeedWhat)));
-  if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))return fail(esc(tr(UI.ctBadEmail)));
+  if(!email)return fail(esc(tr(UI.ctNeedEmail)));
+  if(!CT.interests.length)return fail(esc(tr(UI.ctNeedWhat)));
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))return fail(esc(tr(UI.ctBadEmail)));
   if(!document.getElementById("ctConsent").checked)return fail(esc(tr(UI.ctNeedConsent)));
   const yn=k=>CT.interests.includes(k)?"yes":"no";
   const contact={first_name:CT.first_name.trim(),last_name:CT.last_name.trim(),company:CT.company.trim(),email,phone,interest_pilot:yn("pilot"),interest_partner:yn("partner"),interest_newsletter:yn("newsletter"),interest_content:yn("content"),language:lang,consent:"yes",consent_version:CONTACT_CONSENT_VERSION};
