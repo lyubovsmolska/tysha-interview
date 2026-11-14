@@ -333,7 +333,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.19.6-interview (2026-11-14)";
+const FORM_VERSION = "v0.19.7-interview (2026-11-14)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -687,7 +687,7 @@ const HABITS=[
   {id:"apps_used",kind:"chips",multi:true,exclusive:"none",free:L("Other apps, or anything you'd like to add","Andere Apps, oder was du ergänzen möchtest","Інші застосунки або що хочете додати"),title:L("Which apps do you use or have tried for your mind or sleep?","Welche Apps nutzt du oder hast du für Kopf oder Schlaf ausprobiert?","Якими застосунками для розуму чи сну ви користуєтеся або пробували?"),
    opts:[O("headspace","Headspace","Headspace","Headspace"),O("calm","Calm","Calm","Calm"),O("7mind","7Mind","7Mind","7Mind"),O("sleep","Sleep apps","Schlaf-Apps","Застосунки для сну"),O("fitness","Fitness, step apps","Fitness-, Schritt-Apps","Фітнес-застосунки"),O("wearable","Wearable app (Oura, Whoop…)","Wearable-App (Oura, Whoop…)","Застосунок ґаджета (Oura, Whoop…)"),O("none","None","Keine","Жодних")]},
   {id:"apps_use",kind:"voice",show:usesApps,title:L("How do you use them?","Wie nutzt du sie?","Як ви ними користуєтеся?"),q:L("How often do you use them, and what made you stay or stop?","Wie oft nutzt du sie, und warum bist du dabeigeblieben oder hast aufgehört?","Як часто ви ними користуєтеся і чому залишилися чи кинули?"),
-   chips:{opts:[O("never","Never","Nie","Ніколи"),O("stopped","Tried, stopped","Probiert, aufgehört","Пробував(ла), кинув(ла)"),O("sometimes","Sometimes","Manchmal","Іноді"),O("daily","Daily","Täglich","Щодня")]}},
+   chips:{opts:[O("more2_day","More than 2 times a day","Mehr als 2-mal am Tag","Понад 2 рази на день"),O("1-2_day","1–2 times a day","1–2-mal am Tag","1–2 рази на день"),O("few_week","A few times a week","Ein paar Mal pro Woche","Кілька разів на тиждень"),O("weekly","About once a week","Etwa einmal pro Woche","Приблизно раз на тиждень"),O("few_month","A few times a month","Ein paar Mal im Monat","Кілька разів на місяць"),O("rarely","Rarely","Selten","Рідко"),O("stopped","Tried, stopped","Probiert, aufgehört","Пробував(ла), кинув(ла)")]}},
   {id:"abos",kind:"chips",multi:true,exclusive:"none",title:L("Which subscriptions do you pay for your wellbeing?","Welche Abos zahlst du für dein Wohlbefinden?","За які підписки для добробуту ви платите?"),
    opts:[O("none","None","Keine","Жодних"),O("app","Mind or sleep app","Meditations- oder Schlaf-App","Застосунок для медитації чи сну"),O("gym","Gym or sports club","Fitnessstudio, Sportverein","Спортзал чи клуб"),O("studio","Yoga or Pilates studio","Yoga- oder Pilates-Studio","Студія йоги чи пілатесу"),O("therapy","Therapy or coaching (self-paid)","Therapie, Coaching (selbst bezahlt)","Терапія чи коучинг (власним коштом)"),O("massage","Massage, spa","Massage, Spa","Масаж, спа"),O("wearable","Wearable membership","Wearable-Mitgliedschaft","Підписка на ґаджет")]},
   {id:"spend_now",kind:"slider",money:true,min:0,max:200,step:5,title:L("What do you spend on your wellbeing per month today?","Was gibst du heute im Monat für dein Wohlbefinden aus?","Скільки ви зараз витрачаєте на свій добробут на місяць?"),
