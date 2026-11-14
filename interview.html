@@ -334,7 +334,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.19.9-interview (2026-11-14)";
+const FORM_VERSION = "v0.20.0-interview (2026-11-14)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -652,9 +652,9 @@ const CH2=[
    words:LV10(L("not really","eher nicht","не дуже"),L("a little","ein bisschen","трохи"),L("quite a bit","ziemlich","досить"),L("strongly","stark","сильно"),L("more than anything","mehr als alles","понад усе"))},
   {id:"working",kind:"chips",title:L("Do you already have a routine that helps your mind?","Hast du schon eine Routine, die deinem Kopf guttut?","Чи маєте ви вже звичку, яка допомагає вашій психіці?"),opts:[O("yes","Yes","Ja","Так"),O("no","No","Nein","Ні")]},
   /* asked to everyone: how often today, and the last quiet moment */
-  {id:"mind_freq",kind:"chips",title:L("How often do you do something just for your mind?","Wie oft tust du etwas nur für deinen Kopf?","Як часто ви робите щось лише для своєї психіки?"),
+  {id:"mind_freq",kind:"chips",show:a=>a.working!=="no",title:L("How often do you do something just for your mind?","Wie oft tust du etwas nur für deinen Kopf?","Як часто ви робите щось лише для своєї психіки?"),
    opts:[O("daily","Daily","Täglich","Щодня"),O("few_week","A few times a week","Ein paar Mal pro Woche","Кілька разів на тиждень"),O("weekly","About once a week","Etwa einmal pro Woche","Приблизно раз на тиждень"),O("few_month","A few times a month","Ein paar Mal im Monat","Кілька разів на місяць"),O("rarely","Rarely","Selten","Рідко"),O("never","Never","Nie","Ніколи")]},
-  {id:"last_quiet",kind:"chips",title:L("When did you last take 10 quiet minutes only for yourself?","Wann hast du dir zuletzt 10 ruhige Minuten nur für dich genommen?","Коли ви востаннє брали 10 тихих хвилин лише для себе?"),
+  {id:"last_quiet",kind:"chips",show:a=>a.working!=="no",title:L("When did you last take 10 quiet minutes only for yourself?","Wann hast du dir zuletzt 10 ruhige Minuten nur für dich genommen?","Коли ви востаннє брали 10 тихих хвилин лише для себе?"),
    opts:[O("today","Today","Heute","Сьогодні"),O("week","This week","Diese Woche","Цього тижня"),O("month","This month","Diesen Monat","Цього місяця"),O("cant_remember","I can't remember","Ich weiß es nicht mehr","Не пам'ятаю")]},
   /* --- path: No --- */
   {id:"fork_no",kind:"fork",t:UI.forkNo,show:isNo},
@@ -1513,7 +1513,7 @@ app.addEventListener("change",e=>{
     if(q==="country"&&S.calc.presetAuto&&PRESETS[k]){Object.assign(S.calc,{preset:k,cur:PRESETS[k].cur},pick(PRESETS[k],["emp","repl","cov","wait","price"]))}
     persist();
     if(q==="cost_causes"||q==="cost_effects")updateCalc();
-    if(q==="working")renderKeepScroll();
+    if(q==="working"){if(k==="no"){delete S.answers.mind_freq;delete S.answers.last_quiet;persist()}renderKeepScroll()}   /* routine = No: no frequency questions */
     if(q==="pay_ready"){if(k==="no"){delete S.answers.spend_wish;persist()}renderKeepScroll()}   /* amount field only for yes / maybe */
     if(q==="stress_type"&&!drained(S.answers)&&S.answers.wish!=null){delete S.answers.wish;persist()}   /* positive stress: no wish slider */   /* not draining: clear wish, working and path answers */
     if(q==="country"){fixIncome();renderKeepScroll()}   /* income ranges follow the country */   /* opens the matching path */
