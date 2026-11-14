@@ -333,7 +333,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.19.2-cost (2026-11-14)";
+const FORM_VERSION = "v0.19.3-cost (2026-11-14)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -460,8 +460,9 @@ const UI={
   optShare:L("Share","Teilen","Поділитися"),
   optShareSub:L("WhatsApp, Telegram, email and more","WhatsApp, Telegram, E-Mail und mehr","WhatsApp, Telegram, email та інше"),
   optSendSub:L("anonymous, under your code","anonym, unter deinem Code","анонімно, під вашим кодом"),
-  optSendFile:L("as a file to email","als Datei per E-Mail","файлом на email"),
-  optSendFileMsg:L("Your answers were saved as a file. Please send it to {email}.","Deine Antworten wurden als Datei gespeichert. Bitte schick sie an {email}.","Ваші відповіді збережено як файл. Надішліть його, будь ласка, на {email}."),
+  optSendFile:L("saves your answers as a file","speichert deine Antworten als Datei","зберігає ваші відповіді файлом"),
+  optSendFileMsg:L("Your answers are saved.","Deine Antworten sind gespeichert.","Ваші відповіді збережено."),
+  dlNoHere:L("Downloading does not work in this view. Open the form in your browser to download:","In dieser Ansicht klappt der Download nicht. Öffne das Formular im Browser, um herunterzuladen:","У цьому вікні завантаження не працює. Відкрийте форму в браузері, щоб завантажити:"),
   optSent:L("Sent to Tysha","An Tysha gesendet","Надіслано Tysha"),
   autoNote:L("If you leave this page without pressing Send, your answers are still sent anonymously.","Wenn du die Seite verlässt, ohne auf Senden zu drücken, werden deine Antworten trotzdem anonym gesendet.","Якщо ви залишите сторінку, не натиснувши «Надіслати», ваші відповіді все одно буде надіслано анонімно."),
   ctGo:L("Open the contact form","Kontaktformular öffnen","Відкрити контактну форму"),
@@ -1377,7 +1378,9 @@ function reportDoc(){return `<!doctype html><html lang="${lang}"><head><meta cha
 const stamp=()=>new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
 async function offerFile(filename,data,mime,msgEl){
   if(!IN_VIEWER){const b=new Blob([data],{type:mime});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);return}
-  if(!downloads){if(msgEl){msgEl.className="status err";msgEl.textContent="Downloads are not available here."}return}
+  if(!downloads){   /* no download service in this view: try the normal browser download, and point to the browser copy */
+    try{const b=new Blob([data],{type:mime});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}catch(e){}
+    if(msgEl){const u=FORM_MODE==="cost"?"https://lyubovsmolska.github.io/tysha-interview/cost-check.html":"https://lyubovsmolska.github.io/tysha-interview/";msgEl.className="status";msgEl.innerHTML=esc(tr(UI.dlNoHere))+` <a href="${u}" target="_blank" rel="noopener">${u.replace("https://","")}</a>`}return}
   try{await downloads.save({filename,data});if(msgEl){msgEl.className="status ok";msgEl.textContent="✓"}}
   catch(e){if(e&&e.code==="declined")return;if(msgEl){msgEl.className="status err";msgEl.textContent="Download failed: "+(e&&e.code||"error")}}
 }
@@ -1539,7 +1542,8 @@ if(TTS){try{speechSynthesis.getVoices()}catch(e){}if(speechSynthesis.onvoicescha
 render();
 loadRecs().then(()=>{if(view==="studio")render()});
 if(IN_VIEWER&&window.claude.use){(async()=>{
-  try{[userCap,downloads]=await Promise.all([claude.use("user"),claude.use("downloads")])}catch(e){}
+  try{downloads=await claude.use("downloads")}catch(e){}   /* asked separately, so a missing user service cannot switch downloads off */
+  try{userCap=await claude.use("user")}catch(e){}
   if(userCap){try{isOwner=await userCap.isOwner()}catch(e){}}
   renderTabs();
 })()}
