@@ -1,8 +1,14 @@
 # Tysha Interview (GitHub Pages)
 
-This repo holds only the public interview page and its voice recordings.
-Business documents live elsewhere (private).
+Public pages of the Tysha interview. Each page can be shared on its own; all send to the same Google Sheets.
 
-- Page: https://lyubovsmolska.github.io/tysha-interview/
-- Answers go to the Google Sheet "Tysha – Interview Responses" via Apps Script (`SUBMIT_URL` in `index.html`).
-- Preview without filling in: add `#preview` to the link. Voice studio: `#studio`.
+| Page | Link |
+|---|---|
+| Full interview with cost chapter | https://lyubovsmolska.github.io/tysha-interview/ |
+| Interview without the cost part | https://lyubovsmolska.github.io/tysha-interview/interview.html |
+| Cost Check only | https://lyubovsmolska.github.io/tysha-interview/cost-check.html |
+| Stay in touch (contact form only) | https://lyubovsmolska.github.io/tysha-interview/#contact |
+
+- Answers go to the Google Sheet "Tysha – Interview Responses" (the form_version column tells the pages apart); contact details go to the separate Contacts sheet.
+- Preview without saving anything: add `#preview` to a link.
+- Voice recordings for all pages are in `audio/`.
