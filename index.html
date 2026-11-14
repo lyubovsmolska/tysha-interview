@@ -333,7 +333,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.17.6 (2026-11-14)";
+const FORM_VERSION = "v0.17.7 (2026-11-14)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -569,7 +569,7 @@ const CALM_OPTS=[O("music","Music, reading","Musik, Lesen","Музика, чит
 const DOING_OPTS=[O("meditation","Meditation","Meditation","Медитація"),O("yoga","Yoga","Yoga","Йога"),O("sport","Sport","Sport","Спорт"),O("nature","Walks, nature","Natur, Spaziergänge","Прогулянки, природа"),O("therapy","Therapy","Therapie","Терапія"),O("coach","Coaching","Coaching","Коучинг"),O("journal","Journaling","Tagebuch","Щоденник"),O("apps","Apps","Apps","Застосунки"),O("sleep","Better sleep","Besser schlafen","Кращий сон"),O("offline","Phone-free time","Handyfreie Zeit","Час без телефону"),O("friends","Talking to friends","Gespräche mit Freunden","Розмови з друзями")];
 /* the wish-to-change slider, "Are you already working on it?" and both paths only appear when the stress is mostly draining */
 const drained=a=>["negative","mix","unsure"].includes(a.stress_type);   /* draining, a mix, or hard to say */
-const isYes=a=>drained(a)&&a.working==="yes", isNo=a=>drained(a)&&a.working==="no";
+const isYes=a=>a.working==="yes", isNo=a=>a.working==="no";   /* routine question is asked to everyone (14 Nov) */
 UI.mEnergy=L("A lot is going on, and much of it gives you energy. A short daily pause helps that energy stay good for you.","Bei dir ist viel los, und vieles davon gibt dir Energie. Eine kurze tägliche Pause hilft, dass diese Energie dir guttut.","У вас багато всього відбувається, і чимало з цього дає енергію. Коротка щоденна пауза допомагає, щоб ця енергія йшла вам на користь.");
 /* the "How do you use them?" question appears only when at least one app (not "None") is ticked */
 const usesApps=a=>Array.isArray(a.apps_used)&&a.apps_used.some(k=>k!=="none");
@@ -628,7 +628,7 @@ const CH2=[
    q:L("How strong is your wish to change something about your stress, from 0 to 10?","Wie stark ist dein Wunsch, an deinem Stress etwas zu ändern, von 0 bis 10?","Наскільки сильне ваше бажання змінити щось у своєму стресі, від 0 до 10?"),
    lo:L("not now","gerade nicht","не зараз"),hi:L("more than anything","mehr als alles","понад усе"),
    words:LV10(L("not really","eher nicht","не дуже"),L("a little","ein bisschen","трохи"),L("quite a bit","ziemlich","досить"),L("strongly","stark","сильно"),L("more than anything","mehr als alles","понад усе"))},
-  {id:"working",kind:"chips",show:drained,title:L("Are you already working on it?","Arbeitest du schon daran?","Ви вже над цим працюєте?"),opts:[O("yes","Yes","Ja","Так"),O("no","No","Nein","Ні")]},
+  {id:"working",kind:"chips",title:L("Do you already have a routine that helps your mind?","Hast du schon eine Routine, die deinem Kopf guttut?","Чи маєте ви вже звичку, яка допомагає вашій психіці?"),opts:[O("yes","Yes","Ja","Так"),O("no","No","Nein","Ні")]},
   /* asked to everyone: how often today, and the last quiet moment */
   {id:"mind_freq",kind:"chips",title:L("How often do you do something just for your mind?","Wie oft tust du etwas nur für deinen Kopf?","Як часто ви робите щось лише для своєї психіки?"),
    opts:[O("daily","Daily","Täglich","Щодня"),O("few_week","A few times a week","Ein paar Mal pro Woche","Кілька разів на тиждень"),O("weekly","About once a week","Etwa einmal pro Woche","Приблизно раз на тиждень"),O("few_month","A few times a month","Ein paar Mal im Monat","Кілька разів на місяць"),O("rarely","Rarely","Selten","Рідко"),O("never","Never","Nie","Ніколи")]},
@@ -1488,7 +1488,7 @@ app.addEventListener("change",e=>{
     if(q==="cost_causes"||q==="cost_effects")updateCalc();
     if(q==="working")renderKeepScroll();
     if(q==="pay_ready"){if(k==="no"){delete S.answers.spend_wish;persist()}renderKeepScroll()}   /* amount field only for yes / maybe */
-    if(q==="stress_type"&&!drained(S.answers)){CH2.forEach(x=>{if(x.show){delete S.answers[x.id];delete S.answers[x.id+"_words"]}});persist()}   /* not draining: clear wish, working and path answers */
+    if(q==="stress_type"&&!drained(S.answers)&&S.answers.wish!=null){delete S.answers.wish;persist()}   /* positive stress: no wish slider */   /* not draining: clear wish, working and path answers */
     if(q==="country"){fixIncome();renderKeepScroll()}   /* opens the matching path */
     if(q==="apps_used"&&!!document.getElementById("card_apps_use")!==usesApps(S.answers)){
       if(!usesApps(S.answers)){delete S.answers.apps_use;delete S.answers.apps_use_words;persist()}
