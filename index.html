@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Tysha Interview</title>
+<title>Tysha Interview (no cost page)</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -333,12 +333,15 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.17.7 (2026-11-14)";
+const FORM_VERSION = "v0.19.6-interview (2026-11-14)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
 const CONTACT_SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzuFfQZu-Zbyd3G_7DZQRHZYQoCJyoX_XFkMUAsArSwX_TX_cH0KefnqzxpPNV0WS9z/exec";  // SEPARATE Apps Script web app (/exec) bound to the sheet "Tysha – Contacts"; contact data never goes to SUBMIT_URL
 const CONTACT_CONSENT_VERSION = "c1 (2026-11-12)";
+const FORM_MODE = "interview";   // "interview" = interview without the cost part; "cost" = cost check only
+const SHOW_COSTS = FORM_MODE!=="interview";
+const SHOW_INTERVIEW = FORM_MODE!=="cost";
 /* =================================== */
 
 const L=(en,de,uk)=>({en,de,uk});
@@ -564,6 +567,23 @@ const INVITE_DEFAULT={
   uk:"Дорогий друже, сподіваюся, у тебе все добре. Я рада поділитися, що працюю над першим прототипом Tysha — технологічного рішення для психічного здоров'я, і з радістю запрошую тебе на перше інтерв'ю про те, як ти ставишся до себе, і особливо до свого психічного здоров'я. Це займе близько 10 хвилин твого часу. Особливо радію, що наприкінці ти отримаєш свій індивідуальний звіт, який покаже, скільки варте твоє психічне здоров'я. Це може бути цікава й навіть трохи ігрова інформація."
 };
 
+/* invitation for the interview without the cost part */
+const INVITE_SHORT={
+  en:"Dear friend, I hope you are doing well. I am working on the first prototype of Tysha, a mental health tech solution, and I would love to invite you to a short interview on how you treat yourself and your mental health. It takes about 10 minutes. At the end you get a short personal summary of your answers.",
+  de:"Liebe Freundin, lieber Freund, ich hoffe, es geht dir gut. Ich arbeite am ersten Prototyp von Tysha, einer Mental-Health-Tech-Lösung, und lade dich herzlich zu einem kurzen Interview ein: wie du mit dir selbst und deiner mentalen Gesundheit umgehst. Es dauert etwa 10 Minuten. Am Ende bekommst du eine kurze persönliche Zusammenfassung deiner Antworten.",
+  uk:"Дорогий друже, сподіваюся, у тебе все добре. Я працюю над першим прототипом Tysha — технологічного рішення для психічного здоров'я — і запрошую тебе на коротке інтерв'ю про те, як ти ставишся до себе і свого психічного здоров'я. Це займе близько 10 хвилин. Наприкінці ти отримаєш коротке особисте резюме своїх відповідей."
+};
+/* invitation for the cost check */
+const INVITE_COST={
+  en:"Dear friend, I hope you are doing well. I am working on Tysha, a mental health tech solution, and I would love to invite you to a short, anonymous self-check: what stress can cost you over three months, in money and in time. It takes about 5 minutes. At the end you get your personal Mental Health Reflection.",
+  de:"Liebe Freundin, lieber Freund, ich hoffe, es geht dir gut. Ich arbeite an Tysha, einer Mental-Health-Tech-Lösung, und lade dich herzlich zu einem kurzen, anonymen Selbstcheck ein: was dich Stress in drei Monaten kosten kann, an Geld und an Zeit. Es dauert etwa 5 Minuten. Am Ende bekommst du deine persönliche Reflexion zur mentalen Gesundheit.",
+  uk:"Дорогий друже, сподіваюся, у тебе все добре. Я працюю над Tysha — технологічним рішенням для психічного здоров'я — і запрошую тебе на коротку анонімну самоперевірку: скільки стрес може коштувати тобі за три місяці, у грошах і в часі. Це займе близько 5 хвилин. Наприкінці ти отримаєш свою персональну рефлексію щодо психічного здоров'я."
+};
+if(FORM_MODE==="cost"){
+  UI.helloLede=L("A few calm minutes about what stress can cost you over 3 months, in money and in time. Anonymous, not a diagnosis.","Ein paar ruhige Minuten darüber, was dich Stress in 3 Monaten kosten kann, an Geld und an Zeit. Anonym, keine Diagnose.","Кілька спокійних хвилин про те, скільки стрес може коштувати вам за 3 місяці, у грошах і в часі. Анонімно, не діагноз.");
+  UI.doneLede=L("A last thought, then send or save your Mental Health Reflection.","Ein letzter Gedanke, dann sende oder speichere deine Reflexion zur mentalen Gesundheit.","Остання думка — і надішліть чи збережіть свою рефлексію щодо психічного здоров'я.");
+}
+
 /* ===== Shared option lists ===== */
 const CALM_OPTS=[O("music","Music, reading","Musik, Lesen","Музика, читання"),O("nature","Nature, a walk","Natur, Spaziergang","Природа, прогулянка"),O("silence","Silence, lying down","Stille, Hinlegen","Тиша, полежати"),O("breath","Breathing","Atmen","Дихання"),O("bath","A bath or shower","Bad oder Dusche","Ванна чи душ"),O("people","Talking to someone","Mit jemandem reden","Розмова з кимось"),O("sport","Sport, physical activity","Sport, Bewegung","Спорт, фізична активність"),O("pets","Pets","Haustiere","Домашні тварини"),O("sleep","Sleep","Schlaf","Сон"),O("nothing","Nothing really","Eigentlich nichts","Нічого особливо")];
 const DOING_OPTS=[O("meditation","Meditation","Meditation","Медитація"),O("yoga","Yoga","Yoga","Йога"),O("sport","Sport","Sport","Спорт"),O("nature","Walks, nature","Natur, Spaziergänge","Прогулянки, природа"),O("therapy","Therapy","Therapie","Терапія"),O("coach","Coaching","Coaching","Коучинг"),O("journal","Journaling","Tagebuch","Щоденник"),O("apps","Apps","Apps","Застосунки"),O("sleep","Better sleep","Besser schlafen","Кращий сон"),O("offline","Phone-free time","Handyfreie Zeit","Час без телефону"),O("friends","Talking to friends","Gespräche mit Freunden","Розмови з друзями")];
@@ -599,6 +619,7 @@ const uaIncome=()=>lang==="uk"||S.answers.country==="UA";
 {const q=ABOUT.find(x=>x.id==="income"),eurOpts=q.opts,eurTitle=q.title;
  Object.defineProperty(q,"opts",{get:()=>uaIncome()?INCOME_UA:eurOpts});
  Object.defineProperty(q,"title",{get:()=>uaIncome()?INCOME_UA_TITLE:eurTitle});}
+/* when the list switches (language or country changed), drop an income answer that is not in the list now shown */
 function fixIncome(){const a=S.answers.income;if(a&&!ABOUT.find(x=>x.id==="income").opts.some(o=>o.k===a)){delete S.answers.income;persist()}}
 /* ===== One currency for the whole form =====
    UAH when the form is in Ukrainian or the country is Ukraine; otherwise the country currency (EUR by default).
@@ -742,10 +763,10 @@ const PAGES=[
   {id:"ch1",ch:1,title:UI.ch1Title,lede:UI.ch1Lede,qs:CH1},
   {id:"ch2",ch:2,title:UI.ch2Title,lede:UI.ch2Lede,qs:CH2},
   {id:"habits",ch:3,title:UI.habitsTitle,lede:UI.habitsLede,qs:HABITS},
-  {id:"worth",ch:4,title:UI.worthTitle,lede:UI.worthLede,qs:FACTOR_QS.concat(WORTH_Q)},
+  {id:"worth",ch:SHOW_INTERVIEW?4:1,title:UI.worthTitle,lede:UI.worthLede,qs:FACTOR_QS.concat(WORTH_Q)},
   {id:"results",title:UI.resultsTitle,lede:UI.resultsLede,qs:[]},
   {id:"done",title:UI.doneTitle,lede:UI.doneLede,qs:DONE_Q.concat(NOTES_Q)}
-];
+].filter(p=>(SHOW_COSTS||p.id!=="worth")&&(SHOW_INTERVIEW||!["ch1","ch2","habits","results"].includes(p.id)));
 
 /* ===== Country presets (rough starting values to verify) ===== */
 const PRESETS={
@@ -773,7 +794,7 @@ const pick=(o,keys)=>{const r={};keys.forEach(k=>r[k]=o[k]);return r};
 function freshState(){return{answers:{},code:{c1:"",c2:"",c3:"",c4:""},consent:false,startedAt:nowIso(),
   calc:{preset:"DE",presetAuto:true,net:"",cur:"EUR",selfEmp:null,prot:"no",buffer:"",eap:0,weather:null,horizon:3,...pick(PRESETS.DE,["emp","repl","cov","wait","price"]),levels:JSON.parse(JSON.stringify(LEVEL_DEFAULTS))},page:0,invite:null,link:""}}
 let S=freshState();
-const STORE_KEY="tysha-interview-v3";
+const STORE_KEY="tysha-interview-v3-"+FORM_MODE;
 try{const s=localStorage.getItem(STORE_KEY);if(s){const p=JSON.parse(s);if(p&&p.answers)S=Object.assign(freshState(),p)}}catch(e){}
 if(!(S.page>=0&&S.page<PAGES.length))S.page=0;
 /* older saves used 3 weather levels over 12 months: reset the cost page to the 4 levels over 3 months */
@@ -819,14 +840,14 @@ const WX_ICONS=[
 
 /* ===== Views ===== */
 let view="interview";
-function readHash(){const h=(location.hash||"").slice(1);if(h==="preview"){view="interview";enterPreview();return}view=["calculator","invite","studio","contact"].includes(h)?h:"interview"}
+function readHash(){const h=(location.hash||"").slice(1);if(h==="preview"){view="interview";enterPreview();return}view=[SHOW_COSTS&&SHOW_INTERVIEW?"calculator":"","invite","studio","contact"].includes(h)?h:"interview"}
 function enterPreview(){if(PREVIEW)return;PREVIEW=true;realS=S;S=freshState();S.consent=true;S.page=realS.page||0}
 function exitPreview(){if(!PREVIEW)return;PREVIEW=false;S=realS||freshState();realS=null;try{history.replaceState(null,"","#start")}catch(_){}}
 readHash();window.addEventListener("hashchange",()=>{readHash();render()});
 function renderTabs(){
   const el=document.getElementById("tabs");
   if(!isOwner){el.innerHTML="";return}
-  el.innerHTML=[["interview",UI.interview],["preview",UI.preview],["calculator",UI.calculator],["invite",UI.invite],["contact",UI.ctTab],["studio",UI.studio]].map(([k,l])=>`<a href="#${k==="interview"?"start":k}" data-view="${k}" class="${(k==="preview"?PREVIEW&&view==="interview":view===k&&!(k==="interview"&&PREVIEW))?"on":""}">${esc(tr(l))}</a>`).join("");
+  el.innerHTML=[["interview",UI.interview],["preview",UI.preview],["calculator",UI.calculator],["invite",UI.invite],["contact",UI.ctTab],["studio",UI.studio]].filter(([k])=>(SHOW_COSTS&&SHOW_INTERVIEW)||k!=="calculator").map(([k,l])=>`<a href="#${k==="interview"?"start":k}" data-view="${k}" class="${(k==="preview"?PREVIEW&&view==="interview":view===k&&!(k==="interview"&&PREVIEW))?"on":""}">${esc(tr(l))}</a>`).join("");
 }
 document.getElementById("tabs").addEventListener("click",e=>{const a=e.target.closest("a[data-view]");if(!a)return;e.preventDefault();const v=a.dataset.view;if(v==="preview"){enterPreview();view="interview"}else{if(v==="interview")exitPreview();view=v}try{history.replaceState(null,"","#"+(v==="interview"?"start":v))}catch(_){}render()});
 const langSel=document.getElementById("lang");langSel.value=lang;document.documentElement.lang=lang;
@@ -1161,7 +1182,7 @@ function resultsHTML(){
   if(wish!=null)facts.push(`<div class="fact"><b>${esc(fmt(wish,respCur()))}</b><span>${esc(tr(UI.budget))}</span></div>`);
   if(now!=null)facts.push(`<div class="fact"><b>${esc(sliderLabel(Q("spend_now"),now))}</b><span>${esc(tr(UI.spendNow))}</span></div>`);
   let eq="";const w=S.calc.weather;
-  if(w!=null){const {money,time}=equivalents(w);const top=[money[0],money[3]].concat(time.slice(0,1)).filter(Boolean);
+  if(SHOW_COSTS&&w!=null){const {money,time}=equivalents(w);const top=[money[0],money[3]].concat(time.slice(0,1)).filter(Boolean);
     eq=`<div class="card" style="--c:var(${COLS[w]})"><div class="ch"><h3>${esc(tr(UI.canTake[w]))}</h3></div><div class="eq">${top.map(e=>`<div class="eqi ${e.unit?"":"time"}"><span class="em" aria-hidden="true">${e.em}</span><span class="eqn">${nFmt(e.n)}</span><span>${esc(tr(e.t))}</span></div>`).join("")}</div></div>`}
   return `<div class="stack">
    <div class="card">${bar("stress",UI.rStress,"stress")}${drained(S.answers)?bar("wish",UI.rWish,"wish"):""}<p class="msg">${esc(tr(resultMessage()))}</p>${s!=null&&s>=9?`<p class="note">${esc(tr(UI.crisis))}</p>`:""}</div>
@@ -1179,11 +1200,11 @@ function shareText(){
   const si=sliderIndex(Q("stress")),wi=sliderIndex(Q("wish"));
   if(si!=null)lines.push(tr(UI.rStress)+": "+sliderLabel(Q("stress"),si));
   if(wi!=null)lines.push(tr(UI.rWish)+": "+sliderLabel(Q("wish"),wi));
-  if(si!=null&&wi!=null)lines.push(tr(resultMessage()));
+  if(si!=null&&(wi!=null||!drained(S.answers)))lines.push(tr(resultMessage()));
   const calm=[...new Set([].concat(labels("n_calm"),labels("n_ground"),labels("y_down")))];
   if(calm.length)lines.push(tr(UI.shCalm)+": "+calm.slice(0,4).join(", "));
   const w=S.calc.weather;
-  if(w!=null){const {money,time}=equivalents(w);const top=[money[0],money[3]].concat(time.slice(0,1)).filter(Boolean);
+  if(SHOW_COSTS&&w!=null){const {money,time}=equivalents(w);const top=[money[0],money[3]].concat(time.slice(0,1)).filter(Boolean);
     lines.push(tr(UI.canTake[w]).replace(/…$/,":")+" "+top.map(e=>nFmt(e.n)+" "+tr(e.t)).join(", "))}
   lines.push("",tr(UI.shFind)+": "+SHARE_URL);
   return lines.join("\n");
@@ -1316,12 +1337,14 @@ function record(){const {I,R}=calcAll();
   return JSON.parse(JSON.stringify({form_version:FORM_VERSION,language:lang,code:codeValue(),consent:S.consent,started_at:S.startedAt,exported_at:nowIso(),
     answers:withWant(Object.fromEntries(Object.entries(S.answers).filter(([k])=>!CONTACT_KEYS.includes(k)))),score:scoreValue(),calc:{inputs:S.calc,used:{net:I.net,isExample:I.isExample,cur:I.cur,self:I.self},results:R.map(r=>({cash_year1:Math.round(r.cash),five_years:Math.round(r.five),lost_income:Math.round(r.lost),health_costs:Math.round(r.health),share_of_income:+r.share.toFixed(3)}))}}))}
 const ALL_Q=ABOUT.concat(CH1,CH2,HABITS,FACTOR_QS,WORTH_Q,DONE_Q,NOTES_Q).filter(q=>q.kind!=="fork");
-const ANSWER_KEYS=[].concat(...ALL_Q.map(q=>q.kind==="voice"&&q.chips?[q.id,q.id+"_words"]:q.free?[q.id,q.id+"_other"]:[q.id])).concat(["weather"]);
+const MODE_Q=(SHOW_INTERVIEW?ABOUT.concat(CH1,CH2,HABITS):ABOUT).concat(SHOW_COSTS?FACTOR_QS.concat(WORTH_Q):[],DONE_Q,NOTES_Q).filter(q=>q.kind!=="fork");
+const ANSWER_KEYS=[].concat(...MODE_Q.map(q=>q.kind==="voice"&&q.chips?[q.id,q.id+"_words"]:q.free?[q.id,q.id+"_other"]:[q.id])).concat(["weather"]);
 function flatRow(rec){
   const r={saved_at:rec.saved_at,form_version:rec.form_version,language:rec.language,code:rec.code,consent:rec.consent?"yes":"no",started_at:rec.started_at,score:rec.score};
   ANSWER_KEYS.forEach(k=>{const v=rec.answers[k];r[k]=Array.isArray(v)?v.join("; "):(v??"")});
   if(typeof SHOW_INTERVIEW==="undefined"||SHOW_INTERVIEW){r.money_currency=respCur();r.spend_now_eur=toEur(rec.answers.spend_now);r.spend_wish_eur=toEur(rec.answers.spend_wish)}
   delete r.spend_wish_old;   /* old slider, no longer asked */
+  if(!SHOW_COSTS)return r;   /* interview file: no cost columns */
   const u=rec.calc.used,i=rec.calc.inputs;
   Object.assign(r,{calc_net_income:u.isExample?"":u.net,calc_currency:u.cur,calc_self_employed:u.self?"yes":"no",calc_country_preset:i.preset,calc_employer_weeks:i.emp,calc_sick_pay_pct:i.repl,calc_therapy_cover_pct:i.cov,calc_wait_weeks:i.wait,calc_session_price:i.price});
   rec.calc.results.forEach((x,n)=>{r[`L${n+1}_cash_year1`]=x.cash_year1;r[`L${n+1}_five_years`]=x.five_years});
@@ -1346,7 +1369,7 @@ function reportInner(){
     <table style="border-collapse:collapse;font-size:15px"><tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitTime))}</td><td style="padding:3px 0"><b>${ti==null?esc(tr(UI.commitNone)):esc(sliderLabel(Q("time_daily"),ti))+" "+esc(tr(UI.perDayShort))}</b></td></tr>
     <tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitWhen))}</td><td style="padding:3px 0"><b>${when.length?esc(when.join(", ")):esc(tr(UI.commitNone))}</b></td></tr></table></div>`}
   const w=S.calc.weather;
-  if(w!=null){const {I,money,time}=equivalents(w);
+  if(SHOW_COSTS&&w!=null){const {I,money,time}=equivalents(w);
     h+=`<div style="border:1px solid #999;border-radius:14px;padding:14px;margin-bottom:14px"><b>${esc(tr(UI.canTake[w]))}</b><ul style="margin:6px 0 0;padding-left:18px">`+
       money.map(e=>`<li>${nFmt(e.n)} ${esc(tr(e.t))} <span style="color:#666">(${esc(tr(UI.each))} ${fmt(e.unit,I.cur)})</span></li>`).join("")+
       time.map(e=>`<li>${nFmt(e.n)} ${esc(tr(e.t))}</li>`).join("")+`</ul></div>`}
@@ -1429,7 +1452,7 @@ async function downloadZip(){
 
 /* ===== Invitation ===== */
 function renderInvite(){
-  const text=S.invite&&S.invite[lang]!=null?S.invite[lang]:INVITE_DEFAULT[lang];
+  const text=S.invite&&S.invite[lang]!=null?S.invite[lang]:(FORM_MODE==="cost"?INVITE_COST:INVITE_SHORT)[lang];
   app.innerHTML=`<p class="eyebrow">&nbsp;</p><h1>${esc(tr(UI.invite))}</h1><p class="lede">${esc(tr(UI.inviteLede))}</p><div class="stack">
   <div class="card"><textarea id="inviteText" style="min-height:220px">${esc(text)}</textarea>
   <input id="inviteLink" value="${esc(S.link||"")}" placeholder="${esc(tr(UI.link))}" style="width:100%">
@@ -1489,7 +1512,7 @@ app.addEventListener("change",e=>{
     if(q==="working")renderKeepScroll();
     if(q==="pay_ready"){if(k==="no"){delete S.answers.spend_wish;persist()}renderKeepScroll()}   /* amount field only for yes / maybe */
     if(q==="stress_type"&&!drained(S.answers)&&S.answers.wish!=null){delete S.answers.wish;persist()}   /* positive stress: no wish slider */   /* not draining: clear wish, working and path answers */
-    if(q==="country"){fixIncome();renderKeepScroll()}   /* opens the matching path */
+    if(q==="country"){fixIncome();renderKeepScroll()}   /* income ranges follow the country */   /* opens the matching path */
     if(q==="apps_used"&&!!document.getElementById("card_apps_use")!==usesApps(S.answers)){
       if(!usesApps(S.answers)){delete S.answers.apps_use;delete S.answers.apps_use_words;persist()}
       renderKeepScroll()}

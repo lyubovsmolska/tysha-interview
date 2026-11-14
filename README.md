@@ -4,8 +4,8 @@ Public pages of the Tysha interview. Each page can be shared on its own; all sen
 
 | Page | Link |
 |---|---|
-| Full interview with cost chapter | https://lyubovsmolska.github.io/tysha-interview/ |
-| Interview without the cost part | https://lyubovsmolska.github.io/tysha-interview/interview.html |
+| Interview without the cost part (main link) | https://lyubovsmolska.github.io/tysha-interview/ |
+| Same interview, second link | https://lyubovsmolska.github.io/tysha-interview/interview.html |
 | Cost Check only | https://lyubovsmolska.github.io/tysha-interview/cost-check.html |
 | Stay in touch (contact form only) | https://lyubovsmolska.github.io/tysha-interview/#contact |
 
