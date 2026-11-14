@@ -334,7 +334,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.0-interview (2026-11-14)";
+const FORM_VERSION = "v0.20.1-interview (2026-11-14)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -691,7 +691,7 @@ const HABITS=[
    chips:{opts:[O("more2_day","More than 2 times a day","Mehr als 2-mal am Tag","Понад 2 рази на день"),O("1-2_day","1–2 times a day","1–2-mal am Tag","1–2 рази на день"),O("few_week","A few times a week","Ein paar Mal pro Woche","Кілька разів на тиждень"),O("weekly","About once a week","Etwa einmal pro Woche","Приблизно раз на тиждень"),O("few_month","A few times a month","Ein paar Mal im Monat","Кілька разів на місяць"),O("rarely","Rarely","Selten","Рідко"),O("stopped","Tried, stopped","Probiert, aufgehört","Пробував(ла), кинув(ла)")]}},
   {id:"abos",kind:"chips",multi:true,exclusive:"none",title:L("Which subscriptions do you pay for your wellbeing?","Welche Abos zahlst du für dein Wohlbefinden?","За які підписки для добробуту ви платите?"),
    opts:[O("none","None","Keine","Жодних"),O("app","Mind or sleep app","Meditations- oder Schlaf-App","Застосунок для медитації чи сну"),O("gym","Gym or sports club","Fitnessstudio, Sportverein","Спортзал чи клуб"),O("studio","Yoga or Pilates studio","Yoga- oder Pilates-Studio","Студія йоги чи пілатесу"),O("therapy","Therapy or coaching (self-paid)","Therapie, Coaching (selbst bezahlt)","Терапія чи коучинг (власним коштом)"),O("massage","Massage, spa","Massage, Spa","Масаж, спа"),O("wearable","Wearable membership","Wearable-Mitgliedschaft","Підписка на ґаджет")]},
-  {id:"spend_now",kind:"slider",money:true,min:0,max:200,step:5,title:L("What do you spend on your wellbeing per month today?","Was gibst du heute im Monat für dein Wohlbefinden aus?","Скільки ви зараз витрачаєте на свій добробут на місяць?"),
+  {id:"spend_now",kind:"slider",show:a=>!(Array.isArray(a.abos)&&a.abos.includes("none")),money:true,min:0,max:200,step:5,title:L("What do you spend on your wellbeing per month today?","Was gibst du heute im Monat für dein Wohlbefinden aus?","Скільки ви зараз витрачаєте на свій добробут на місяць?"),
    q:L("Roughly, what do you spend per month on your wellbeing today?","Was gibst du heute ungefähr im Monat für dein Wohlbefinden aus?","Приблизно скільки ви витрачаєте на свій добробут на місяць?"),lo:L("nothing","nichts","нічого"),hi:L("200+","200+","200+")},
   {id:"pay_ready",kind:"chips",title:L("Are you ready to pay additionally for a service that brings your mental exercises into a regular practice?","Wärst du bereit, zusätzlich für einen Service zu zahlen, der deine mentalen Übungen zu einer regelmäßigen Praxis macht?","Чи готові ви додатково платити за сервіс, який перетворить ваші ментальні вправи на регулярну практику?"),
    opts:[O("yes","Yes","Ja","Так"),O("maybe","Maybe","Vielleicht","Можливо"),O("no","No","Nein","Ні")]},
@@ -1517,6 +1517,9 @@ app.addEventListener("change",e=>{
     if(q==="pay_ready"){if(k==="no"){delete S.answers.spend_wish;persist()}renderKeepScroll()}   /* amount field only for yes / maybe */
     if(q==="stress_type"&&!drained(S.answers)&&S.answers.wish!=null){delete S.answers.wish;persist()}   /* positive stress: no wish slider */   /* not draining: clear wish, working and path answers */
     if(q==="country"){fixIncome();renderKeepScroll()}   /* income ranges follow the country */   /* opens the matching path */
+    if(q==="abos"&&!!document.getElementById("card_spend_now")!==!(Array.isArray(S.answers.abos)&&S.answers.abos.includes("none"))){   /* "None" ticked: no spending question */
+      if(S.answers.abos.includes("none")){delete S.answers.spend_now;persist()}
+      renderKeepScroll()}
     if(q==="apps_used"&&!!document.getElementById("card_apps_use")!==usesApps(S.answers)){
       if(!usesApps(S.answers)){delete S.answers.apps_use;delete S.answers.apps_use_words;persist()}
       renderKeepScroll()}
