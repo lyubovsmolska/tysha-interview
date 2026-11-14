@@ -333,7 +333,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.19.3-cost (2026-11-14)";
+const FORM_VERSION = "v0.19.4-cost (2026-11-14)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -1335,7 +1335,7 @@ function flatRow(rec){
   const r={saved_at:rec.saved_at,form_version:rec.form_version,language:rec.language,code:rec.code,consent:rec.consent?"yes":"no",started_at:rec.started_at,score:rec.score};
   ANSWER_KEYS.forEach(k=>{const v=rec.answers[k];r[k]=Array.isArray(v)?v.join("; "):(v??"")});
   if(typeof SHOW_INTERVIEW==="undefined"||SHOW_INTERVIEW){r.money_currency=respCur();r.spend_now_eur=toEur(rec.answers.spend_now);r.spend_wish_eur=toEur(rec.answers.spend_wish)}
-  delete r.spend_wish_old;
+  delete r.spend_wish_old;delete r.best_quote;delete r.surprise;delete r.weather;   /* columns removed from the sheet on 14 Nov */
   r.share_channels=(S.shareCh||[]).join("; ");r.downloaded=S.downloaded||"no";   /* old slider, no longer asked */
   if(!SHOW_COSTS)return r;   /* interview file: no cost columns */
   const u=rec.calc.used,i=rec.calc.inputs;
