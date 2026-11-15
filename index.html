@@ -340,7 +340,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.10-interview (2026-11-15)";
+const FORM_VERSION = "v0.20.11-interview (2026-11-15)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -440,7 +440,7 @@ const UI={
   mEmpty:L("Move the dots in chapters 1 and 2 to see your picture.","Schieb die Punkte in Kapitel 1 und 2, um dein Bild zu sehen.","Пересуньте крапки в розділах 1 і 2, щоб побачити свою картину."),
   pathYes:L("You already care for yourself","Du sorgst schon für dich","Ви вже дбаєте про себе"),
   pathNo:L("Your first steps","Deine ersten Schritte","Ваші перші кроки"),
-  since:L("for","seit","вже"), helps:L("It helps","Es hilft","Допомагає"),
+  since:L("for","seit","вже"), helps:L("It helps","Es hilft","Допомагає"), impact:L("Impact","Wirkung","Вплив"),
   helpStart:L("What could help you start","Was dir beim Start helfen könnte","Що може допомогти почати"),
   calmHead:L("What calms and grounds you","Was dich beruhigt und erdet","Що вас заспокоює і заземлює"),
   windowHead:L("Your daily window","Dein tägliches Zeitfenster","Ваше щоденне вікно"),
@@ -696,9 +696,6 @@ const CH2=[
    lo:L("not at all","gar nicht","зовсім ні"),hi:L("very satisfied","sehr zufrieden","дуже задоволений(а)"),
    words:LV10(L("not at all","gar nicht","зовсім ні"),L("a little","ein bisschen","трохи"),L("somewhat","einigermaßen","певною мірою"),L("satisfied","zufrieden","задоволений(а)"),L("very satisfied","sehr zufrieden","дуже задоволений(а)"))},
   {id:"y_diff",kind:"voice",show:isYes,title:L("Want to share what is different now?","Magst du erzählen, was jetzt anders ist?","Хочете поділитися, що тепер інакше?"),q:L("Would you like to share what is different for you now?","Möchtest du erzählen, was für dich jetzt anders ist?","Хочете розповісти, що для вас тепер інакше?")},
-  {id:"y_helps",kind:"slider",show:isYes,min:0,max:10,title:L("Does it help?","Hilft es?","Чи допомагає це?"),q:L("How much does it help you, from 0 to 10?","Wie sehr hilft es dir, von 0 bis 10?","Наскільки це вам допомагає, від 0 до 10?"),
-   lo:L("not at all","gar nicht","зовсім ні"),hi:L("a lot","sehr","дуже"),
-   words:LV10(L("not at all","gar nicht","зовсім ні"),L("a little","ein bisschen","трохи"),L("somewhat","einigermaßen","певною мірою"),L("clearly","deutlich","помітно"),L("a lot","sehr","дуже"))},
   {id:"y_open",kind:"chips",show:isYes,title:L("Are you open to trying something new?","Bist du offen, etwas Neues auszuprobieren?","Ви відкриті спробувати щось нове?"),opts:[O("yes","Yes","Ja","Так"),O("maybe","Maybe","Vielleicht","Можливо"),O("no","No, I'm happy as it is","Nein, ich bin zufrieden","Ні, мене все влаштовує")]},
   {id:"y_down",kind:"voice",show:isYes,title:L("What helps you calm down?","Was hilft dir, runterzukommen?","Що допомагає вам розслабитися?"),q:L("What helps you calm down after a full day?","Was hilft dir, nach einem vollen Tag runterzukommen?","Що допомагає вам розслабитися після насиченого дня?"),chips:{multi:true,opts:CALM_OPTS}}
 ];
@@ -1191,7 +1188,7 @@ function resultMessage(){const s=sliderIndex(Q("stress")),w=sliderIndex(Q("wish"
 function resultsHTML(){
   const a=S.answers,s=sliderIndex(Q("stress"));
   const pathCard=isYes(a)?`<div class="card"><div class="ch"><h3>${esc(tr(UI.pathYes))}</h3></div>${tags(labels("y_doing"))}
-     <p class="note">${a.y_since?esc(tr(UI.since))+" "+esc(sliderLabel(Q("y_since"),sliderIndex(Q("y_since")))):""}${a.y_since&&a.y_helps!=null?" · ":""}${a.y_helps!=null&&a.y_helps!==""?esc(tr(UI.helps))+": "+esc(sliderLabel(Q("y_helps"),sliderIndex(Q("y_helps")))):""}</p></div>`
+     <p class="note">${a.y_since?esc(tr(UI.since))+" "+esc(sliderLabel(Q("y_since"),sliderIndex(Q("y_since")))):""}${a.y_since&&a.y_impact!=null&&a.y_impact!==""?" · ":""}${a.y_impact!=null&&a.y_impact!==""?esc(tr(UI.impact))+": "+esc(sliderLabel(Q("y_impact"),sliderIndex(Q("y_impact")))):""}</p></div>`
     :isNo(a)?`<div class="card"><div class="ch"><h3>${esc(tr(UI.pathNo))}</h3></div><p class="note">${esc(tr(UI.helpStart))}</p>${tags(labels("n_habit"))}</div>`:"";
   const calm=[...new Set([].concat(labels("n_calm"),labels("n_ground"),labels("y_down")))];
   const tIdx=sliderIndex(Q("time_daily")),mins=tIdx==null?null:Q("time_daily").steps[tIdx].k;
