@@ -340,7 +340,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.7-interview (2026-11-15)";
+const FORM_VERSION = "v0.20.8-interview (2026-11-15)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -599,7 +599,7 @@ if(FORM_MODE==="cost"){
 }
 
 /* ===== Shared option lists ===== */
-const CALM_OPTS=[O("music","Music, reading","Musik, Lesen","Музика, читання"),O("nature","Nature, a walk","Natur, Spaziergang","Природа, прогулянка"),O("silence","Silence, lying down","Stille, Hinlegen","Тиша, полежати"),O("breath","Breathing","Atmen","Дихання"),O("bath","A bath or shower","Bad oder Dusche","Ванна чи душ"),O("people","Talking to someone","Mit jemandem reden","Розмова з кимось"),O("sport","Sport, physical activity","Sport, Bewegung","Спорт, фізична активність"),O("pets","Pets","Haustiere","Домашні тварини"),O("sleep","Sleep","Schlaf","Сон"),O("nothing","Nothing really","Eigentlich nichts","Нічого особливо")];
+const CALM_OPTS=[O("music","Music, reading, podcasts","Musik, Lesen, Podcasts","Музика, читання, подкасти"),O("nature","Nature, a walk","Natur, Spaziergang","Природа, прогулянка"),O("silence","Silence, lying down","Stille, Hinlegen","Тиша, полежати"),O("breath","Breathing","Atmen","Дихання"),O("bath","A bath or shower","Bad oder Dusche","Ванна чи душ"),O("people","Talking to someone","Mit jemandem reden","Розмова з кимось"),O("sport","Sport, physical activity","Sport, Bewegung","Спорт, фізична активність"),O("pets","Pets","Haustiere","Домашні тварини"),O("sleep","Sleep","Schlaf","Сон"),O("nothing","Nothing really","Eigentlich nichts","Нічого особливо")];
 const DOING_OPTS=[O("meditation","Meditation","Meditation","Медитація"),O("yoga","Yoga","Yoga","Йога"),O("sport","Sport","Sport","Спорт"),O("nature","Walks, nature","Natur, Spaziergänge","Прогулянки, природа"),O("therapy","Therapy","Therapie","Терапія"),O("coach","Coaching","Coaching","Коучинг"),O("journal","Journaling","Tagebuch","Щоденник"),O("apps","Apps","Apps","Застосунки"),O("sleep","Better sleep","Besser schlafen","Кращий сон"),O("offline","Phone-free time","Handyfreie Zeit","Час без телефону"),O("friends","Talking to friends","Gespräche mit Freunden","Розмови з друзями")];
 /* the wish-to-change slider, "Are you already working on it?" and both paths only appear when the stress is mostly draining */
 const drained=a=>["negative","mix","unsure"].includes(a.stress_type);   /* draining, a mix, or hard to say */
