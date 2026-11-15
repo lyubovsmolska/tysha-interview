@@ -340,7 +340,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.9-interview (2026-11-15)";
+const FORM_VERSION = "v0.20.10-interview (2026-11-15)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -692,6 +692,10 @@ const CH2=[
    lo:L("hardly any","kaum","майже нічого"),hi:L("4 hours or more","4 Stunden oder mehr","4 години і більше")},
   {id:"y_why",kind:"chips",multi:true,show:isYes,title:L("What made you start?","Was hat dich zum Anfangen gebracht?","Що спонукало вас почати?"),
    opts:[O("work","Stress at work","Stress im Job","Стрес на роботі"),O("burnout","Exhaustion, burnout","Erschöpfung, Burnout","Виснаження, вигорання"),O("sleep","Sleep problems","Schlafprobleme","Проблеми зі сном"),O("tension","Pain or tension","Schmerzen, Verspannung","Біль чи напруга"),O("advice","A doctor or therapist advised it","Ärztin oder Therapeut hat es empfohlen","Порадив лікар чи терапевт"),O("person","A friend or partner","Freund:in oder Partner:in","Друг чи партнер"),O("life","A big life change","Eine große Lebensveränderung","Велика зміна в житті"),O("curious","Curiosity","Neugier","Цікавість"),O("other","Something else","Etwas anderes","Щось інше")]},
+  {id:"y_impact",kind:"slider",show:isYes,min:0,max:10,title:L("How satisfied are you with the impact this habit has had on you?","Wie zufrieden bist du mit der Wirkung, die diese Gewohnheit auf dich hat?","Наскільки ви задоволені тим, як ця звичка вплинула на вас?"),q:L("How satisfied are you with the impact this habit has had on you, from 0 to 10?","Wie zufrieden bist du mit der Wirkung dieser Gewohnheit auf dich, von 0 bis 10?","Наскільки ви задоволені впливом цієї звички на вас, від 0 до 10?"),
+   lo:L("not at all","gar nicht","зовсім ні"),hi:L("very satisfied","sehr zufrieden","дуже задоволений(а)"),
+   words:LV10(L("not at all","gar nicht","зовсім ні"),L("a little","ein bisschen","трохи"),L("somewhat","einigermaßen","певною мірою"),L("satisfied","zufrieden","задоволений(а)"),L("very satisfied","sehr zufrieden","дуже задоволений(а)"))},
+  {id:"y_diff",kind:"voice",show:isYes,title:L("Want to share what is different now?","Magst du erzählen, was jetzt anders ist?","Хочете поділитися, що тепер інакше?"),q:L("Would you like to share what is different for you now?","Möchtest du erzählen, was für dich jetzt anders ist?","Хочете розповісти, що для вас тепер інакше?")},
   {id:"y_helps",kind:"slider",show:isYes,min:0,max:10,title:L("Does it help?","Hilft es?","Чи допомагає це?"),q:L("How much does it help you, from 0 to 10?","Wie sehr hilft es dir, von 0 bis 10?","Наскільки це вам допомагає, від 0 до 10?"),
    lo:L("not at all","gar nicht","зовсім ні"),hi:L("a lot","sehr","дуже"),
    words:LV10(L("not at all","gar nicht","зовсім ні"),L("a little","ein bisschen","трохи"),L("somewhat","einigermaßen","певною мірою"),L("clearly","deutlich","помітно"),L("a lot","sehr","дуже"))},
