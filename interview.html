@@ -284,6 +284,12 @@ body{background-attachment:fixed}
 .taglist{display:flex;flex-wrap:wrap;gap:6px}
 .taglist span{background:var(--accent-soft);color:var(--ink);border:1px solid var(--accent);border-radius:999px;padding:3px 11px;font-size:13px}
 #printArea{display:none}
+#reflView{position:fixed;inset:0;z-index:30;background:#fff;color:#111;overflow:auto;-webkit-overflow-scrolling:touch;padding:0 16px 40px;font:14px/1.55 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+#reflView .rvBar{position:sticky;top:0;z-index:1;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;background:#fff;padding:calc(10px + env(safe-area-inset-top,0px)) 0 10px;border-bottom:1px solid #ddd;margin-bottom:14px}
+#reflView .rvBar button{font:600 14px/1 Inter,sans-serif;padding:10px 18px;border-radius:999px;border:1px solid #66795C;background:#66795C;color:#fff;cursor:pointer}
+#reflView .rvBar button.gh{background:#fff;color:#33402c}
+#reflView .rvIn{max-width:720px;margin:0 auto}
+@media print{#reflView{display:none!important}}
 @media print{header.top,main,body::before{display:none!important}#printArea{display:block!important;color:#000;background:#fff}body{background:#fff}}
 @media (max-width:420px){.code4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (prefers-reduced-motion:no-preference){
@@ -334,7 +340,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.5-interview (2026-11-14)";
+const FORM_VERSION = "v0.20.6-interview (2026-11-15)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -463,6 +469,10 @@ const UI={
   optSendSub:L("anonymous, under your code","anonym, unter deinem Code","анонімно, під вашим кодом"),
   optSendFile:L("saves your answers as a file","speichert deine Antworten als Datei","зберігає ваші відповіді файлом"),
   optSendFileMsg:L("Your answers are saved.","Deine Antworten sind gespeichert.","Ваші відповіді збережено."),
+  dlOk:L("Your reflection is downloading. Look in the Downloads or Files folder of your device.","Deine Reflexion wird heruntergeladen. Schau im Ordner Downloads oder Dateien auf deinem Gerät nach.","Вашу рефлексію завантажується. Перевірте папку «Завантаження» або «Файли» на вашому пристрої."),
+  dlOpen:L("Nothing arrived? Open it here","Nichts angekommen? Hier öffnen","Нічого не з'явилося? Відкрити тут"),
+  dlInApp:L("This app does not allow downloads, so your reflection is shown on the screen. To keep it as a file, open this form in Safari or Chrome.","Diese App erlaubt keine Downloads, deshalb siehst du deine Reflexion auf dem Bildschirm. Um sie als Datei zu behalten, öffne dieses Formular in Safari oder Chrome.","Цей застосунок не дозволяє завантаження, тому рефлексію показано на екрані. Щоб зберегти її як файл, відкрийте цю форму в Safari або Chrome."),
+  rvClose:L("Close","Schließen","Закрити"),
   dlNoHere:L("Downloading does not work in this view. Open the form in your browser to download:","In dieser Ansicht klappt der Download nicht. Öffne das Formular im Browser, um herunterzuladen:","У цьому вікні завантаження не працює. Відкрийте форму в браузері, щоб завантажити:"),
   optSent:L("Sent to Tysha","An Tysha gesendet","Надіслано Tysha"),
   autoNote:L("If you leave this page without pressing Send, your answers are still sent anonymously.","Wenn du die Seite verlässt, ohne auf Senden zu drücken, werden deine Antworten trotzdem anonym gesendet.","Якщо ви залишите сторінку, не натиснувши «Надіслати», ваші відповіді все одно буде надіслано анонімно."),
@@ -1387,8 +1397,26 @@ function reportDoc(){return `<!doctype html><html lang="${lang}"><head><meta cha
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@400;600&display=swap"><style>body{font:14px/1.55 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:20px;color:#111;background:#fff}button{font:600 14px sans-serif;padding:10px 18px;border-radius:999px;border:0;background:#66795C;color:#fff;margin-bottom:16px}@media print{button{display:none}}</style></head>
 <body><button onclick="window.print()">${esc(tr(UI.print))}</button>${reportInner()}</body></html>`}
 const stamp=()=>new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
+/* the reflection on the screen: for phones and apps where a file download does not arrive */
+function showReflection(){
+  let v=document.getElementById("reflView");if(v)v.remove();
+  v=document.createElement("div");v.id="reflView";v.setAttribute("role","dialog");v.setAttribute("aria-modal","true");
+  v.innerHTML=`<div class="rvBar"><button type="button" id="rvPrint">${esc(tr(UI.print))}</button><button type="button" class="gh" id="rvClose">${esc(tr(UI.rvClose))}</button></div><div class="rvIn">${reportInner()}</div>`;
+  v.addEventListener("click",e=>{
+    if(e.target.id==="rvClose"){v.remove();return}
+    if(e.target.id==="rvPrint"){document.getElementById("printArea").innerHTML=reportInner();window.print()}});
+  document.body.appendChild(v);v.scrollTop=0;
+}
 async function offerFile(filename,data,mime,msgEl){
-  if(!IN_VIEWER){const b=new Blob([data],{type:mime});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);return}
+  if(!IN_VIEWER){
+    const isReport=mime==="text/html",ua=navigator.userAgent||"";
+    /* apps that open links in their own window (Instagram, Facebook, LinkedIn, Telegram on iPhone …) silently drop file downloads */
+    const inApp=/FBAN|FBAV|FB_IAB|Instagram|LinkedInApp|MicroMessenger|Snapchat|TikTok|Line\/|; wv\)/i.test(ua)||(/iPhone|iPad|iPod/.test(ua)&&!/Safari\//.test(ua));
+    if(isReport&&(inApp||!("download" in document.createElement("a")))){showReflection();if(msgEl){msgEl.className="status";msgEl.textContent=tr(UI.dlInApp)}return}
+    /* the link stays valid for 2 minutes: the iPhone asks "Download?" first, and a link removed too early cancels the download */
+    try{const b=new Blob([data],{type:mime});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=filename;a.style.display="none";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},120000)}catch(e){}
+    if(msgEl){msgEl.className="status ok";msgEl.innerHTML=esc(tr(UI.dlOk))+(isReport?` <a href="#" id="rvOpen">${esc(tr(UI.dlOpen))}</a>`:"")}
+    return}
   if(!downloads){   /* no download service in this view: try the normal browser download, and point to the browser copy */
     try{const b=new Blob([data],{type:mime});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}catch(e){}
     if(msgEl){const u=FORM_MODE==="cost"?"https://lyubovsmolska.github.io/tysha-interview/cost-check.html":"https://lyubovsmolska.github.io/tysha-interview/";msgEl.className="status";msgEl.innerHTML=esc(tr(UI.dlNoHere))+` <a href="${u}" target="_blank" rel="noopener">${u.replace("https://","")}</a>`}return}
@@ -1495,6 +1523,7 @@ app.addEventListener("click",async e=>{
   if(t.id==="contactSend")return sendContact();
   const co=t.closest("[data-ctopen]");if(co){CT.open=co.dataset.ctopen;const box=document.getElementById("contactBox");if(box){box.innerHTML=contactHTML();if(CT.open==="yes"){const f=box.querySelector("#ctForm [data-ctint]");if(f)f.focus()}}return}
   if(t.id==="printBtn"){document.getElementById("printArea").innerHTML=reportInner();window.print();return}
+  if(t.id==="rvOpen"){e.preventDefault();showReflection();return}
   if(t.id==="dlReport"){S.downloaded="yes";persist()}
   if(t.id==="dlReport")return offerFile(`tysha-mental-health-reflection-${codeValue()||"anon"}-${stamp()}.html`,reportDoc(),"text/html",document.getElementById("saveMsg"));
   if(t.id==="dlData")return offerFile(`tysha-answers-${codeValue()||"anon"}-${stamp()}.json`,JSON.stringify(record(),null,2),"application/json",document.getElementById("saveMsg"));
