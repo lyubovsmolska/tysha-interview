@@ -340,7 +340,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.6-interview (2026-11-15)";
+const FORM_VERSION = "v0.20.7-interview (2026-11-15)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -656,7 +656,7 @@ const CH1=[
    words:LV10(L("calm","ruhig","спокійно"),L("a little tense","etwas angespannt","трохи напружено"),L("stressed","gestresst","стрес"),L("very stressed","sehr gestresst","сильний стрес"),L("at my limit","am Limit","на межі"))}
 ,
   {id:"stress_type",kind:"chips",title:L("Is it more positive stress, like excitement, or the draining kind?","Ist es eher positiver Stress, wie Aufregung und Vorfreude, oder die belastende Art?","Це радше позитивний стрес, як хвилювання чи азарт, чи виснажливий?"),
-   opts:[O("positive","Mostly positive: excitement, drive","Eher positiv: Aufregung, Antrieb","Радше позитивний: хвилювання, азарт"),O("mix","A mix of both","Eine Mischung aus beidem","І те, і інше"),O("negative","Mostly draining: pressure, worry","Eher belastend: Druck, Sorgen","Радше виснажливий: тиск, тривога"),O("unsure","Hard to say","Schwer zu sagen","Важко сказати")]}
+   opts:[O("positive","Mostly positive: excitement, drive","Eher positiv: Aufregung, Antrieb","Радше позитивний: хвилювання, азарт"),O("negative","Mostly draining: pressure, worry","Eher belastend: Druck, Sorgen","Радше виснажливий: тиск, тривога"),O("mix","A mix of both","Eine Mischung aus beidem","І те, і інше"),O("unsure","Hard to say","Schwer zu sagen","Важко сказати")]}
 ];
 const CH2=[
   {id:"wish",kind:"slider",tone:"wish",show:drained,min:0,max:10,title:L("How strong is your wish to change this?","Wie stark ist dein Wunsch, daran etwas zu ändern?","Наскільки сильне ваше бажання це змінити?"),
