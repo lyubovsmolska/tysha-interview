@@ -129,6 +129,16 @@ button.btn:disabled{opacity:.4;cursor:not-allowed}
 .sentbox .tick svg{width:22px;height:22px}
 .sentbox h3{margin:0;font:500 24px/1.2 var(--f-display)}
 .sentbox p{margin:0;font-size:13.5px;color:var(--muted);max-width:36ch}
+/* founder video on the thank-you page */
+.vidbox{border-radius:18px;overflow:hidden;background:#000;aspect-ratio:1/1;width:100%;max-width:440px;margin:0 auto}
+.vidbox video{width:100%;height:100%;display:block;object-fit:cover}
+video::cue{font:500 15px/1.4 var(--f-body);background:rgba(0,0,0,.62);color:#fff}
+.vidfoot{display:flex;justify-content:center}
+.heart{display:inline-flex;gap:8px;align-items:center;font:500 14px var(--f-body);border-radius:999px;padding:10px 22px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.heart *{pointer-events:none}
+.heart .hs{font-size:19px;line-height:1;color:var(--muted);transition:transform .25s,color .25s}
+.heart[aria-pressed="true"]{border-color:var(--l3);background:color-mix(in srgb,var(--l3) 12%,var(--surface))}
+.heart[aria-pressed="true"] .hs{color:var(--l3);transform:scale(1.18)}
 @media (prefers-reduced-motion:no-preference){.sentbox{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}}
 details.more{border-top:1px solid var(--line);padding-top:10px}
 details.more summary{cursor:pointer;color:var(--muted);font-size:13px}
@@ -340,7 +350,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.12-interview (2026-11-15)";
+const FORM_VERSION = "v0.20.13-interview (2026-11-16)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -485,6 +495,10 @@ const UI={
   ctNews:L("Receive Tysha company progress","Fortschritt von Tysha erhalten","Отримувати новини про розвиток компанії Tysha"),
   ctContent:L("Receive Tysha mental health content","Inhalte von Tysha zur mentalen Gesundheit erhalten","Отримувати матеріали Tysha про психічне здоров'я"),
   ctInvestor:L("Interested as investor","Interesse als Investor:in","Цікавлюся як інвестор"),
+  vidEyebrow:L("A message from Liubov","Eine Nachricht von Liubov","Повідомлення від Любові"),
+  vidHead:L("Why Tysha, in 50 seconds","Warum Tysha, in 50 Sekunden","Чому Tysha, за 50 секунд"),
+  vidHeart:L("I like this","Gefällt mir","Подобається"),
+  vidHearted:L("Thank you!","Danke!","Дякую!"),
   ctSupport:L("I would like to support Tysha financially in its early stage","Ich möchte Tysha in der Frühphase finanziell unterstützen","Хочу фінансово підтримати Tysha на ранньому етапі"),
   ctName:L("First name","Vorname","Ім'я"),
   ctLast:L("Last name","Nachname","Прізвище"),
@@ -870,7 +884,39 @@ document.getElementById("tabs").addEventListener("click",e=>{const a=e.target.cl
 const langSel=document.getElementById("lang");langSel.value=lang;document.documentElement.lang=lang;
 langSel.addEventListener("change",()=>{stopVoice();stopSpeak();lang=langSel.value;try{localStorage.setItem("tysha-lang",lang)}catch(e){}document.documentElement.lang=lang;fixIncome();render()});
 
-function render(){syncCur();renderTabs();if(view==="contact")return renderContactOnly();if(view==="studio")return renderStudio();if(view==="calculator")return renderCalcOnly();if(view==="invite")return renderInvite();renderInterview()}
+function render(){syncCur();renderTabs();if(view==="contact")return renderContactOnly(),mountVideo();if(view==="studio")return renderStudio(),mountVideo();if(view==="calculator")return renderCalcOnly(),mountVideo();if(view==="invite")return renderInvite(),mountVideo();renderInterview();mountVideo()}
+/* ===== Founder video on the thank-you page (16 Nov) =====
+   One video element for the whole visit: it is moved into #vidSlot after each render, so a re-render (Send, language) does not stop it.
+   Saved in the anonymous row: video_played, video_seconds (furthest point reached by watching, not by skipping ahead), video_watched (25/50/75/100), video_heart. */
+const VIDEO_BASE=IN_VIEWER?"https://lyubovsmolska.github.io/tysha-interview/video/":"video/";
+const VIDEO_SEC=50.5;
+let vidCard=null;
+function vidState(){if(!S.vid||typeof S.vid!=="object")S.vid={played:"no",max:0,heart:"no"};return S.vid}
+function buildVideo(){
+  const c=document.createElement("div");c.className="card";c.id="vidCard";
+  c.innerHTML=`<p class="eyebrow" style="margin:0" data-vt="vidEyebrow"></p><div class="ch"><h3 data-vt="vidHead"></h3></div>
+   <div class="vidbox"><video id="founderVideo" playsinline controls preload="none" poster="${VIDEO_BASE}founder-thanks.jpg"${IN_VIEWER?' crossorigin="anonymous"':""}>
+    <source src="${VIDEO_BASE}founder-thanks.mp4" type="video/mp4">
+    ${[["en","English"],["de","Deutsch"],["uk","Українська"]].map(([l,n])=>`<track kind="subtitles" srclang="${l}" label="${n}" src="${VIDEO_BASE}founder-thanks.${l}.vtt">`).join("")}
+   </video></div>
+   <div class="vidfoot"><button type="button" class="heart" id="vidHeart" aria-pressed="false"><span class="hs" aria-hidden="true">♥</span><span data-vt="vidHeart"></span></button></div>`;
+  const v=c.querySelector("video");let last=null;
+  v.addEventListener("play",()=>{const st=vidState();if(st.played!=="yes"){st.played="yes";persist()}});
+  v.addEventListener("seeked",()=>{last=v.currentTime});
+  v.addEventListener("timeupdate",()=>{const t=v.currentTime||0,st=vidState();
+    if(!v.seeking&&last!=null&&t>=last&&t-last<1.5&&t>(+st.max||0)){const old=Math.round(+st.max||0);st.max=Math.min(t,VIDEO_SEC);if(Math.round(st.max)!==old)persist()}
+    last=t});
+  v.addEventListener("loadedmetadata",vidTracks);
+  c.querySelector("#vidHeart").addEventListener("click",()=>{const st=vidState();st.heart=st.heart==="yes"?"no":"yes";persist();vidTexts()});
+  return c;
+}
+function vidTracks(){if(!vidCard)return;const v=vidCard.querySelector("video");try{for(const t of v.textTracks)t.mode=t.language===lang?"showing":"disabled"}catch(e){}}
+function vidTexts(){if(!vidCard)return;const st=vidState(),on=st.heart==="yes";
+  vidCard.querySelectorAll("[data-vt]").forEach(el=>{const k=el.dataset.vt;el.textContent=tr(UI[k==="vidHeart"&&on?"vidHearted":k])});
+  const h=vidCard.querySelector("#vidHeart");h.setAttribute("aria-pressed",String(on));h.setAttribute("aria-label",tr(UI.vidHeart));vidTracks()}
+function mountVideo(){const slot=document.getElementById("vidSlot");
+  if(!slot){if(vidCard)try{vidCard.querySelector("video").pause()}catch(e){}return}
+  if(!vidCard)vidCard=buildVideo();slot.replaceWith(vidCard);vidTexts()}
 
 /* --- sliders --- */
 function sliderRange(q){return q.steps?{min:0,max:q.steps.length-1,step:1}:{min:q.min??0,max:q.max??10,step:q.step||1}}
@@ -1311,6 +1357,7 @@ function doneHTML(p){
    ${online&&!S.sentAt?`<p class="note" id="anonNote" style="text-align:center;max-width:46ch;margin:0 auto">${esc(tr(UI.anonNote))} ${esc(tr(UI.autoNote))}</p>`:""}
    <p class="status" id="saveMsg" style="text-align:center"></p>
    <p class="meta" style="text-align:center">${esc(tr(UI.version))} ${esc(FORM_VERSION)}</p></div>
+  <div id="vidSlot"></div>
   <div id="contactBox">${contactHTML()}</div>
   </div>`;
 }
@@ -1360,7 +1407,9 @@ function flatRow(rec){
   ANSWER_KEYS.forEach(k=>{const v=rec.answers[k];r[k]=Array.isArray(v)?v.join("; "):(v??"")});
   if(typeof SHOW_INTERVIEW==="undefined"||SHOW_INTERVIEW){r.money_currency=respCur();r.spend_now_eur=toEur(rec.answers.spend_now);r.spend_wish_eur=toEur(rec.answers.spend_wish)}
   delete r.spend_wish_old;delete r.best_quote;delete r.surprise;delete r.weather;   /* columns removed from the sheet on 14 Nov */
-  r.share_channels=(S.shareCh||[]).join("; ");r.downloaded=S.downloaded||"no";   /* old slider, no longer asked */
+  r.share_channels=(S.shareCh||[]).join("; ");r.downloaded=S.downloaded||"no";
+  {const st=S.vid||{},mx=+st.max||0,f=mx/VIDEO_SEC,on=st.played==="yes";   /* founder video: played, furthest second watched (not skipped to), quarter reached, heart */
+   r.video_played=on?"yes":"no";r.video_seconds=on?Math.round(mx):"";r.video_watched=on?(f>=.95?100:Math.floor(f*4)*25):"";r.video_heart=st.heart==="yes"?"yes":"no"}   /* old slider, no longer asked */
   if(!SHOW_COSTS)return r;   /* interview file: no cost columns */
   const u=rec.calc.used,i=rec.calc.inputs;
   Object.assign(r,{calc_net_income:u.isExample?"":u.net,calc_currency:u.cur,calc_self_employed:u.self?"yes":"no",calc_country_preset:i.preset,calc_employer_weeks:i.emp,calc_sick_pay_pct:i.repl,calc_therapy_cover_pct:i.cov,calc_wait_weeks:i.wait,calc_session_price:i.price});
