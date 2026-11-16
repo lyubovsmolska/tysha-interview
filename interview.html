@@ -351,7 +351,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.15-interview (2026-11-16)";
+const FORM_VERSION = "v0.20.16-interview (2026-11-16)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -1238,9 +1238,11 @@ function resultMessage(){const s=sliderIndex(Q("stress")),w=sliderIndex(Q("wish"
   return UI.mMid}
 function resultsHTML(){
   const a=S.answers,s=sliderIndex(Q("stress"));
-  const pathCard=isYes(a)?`<div class="card"><div class="ch"><h3>${esc(tr(UI.pathYes))}</h3></div>${tags(labels("y_doing"))}
+  /* founder 16 Nov: no empty boxes: a card or line only shows when the person answered it */
+  const yDo=labels("y_doing"),yHas=yDo.length||a.y_since||(a.y_impact!=null&&a.y_impact!==""),nHab=labels("n_habit");
+  const pathCard=isYes(a)&&yHas?`<div class="card"><div class="ch"><h3>${esc(tr(UI.pathYes))}</h3></div>${yDo.length?tags(yDo):""}
      <p class="note">${a.y_since?esc(tr(UI.since))+" "+esc(sliderLabel(Q("y_since"),sliderIndex(Q("y_since")))):""}${a.y_since&&a.y_impact!=null&&a.y_impact!==""?" · ":""}${a.y_impact!=null&&a.y_impact!==""?esc(tr(UI.impact))+": "+esc(sliderLabel(Q("y_impact"),sliderIndex(Q("y_impact")))):""}</p></div>`
-    :isNo(a)?`<div class="card"><div class="ch"><h3>${esc(tr(UI.pathNo))}</h3></div><p class="note">${esc(tr(UI.helpStart))}</p>${tags(labels("n_habit"))}</div>`:"";
+    :isNo(a)&&nHab.length?`<div class="card"><div class="ch"><h3>${esc(tr(UI.pathNo))}</h3></div><p class="note">${esc(tr(UI.helpStart))}</p>${tags(nHab)}</div>`:"";
   const calm=[...new Set([].concat(labels("n_calm"),labels("n_ground"),labels("y_down")))];
   const tIdx=sliderIndex(Q("time_daily")),mins=tIdx==null?null:Q("time_daily").steps[tIdx].k;
   const wishV=S.answers.spend_wish,wish=wishV===""||wishV==null?null:+wishV,now=sliderIndex(Q("spend_now")),cur=S.calc.cur||"EUR";
@@ -1251,9 +1253,9 @@ function resultsHTML(){
   if(SHOW_COSTS&&w!=null){const {money,time}=equivalents(w);const top=[money[0],money[3]].concat(time.slice(0,1)).filter(Boolean);
     eq=`<div class="card" style="--c:var(${COLS[w]})"><div class="ch"><h3>${esc(tr(UI.canTake[w]))}</h3></div><div class="eq">${top.map(e=>`<div class="eqi ${e.unit?"":"time"}"><span class="em" aria-hidden="true">${e.em}</span><span class="eqn">${nFmt(e.n)}</span><span>${esc(tr(e.t))}</span></div>`).join("")}</div></div>`}
   return `<div class="stack">
-   <div class="card">${bar("stress",UI.rStress,"stress")}${drained(S.answers)?bar("wish",UI.rWish,"wish"):""}<p class="msg">${esc(tr(resultMessage()))}</p>${s!=null&&s>=9?`<p class="note">${esc(tr(UI.crisis))}</p>`:""}</div>
+   <div class="card">${s!=null?bar("stress",UI.rStress,"stress"):""}${drained(S.answers)&&sliderIndex(Q("wish"))!=null?bar("wish",UI.rWish,"wish"):""}<p class="msg">${esc(tr(resultMessage()))}</p>${s!=null&&s>=9?`<p class="note">${esc(tr(UI.crisis))}</p>`:""}</div>
    ${pathCard}
-   <div class="card"><div class="ch"><h3>${esc(tr(UI.calmHead))}</h3></div>${tags(calm)}${(a.ex_rank||[]).length?`<p class="note">${esc(tr(UI.rankRes))}: ${esc(answerText(Q("ex_rank")))}</p>`:""}</div>
+   ${calm.length||(a.ex_rank||[]).length?`<div class="card"><div class="ch"><h3>${esc(tr(UI.calmHead))}</h3></div>${calm.length?tags(calm):""}${(a.ex_rank||[]).length?`<p class="note">${esc(tr(UI.rankRes))}: ${esc(answerText(Q("ex_rank")))}</p>`:""}</div>`:""}
    ${facts.length?`<div class="card"><div class="ch"><h3>${esc(tr(UI.windowHead))}</h3></div><div class="facts">${facts.join("")}</div></div>`:""}
    ${eq}${shareHTML()}</div>`;
 }
@@ -1434,16 +1436,16 @@ function reportInner(){
   <p style="font:12px monospace;color:#555;margin:0 0 16px">${esc(codeValue()||"—")} · ${esc(tr(UI.version))} ${esc(FORM_VERSION)} · ${esc(tr(UI.started))}: ${esc(new Date(S.startedAt).toLocaleString())} · ${esc(tr(UI.exported))}: ${esc(new Date().toLocaleString())} · ${lang.toUpperCase()}</p>
   <div style="border:2px solid #333;border-radius:14px;padding:14px;margin-bottom:14px;font-size:15px">${esc(tr(resultMessage()))}</div>`;
   {const ti=sliderIndex(Q("time_daily")),when=labels("time_when");
-   h+=`<div style="background:#EEEBE3;border-radius:14px;padding:14px 16px;margin-bottom:14px"><div style="font:600 12px sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#66795C;margin-bottom:6px">${esc(tr(UI.commitHead))}</div>
-    <table style="border-collapse:collapse;font-size:15px"><tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitTime))}</td><td style="padding:3px 0"><b>${ti==null?esc(tr(UI.commitNone)):esc(sliderLabel(Q("time_daily"),ti))+" "+esc(tr(UI.perDayShort))}</b></td></tr>
-    <tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitWhen))}</td><td style="padding:3px 0"><b>${when.length?esc(when.join(", ")):esc(tr(UI.commitNone))}</b></td></tr></table></div>`}
+   if(ti!=null||when.length)h+=`<div style="background:#EEEBE3;border-radius:14px;padding:14px 16px;margin-bottom:14px"><div style="font:600 12px sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#66795C;margin-bottom:6px">${esc(tr(UI.commitHead))}</div>
+    <table style="border-collapse:collapse;font-size:15px">${ti==null?"":`<tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitTime))}</td><td style="padding:3px 0"><b>${esc(sliderLabel(Q("time_daily"),ti))+" "+esc(tr(UI.perDayShort))}</b></td></tr>`}
+    ${when.length?`<tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitWhen))}</td><td style="padding:3px 0"><b>${esc(when.join(", "))}</b></td></tr>`:""}</table></div>`}
   const w=S.calc.weather;
   if(SHOW_COSTS&&w!=null){const {I,money,time}=equivalents(w);
     h+=`<div style="border:1px solid #999;border-radius:14px;padding:14px;margin-bottom:14px"><b>${esc(tr(UI.canTake[w]))}</b><ul style="margin:6px 0 0;padding-left:18px">`+
       money.map(e=>`<li>${nFmt(e.n)} ${esc(tr(e.t))} <span style="color:#666">(${esc(tr(UI.each))} ${fmt(e.unit,I.cur)})</span></li>`).join("")+
       time.map(e=>`<li>${nFmt(e.n)} ${esc(tr(e.t))}</li>`).join("")+`</ul></div>`}
   PAGES.filter(p=>p.qs.length&&p.id!=="done").concat([{title:UI.doneTitle,qs:DONE_Q}]).forEach(p=>{
-    const qs=p.qs.filter(q=>q.kind!=="fork"&&visible(q));if(!qs.length)return;
+    const qs=p.qs.filter(q=>q.kind!=="fork"&&visible(q)&&answerText(q)!=="—");if(!qs.length)return;   /* unanswered questions are left out */
     h+=`<h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:17px;margin:16px 0 6px;border-bottom:1px solid #999">${p.ch?esc(tr(UI.chapter))+" "+p.ch+" · ":""}${esc(tr(p.title))}</h2>`;
     qs.forEach(q=>{h+=`<p style="margin:6px 0;font-size:13px"><b>${esc(tr(q.q||q.title))}</b><br>${esc(answerText(q))}</p>`})});
   return h+`<p style="font-size:11px;color:#555;margin-top:16px">${esc(tr(UI.gdpr))}${CONTACT_EMAIL?" "+esc(tr(UI.contact))+" "+esc(CONTACT_EMAIL)+".":""}</p>`;
