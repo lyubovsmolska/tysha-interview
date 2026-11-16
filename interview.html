@@ -376,7 +376,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.21.0-interview (2026-11-16)";
+const FORM_VERSION = "v0.21.1-interview (2026-11-16)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -1359,8 +1359,8 @@ function inviteHTML(){const native=!IN_VIEWER&&navigator.share;
     <button type="button" class="share ghostlink" id="invReset" ${S.inviteMsg==null?"hidden":""}>${esc(tr(UI.invReset))}</button></div>
    <p class="status" id="invMsg">${esc(tr(UI.shareHint))}</p></div>`}
 function refreshInviteLinks(){const ls=inviteLinks();document.querySelectorAll(".invite a[data-inv]").forEach(a=>{const m=ls.find(x=>x[1]===a.dataset.inv);if(m)a.href=m[2]})}
-/* people who open the form through an invitation: arrived_via = friend */
-try{if(/[?&]via=friend\b/.test(location.search)&&!S.via){S.via="friend";persist()}}catch(e){}
+/* where people came from: arrived_via = friend (invitation) or print (flyer QR code) */
+try{const m=/[?&]via=(friend|print)\b/.exec(location.search);if(m&&!S.via){S.via=m[1];persist()}}catch(e){}   /* friend = personal invitation, print = QR code on the printed flyer */
 
 /* ===== Finish ===== */
 function sentBoxHTML(){return `<div class="sentbox" role="status"><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>${esc(tr(UI.sentHead))}</h3><p><b>${esc(tr(UI.sentAnon))}</b> · ${esc(codeValue()||"—")}</p><p>${esc(tr(UI.sentBody))}</p></div>`}
