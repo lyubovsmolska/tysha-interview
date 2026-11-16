@@ -2,33 +2,36 @@
 <title>Tysha Interview (Master)</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=Jost:wght@300;400;500&family=JetBrains+Mono:wght@500&display=swap">
 <style>
 /* Layout: one quiet column; the interview is a path of chapters, each question a card */
 :root{
-  /* calm, grounded: linen, moss, clay */
-  --bg:#F2EEE7; --bg2:#E9E2D6; --surface:#FAF8F4; --ink:#2F2B26; --muted:#7B7268; --line:#E3DCD1;
-  --accent:#4E6445; --accent-ink:#FBFAF6; --accent-soft:#DCE4D2; --accent-mid:#9FB291; --glow:rgba(78,100,69,.16);
+  /* sunrise (founder 16 Nov, "A Moment for You"): lavender sky, blush, peach, warm brown ink, gold-bronze accent */
+  --bg:#F6E3DC; --bg2:#FBDCC6; --surface:#FFF9F5; --ink:#2B2219; --muted:#7A665A; --line:#EEDDD2;
+  --accent:#7A5E2C; --accent-ink:#FFF9F2; --accent-soft:#F6E6D4; --accent-mid:#CDAE7E; --glow:rgba(205,160,100,.20);
+  --sky:#E4D9E6; --sky2:#C9C6DC;
   --l1:#7E9670; --l15:#9B9550; --l2:#B48A45; --l3:#A2604F; --ok:#4A6B40;
-  --tint1:#C9D6BC; --tint2:#E6D3B3; --tint3:#E2C3B5;
-  --shadow:0 1px 2px rgba(60,48,36,.04),0 8px 24px rgba(60,48,36,.05);
+  --tint1:#DCD3E6; --tint2:#F8D5BC; --tint3:#F1CBC4;
+  --shadow:0 1px 2px rgba(90,60,40,.04),0 8px 24px rgba(120,80,50,.07);
   /* editorial serif (Cyrillic) + quiet neo-grotesque (Cyrillic): Cormorant Garamond + Inter */
   --f-display:"Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
   --f-body:"Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --f-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#1B1915; --bg2:#15130F; --surface:#23201B; --ink:#ECE6DC; --muted:#A39A8D; --line:#35302A;
-  --accent:#B7C9A8; --accent-ink:#1B1915; --accent-soft:#313A2B; --accent-mid:#6E8160; --glow:rgba(183,201,168,.14);
+  --bg:#1D1820; --bg2:#231B18; --surface:#28212A; --ink:#F1E6DC; --muted:#B4A397; --line:#3A3036;
+  --accent:#DDBB82; --accent-ink:#1D1820; --accent-soft:#3A2F26; --accent-mid:#8E7650; --glow:rgba(221,187,130,.14);
+  --sky:#241E2B; --sky2:#1D1820;
   --l1:#A9BE99; --l15:#CBC78E; --l2:#DDBA82; --l3:#D59A88; --ok:#AFC9A0; --shadow:none;
-  --tint1:#3A4733; --tint2:#4A3F2C; --tint3:#4A332C; color-scheme:dark}}
+  --tint1:#352C40; --tint2:#4A3527; --tint3:#47302F; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#1B1915; --bg2:#15130F; --surface:#23201B; --ink:#ECE6DC; --muted:#A39A8D; --line:#35302A;
-  --accent:#B7C9A8; --accent-ink:#1B1915; --accent-soft:#313A2B; --accent-mid:#6E8160; --glow:rgba(183,201,168,.14);
+  --bg:#1D1820; --bg2:#231B18; --surface:#28212A; --ink:#F1E6DC; --muted:#B4A397; --line:#3A3036;
+  --accent:#DDBB82; --accent-ink:#1D1820; --accent-soft:#3A2F26; --accent-mid:#8E7650; --glow:rgba(221,187,130,.14);
+  --sky:#241E2B; --sky2:#1D1820;
   --l1:#A9BE99; --l15:#CBC78E; --l2:#DDBA82; --l3:#D59A88; --ok:#AFC9A0; --shadow:none;
-  --tint1:#3A4733; --tint2:#4A3F2C; --tint3:#4A332C; color-scheme:dark}
+  --tint1:#352C40; --tint2:#4A3527; --tint3:#47302F; color-scheme:dark}
 *{box-sizing:border-box}
-html{background:var(--bg) linear-gradient(180deg,var(--bg) 0%,var(--bg) 55%,var(--bg2) 100%) fixed}
+html{background:var(--bg) linear-gradient(180deg,var(--sky) 0%,var(--bg) 38%,var(--bg) 62%,var(--bg2) 100%) fixed}
 body{background:transparent;color:var(--ink);font:15px/1.7 var(--f-body);margin:0;letter-spacing:-.003em;-webkit-font-smoothing:antialiased}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.05;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -39,8 +42,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 header.top .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:14px}
-.brand{font:italic 500 34px/1 var(--f-display);letter-spacing:.01em;display:flex;align-items:baseline;gap:8px}
-.brand small{font:400 10.5px var(--f-body);font-style:normal;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none}
+.brand svg{width:34px;height:20px;flex:0 0 auto;color:var(--ink)}
+.brand .wm{display:grid;gap:3px;line-height:1}
+.brand b{font:400 21px/1 "Jost",var(--f-body);letter-spacing:.42em;margin-right:-.42em}
+.brand small{font:500 7.5px/1 "Jost",var(--f-body);letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
+.mark{display:block;margin:6px auto 0;width:64px;height:38px;color:var(--ink);opacity:.85}
 .spacer{flex:1}
 .tabs{display:flex;gap:4px;flex-wrap:wrap}
 .tabs a{font-size:13px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:999px}
@@ -97,7 +104,23 @@ label.pill:focus-within{outline:2px solid var(--accent);outline-offset:2px}
 .consent input{margin-top:2px;width:16px;height:16px;flex:0 0 auto;accent-color:var(--accent)}
 .consent .note{font-size:11.5px;line-height:1.5}
 .consent .eyebrow{font-size:10px}
-.hello{font-size:clamp(28px,6vw,36px)}
+.hello{font:italic 500 clamp(34px,8vw,46px)/1.08 var(--f-display);text-align:center;margin:14px 0 18px;color:#3A2A12}
+:root[data-theme="dark"] .hello{color:var(--ink)}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hello{color:var(--ink)}}
+.intro{max-width:46ch;margin:0 auto;text-align:center;color:var(--ink)}
+.intro p{margin:0 0 10px;font-size:15.5px;line-height:1.65}
+.intro p:first-child{font:italic 400 20px/1.45 var(--f-display);color:var(--muted)}
+.ticks{list-style:none;padding:0;margin:16px auto;display:grid;gap:6px;justify-items:start;width:fit-content;text-align:left;font-size:14px}
+.ticks li{display:flex;gap:9px;align-items:center}.ticks li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-mid);flex:0 0 auto}
+.intro .small{font-size:12.5px;color:var(--muted);margin-top:12px}.intro a{color:inherit}
+.breathnote{text-align:center;font:italic 400 17px/1.4 var(--f-display);color:var(--muted);margin:-44px 0 28px}
+#privacy summary{cursor:pointer;font-size:12px;color:var(--muted)}#privacy .note{margin:6px 0 0}
+.codecard{padding:14px 16px;gap:8px;border-radius:20px}
+.codecard h3{font-size:15px}.codecard .ch{justify-content:space-between;flex-wrap:wrap}
+.codecard .note{font-size:11.5px;line-height:1.45;margin:0}
+.codecard .code4{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.codecard .code4 label{font-size:9.5px;line-height:1.25;gap:3px;align-content:start;text-align:center}
+.codecard .code4 input{font-size:15px;padding:5px 2px;border-radius:9px}
+.codecard .codeout{font-size:14px;letter-spacing:.14em;color:var(--muted)}
 .lede.serif{font:italic 400 19px/1.45 var(--f-display);color:var(--muted);max-width:34ch}
 .code4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .code4 label{display:grid;gap:4px;font-size:11px;color:var(--muted);line-height:1.3;align-content:end}
@@ -134,6 +157,8 @@ button.btn:disabled{opacity:.4;cursor:not-allowed}
 .vidbox video{width:100%;height:100%;display:block;object-fit:cover}
 video::cue{font:500 15px/1.4 var(--f-body);background:rgba(0,0,0,.62);color:#fff}
 .vidfoot{display:flex;justify-content:center}
+.invite textarea{font:15px/1.55 var(--f-body);min-height:200px;background:color-mix(in srgb,var(--accent-soft) 45%,var(--surface))}
+.share.ghostlink{background:none;border-color:transparent;color:var(--muted);text-decoration:underline}
 .vidlen{font:400 12px var(--f-body);color:var(--muted);letter-spacing:0;vertical-align:middle}
 .heart{display:inline-flex;gap:8px;align-items:center;font:500 14px var(--f-body);border-radius:999px;padding:10px 22px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
 .heart *{pointer-events:none}
@@ -279,7 +304,7 @@ body{background-attachment:fixed}
 .stars i.cross::before,.stars i.cross::after{content:"";position:absolute;left:50%;top:50%;background:var(--star);border-radius:2px;transform:translate(-50%,-50%)}
 .stars i.cross::before{width:calc(var(--s)*4);height:1px}
 .stars i.cross::after{width:1px;height:calc(var(--s)*4)}
-:root{--star:#9DA3A8;--star-glow:rgba(190,198,205,.7)}
+:root{--star:#E2B98A;--star-glow:rgba(240,200,150,.6)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--star:#E4E8EC;--star-glow:rgba(228,232,236,.35)}}
 .breath .orb{position:relative;box-shadow:0 10px 30px rgba(60,48,36,.10)}
 .breath .orb span{position:absolute;inset:0;display:grid;place-items:center;opacity:0}
@@ -297,12 +322,12 @@ body{background-attachment:fixed}
 #printArea{display:none}
 #reflView{position:fixed;inset:0;z-index:30;background:#fff;color:#111;overflow:auto;-webkit-overflow-scrolling:touch;padding:0 16px 40px;font:14px/1.55 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
 #reflView .rvBar{position:sticky;top:0;z-index:1;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;background:#fff;padding:calc(10px + env(safe-area-inset-top,0px)) 0 10px;border-bottom:1px solid #ddd;margin-bottom:14px}
-#reflView .rvBar button{font:600 14px/1 Inter,sans-serif;padding:10px 18px;border-radius:999px;border:1px solid #66795C;background:#66795C;color:#fff;cursor:pointer}
+#reflView .rvBar button{font:600 14px/1 Inter,sans-serif;padding:10px 18px;border-radius:999px;border:1px solid #7A5E2C;background:#7A5E2C;color:#fff;cursor:pointer}
 #reflView .rvBar button.gh{background:#fff;color:#33402c}
 #reflView .rvIn{max-width:720px;margin:0 auto}
 @media print{#reflView{display:none!important}}
 @media print{header.top,main,body::before{display:none!important}#printArea{display:block!important;color:#000;background:#fff}body{background:#fff}}
-@media (max-width:420px){.code4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.code4:not(.codecard .code4){grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (prefers-reduced-motion:no-preference){
   .ambient span:nth-child(1){animation:drift1 48s ease-in-out infinite alternate}
   .ambient span:nth-child(2){animation:drift2 62s ease-in-out infinite alternate}
@@ -337,7 +362,7 @@ body{background-attachment:fixed}
 <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
 <div class="stars" aria-hidden="true"></div>
 <header class="top"><div class="wrap">
-  <div class="brand">Tysha <small>тиша · silence</small></div>
+  <div class="brand" aria-label="Tysha, guided by silence"><svg viewBox="0 0 68 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M22 7 Q34 1 46 7"/><path d="M15 15 Q34 4 53 15"/><path d="M9 24 Q34 8 59 24"/><path d="M3 34 Q34 12 65 34"/></svg><span class="wm"><b>TYSHA</b><small>Guided by silence</small></span></div>
   <div class="spacer"></div>
   <nav class="tabs" id="tabs"></nav>
   <select id="lang" aria-label="Language">
@@ -351,7 +376,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.16-interview (2026-11-16)";
+const FORM_VERSION = "v0.21.0-interview (2026-11-16)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -372,14 +397,24 @@ const UI={
   next:L("Next","Weiter","Далі"), back:L("Back","Zurück","Назад"),
   chapter:L("Chapter","Kapitel","Розділ"),
   needConsent:L("Please tick the consent box first.","Bitte zuerst das Einverständnis bestätigen.","Спершу позначте згоду."),
-  hello:L("Hello, friend","Hallo, du","Привіт, друже"),
+  hello:L("How are you, really?","Wie geht es dir, wirklich?","Як ви насправді?"),
+  helloP:[L("Life moves quickly. Sometimes we notice everything around us except how we're actually feeling.","Das Leben ist schnell. Manchmal bemerken wir alles um uns herum, nur nicht, wie es uns eigentlich geht.","Життя мчить швидко. Іноді ми помічаємо все довкола, крім того, як почуваємося насправді."),
+    L("This is a quiet space to reflect on your habits around your wellbeing.","Hier ist ein ruhiger Raum, um über deine Gewohnheiten rund um dein Wohlbefinden nachzudenken.","Це тихий простір, щоб поміркувати над своїми звичками щодо власного добробуту."),
+    L("Take your time. Answer only what feels comfortable.","Nimm dir Zeit. Beantworte nur, was sich für dich gut anfühlt.","Не поспішайте. Відповідайте лише на те, що вам комфортно.")],
+  helloList:[L("Around 5–7 minutes","Etwa 5–7 Minuten","Приблизно 5–7 хвилин"),L("No right or wrong answers","Keine richtigen oder falschen Antworten","Немає правильних чи неправильних відповідей"),
+    L("Skip any question","Jede Frage kannst du überspringen","Будь-яке питання можна пропустити"),L("No name or contact details required","Kein Name, keine Kontaktdaten nötig","Ім'я чи контакти не потрібні")],
+  helloPriv:L("Your responses are treated as described in our {pn}. At the end, you may separately choose whether you'd like to stay connected.","Deine Antworten werden so behandelt, wie in unseren {pn} beschrieben. Am Ende kannst du separat entscheiden, ob du in Kontakt bleiben möchtest.","Ваші відповіді обробляються так, як описано в нашому {pn}. Наприкінці ви окремо зможете вирішити, чи хочете залишатися на зв'язку."),
+  privLink:L("privacy notice","Datenschutzhinweisen","повідомленні про конфіденційність"),
+  privHead:L("Privacy notice","Datenschutzhinweise","Повідомлення про конфіденційність"),
+  helloBreath:L("Take a little breathing break before starting.","Gönn dir vor dem Start eine kleine Atempause.","Зробіть невелику паузу на подих перед початком."),
+  begin:L("Begin your reflection","Reflexion beginnen","Почати рефлексію"),
   helloLede:L("10 calm minutes about how you feel and how you care for yourself. Skip anything, stop any time.","10 ruhige Minuten darüber, wie es dir geht und wie du für dich sorgst. Überspring, was du willst.","10 спокійних хвилин про те, як ви почуваєтеся і як дбаєте про себе. Можна пропустити будь-що."),
   breathe:L("one breath","ein Atemzug","один вдих"),
   breatheIn:L("breathe in","einatmen","вдих"), breatheOut:L("breathe out","ausatmen","видих"),
   consentHead:L("Consent:","Einverständnis:","Згода:"),
-  consent:L("With this I am confirming to share the information with Tysha which can be used for the product development reasons on the mental health tech product.",
-            "Hiermit bestätige ich, dass ich die Informationen mit Tysha teile und dass sie für die Produktentwicklung des Mental-Health-Tech-Produkts verwendet werden dürfen.",
-            "Цим я підтверджую, що ділюся інформацією з Tysha і що її можна використовувати для розробки продукту у сфері технологій для психічного здоров'я."),
+  consent:L("I agree that Tysha may use my anonymous answers for product development.",
+            "Ich bin einverstanden, dass Tysha meine anonymen Antworten für die Produktentwicklung nutzt.",
+            "Я погоджуюся, що Tysha може використовувати мої анонімні відповіді для розробки продукту."),
   gdpr:L("Treated according to GDPR: stored under your anonymous code, used only for Tysha research, deleted on request. Not therapy.",
          "Verarbeitung gemäß DSGVO: gespeichert unter deinem anonymen Code, nur für Tysha-Forschung, auf Wunsch gelöscht. Keine Therapie.",
          "Обробка згідно з GDPR: зберігається під анонімним кодом, лише для досліджень Tysha, видаляється на запит. Не є терапією."),
@@ -545,6 +580,14 @@ const UI={
   micNo:L("Recording needs the downloaded file, opened in Chrome, Edge or Safari, with the microphone allowed.","Aufnehmen geht in der heruntergeladenen Datei, geöffnet in Chrome, Edge oder Safari, mit erlaubtem Mikrofon.","Запис працює у завантаженому файлі, відкритому в Chrome, Edge або Safari, з дозволеним мікрофоном."),
   shareHead:L("Share your results","Teile deine Ergebnisse","Поділіться результатами"),
   shareLede:L("Send them to yourself, a friend or your story. You choose what leaves this page.","Schick sie dir selbst, einer Freundin oder in deine Story. Du entscheidest, was diese Seite verlässt.","Надішліть собі, другові чи в сторіз. Ви вирішуєте, що залишає цю сторінку."),
+  invHead:L("Invite someone you care about","Lade jemanden ein, der dir wichtig ist","Запросіть когось, хто вам дорогий"),
+  invLede:L("They receive a personal note from you with the link to this reflection. Change the words as you like. Your answers are never shared.","Die Person bekommt eine persönliche Nachricht von dir mit dem Link zu dieser Reflexion. Ändere die Worte, wie du magst. Deine Antworten werden nie geteilt.","Людина отримає від вас особисте повідомлення з посиланням на цю рефлексію. Змініть слова, як захочете. Ваші відповіді ніколи не передаються."),
+  invMsg:L("I came across this little reflection and thought of you. ❤️\nIt's just a few minutes to pause, check in with yourself, and maybe notice something new.\nNo need to share anything with me — it's just a little Moment for You 🌿",
+    "Ich bin auf diese kleine Reflexion gestoßen und habe an dich gedacht. ❤️\nEs sind nur ein paar Minuten, um innezuhalten, bei dir selbst nachzuspüren und vielleicht etwas Neues zu bemerken.\nDu musst mir nichts davon erzählen – es ist einfach ein kleiner Moment für dich 🌿",
+    "Ця маленька рефлексія нагадала мені про тебе. ❤️\nЦе лише кілька хвилин, щоб зупинитися, прислухатися до себе і, можливо, помітити щось нове.\nНічим не потрібно ділитися зі мною — це просто маленький момент для тебе 🌿"),
+  invSubj:L("A Moment for You","Ein Moment für dich","Момент для тебе"),
+  invReset:L("Original text","Ursprünglicher Text","Початковий текст"),
+  invCopied:L("Copied. Paste it into any chat.","Kopiert. Füge es in einen beliebigen Chat ein.","Скопійовано. Вставте в будь-який чат."),
   shareNative:L("Share…","Teilen…","Поділитися…"), shareCopy:L("Copy text","Text kopieren","Скопіювати текст"),
   shareSms:L("Phone (SMS)","Handy (SMS)","Телефон (SMS)"), shareMail:L("Email","E-Mail","Email"),
   shareCopied:L("Copied. Paste it into Instagram, LinkedIn or anywhere.","Kopiert. Füge es in Instagram, LinkedIn oder überall ein.","Скопійовано. Вставте в Instagram, LinkedIn чи будь-куди."),
@@ -996,29 +1039,32 @@ function renderInterview(){
   else if(p.id==="done")h+=doneHTML(p);
   else{const hasVoice=p.qs.some(q=>q.kind==="voice");
     h+=headHTML(p)+(hasVoice&&!SR?`<p class="note" style="margin:-12px 0 16px">${esc(tr(UI.noVoice))}</p>`:"")+`<div class="stack">${qsHTML(p.qs)}</div>`}
-  h+=`<div class="nav"><button class="btn ghost" type="button" data-nav="-1" ${S.page===0?"disabled":""}>${esc(tr(UI.back))}</button>`+(S.page<PAGES.length-1?`<button class="btn" type="button" data-nav="1">${esc(tr(UI.next))}</button>`:"")+`</div><p class="status err" id="navMsg"></p>`;
+  h+=`<div class="nav"><button class="btn ghost" type="button" data-nav="-1" ${S.page===0?"disabled":""}>${esc(tr(UI.back))}</button>`+(S.page<PAGES.length-1?`<button class="btn" type="button" data-nav="1">${esc(tr(S.page===0?UI.begin:UI.next))}</button>`:"")+`</div><p class="status err" id="navMsg"></p>`;
   app.innerHTML=h;
   if(p.id==="worth")updateCalc();
   preloadPage();
 }
 
 function welcomeHTML(){const code=codeValue();
-  return `<p class="eyebrow">&nbsp;</p><h1 class="hello">${esc(tr(UI.hello))}</h1><p class="lede serif">${esc(tr(UI.helloLede)).replace(/\.\s+/,".<br>")}</p>
+  const priv=esc(tr(UI.helloPriv)).replace("{pn}",`<a href="#privacy" id="privLink">${esc(tr(UI.privLink))}</a>`);
+  return `<div class="mark"><svg viewBox="0 0 68 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" style="width:100%;height:100%"><path d="M22 7 Q34 1 46 7"/><path d="M15 15 Q34 4 53 15"/><path d="M9 24 Q34 8 59 24"/><path d="M3 34 Q34 12 65 34"/></svg></div><h1 class="hello">${esc(tr(UI.hello))}</h1>
+  <div class="intro">${UI.helloP.map(x=>`<p>${esc(tr(x))}</p>`).join("")}
+   <ul class="ticks">${UI.helloList.map(x=>`<li>${esc(tr(x))}</li>`).join("")}</ul>
+   <p class="small">${priv}</p></div>
   <div class="breath"><div class="orb"><span class="b-in">${esc(tr(UI.breatheIn))}</span><span class="b-out">${esc(tr(UI.breatheOut))}</span><span class="b-still">${esc(tr(UI.breathe))}</span></div></div>
+  <p class="breathnote">${esc(tr(UI.helloBreath))}</p>
   <div class="stack">
-  <div class="card consent"><p class="eyebrow">${esc(tr(UI.consentHead))}</p>
-   <label><input type="checkbox" id="consent" ${S.consent?"checked":""}><span>${esc(tr(UI.consent))}</span></label>
-   <p class="note">${esc(tr(UI.gdpr))}${CONTACT_EMAIL?` ${esc(tr(UI.contact))} <a href="mailto:${esc(CONTACT_EMAIL)}" style="color:inherit">${esc(CONTACT_EMAIL)}</a>.`:""}</p><p class="note">${esc(tr(UI.crisis))}</p></div>
-  <div class="card"><div class="ch"><h3>${esc(tr(UI.codeHead))}</h3></div>
-   <p class="note" style="margin-top:-6px">${esc(tr(UI.codeHint))}</p>
+  <div class="card consent"><label><input type="checkbox" id="consent" ${S.consent?"checked":""}><span>${esc(tr(UI.consent))}</span></label>
+   <details id="privacy"><summary>${esc(tr(UI.privHead))}</summary><p class="note">${esc(tr(UI.gdpr))}${CONTACT_EMAIL?` ${esc(tr(UI.contact))} <a href="mailto:${esc(CONTACT_EMAIL)}" style="color:inherit">${esc(CONTACT_EMAIL)}</a>.`:""}</p></details>
+   <p class="note">${esc(tr(UI.crisis))}</p></div>
+  <div class="card codecard"><div class="ch"><h3>${esc(tr(UI.codeHead))}</h3><span class="codeout" id="codeOut">${esc(code||"· · · · · · ·")}</span></div>
+   <p class="note">${esc(tr(UI.codeHint))} ${esc(tr(UI.codeNote))}</p>
    <div class="code4">
-    <label>${esc(tr(UI.c1))}<input id="c1" data-code="c1" maxlength="2" autocomplete="off" value="${esc(S.code.c1)}"></label>
-    <label>${esc(tr(UI.c2))}<input id="c2" data-code="c2" maxlength="2" inputmode="numeric" autocomplete="off" value="${esc(S.code.c2)}"></label>
-    <label>${esc(tr(UI.c3))}<input id="c3" data-code="c3" maxlength="2" autocomplete="off" value="${esc(S.code.c3)}"></label>
-    <label>${esc(tr(UI.c4))}<input id="c4" data-code="c4" maxlength="1" inputmode="numeric" autocomplete="off" value="${esc(S.code.c4)}"></label>
-   </div>
-   <div class="codeout" id="codeOut">${esc(code||"· · · · · · ·")}</div>
-   <p class="note" style="text-align:center">${esc(tr(UI.codeNote))}</p></div>
+    <label><input id="c1" data-code="c1" maxlength="2" autocomplete="off" value="${esc(S.code.c1)}">${esc(tr(UI.c1))}</label>
+    <label><input id="c2" data-code="c2" maxlength="2" inputmode="numeric" autocomplete="off" value="${esc(S.code.c2)}">${esc(tr(UI.c2))}</label>
+    <label><input id="c3" data-code="c3" maxlength="2" autocomplete="off" value="${esc(S.code.c3)}">${esc(tr(UI.c3))}</label>
+    <label><input id="c4" data-code="c4" maxlength="1" inputmode="numeric" autocomplete="off" value="${esc(S.code.c4)}">${esc(tr(UI.c4))}</label>
+   </div></div>
   </div><p class="tagline">${esc(tr(UI.tagline))}</p>`}
 
 /* ===== Voice: listen (text-to-speech) and answer (speech-to-text) ===== */
@@ -1257,7 +1303,7 @@ function resultsHTML(){
    ${pathCard}
    ${calm.length||(a.ex_rank||[]).length?`<div class="card"><div class="ch"><h3>${esc(tr(UI.calmHead))}</h3></div>${calm.length?tags(calm):""}${(a.ex_rank||[]).length?`<p class="note">${esc(tr(UI.rankRes))}: ${esc(answerText(Q("ex_rank")))}</p>`:""}</div>`:""}
    ${facts.length?`<div class="card"><div class="ch"><h3>${esc(tr(UI.windowHead))}</h3></div><div class="facts">${facts.join("")}</div></div>`:""}
-   ${eq}${shareHTML()}</div>`;
+   ${eq}${shareHTML()}${inviteHTML()}</div>`;
 }
 
 /* ===== Share ===== */
@@ -1295,6 +1341,26 @@ function shareHTML(){
     <button type="button" class="share ${native?"":"main"}" id="shareCopy">${esc(tr(UI.shareCopy))}</button></div>
    <p class="status" id="shareMsg">${esc(tr(UI.shareHint))}</p></div>`;
 }
+
+/* ===== Personal invitation (16 Nov): a note from the respondent to someone they care about, with the link ?via=friend =====
+   Tracked in the anonymous row: invite_channels (buttons clicked), invite_edited (note changed: yes / no). Never the note itself. */
+const INVITE_URL=SHARE_URL+"?via=friend";
+const inviteText=()=>(S.inviteMsg!=null&&S.inviteMsg.trim()?S.inviteMsg:tr(UI.invMsg));
+const inviteFull=()=>inviteText()+"\n\n"+INVITE_URL;
+function inviteLinks(){const f=encodeURIComponent(inviteFull()),subj=encodeURIComponent(tr(UI.invSubj));
+  return [["WhatsApp","whatsapp",`https://wa.me/?text=${f}`],["Telegram","telegram",`https://t.me/share/url?url=${encodeURIComponent(INVITE_URL)}&text=${encodeURIComponent(inviteText())}`],
+    [tr(UI.shareMail),"email",`mailto:?subject=${subj}&body=${f}`],[tr(UI.shareSms),"sms",`sms:?&body=${f}`]]}
+function inviteHTML(){const native=!IN_VIEWER&&navigator.share;
+  return `<div class="card invite"><div class="ch"><h3>${esc(tr(UI.invHead))}</h3></div><p class="note">${esc(tr(UI.invLede))}</p>
+   <textarea id="friendNote" rows="6" maxlength="1200" aria-label="${esc(tr(UI.invHead))}">${esc(inviteText())}</textarea>
+   <div class="shares">${native?`<button type="button" class="share main" data-inv="phone_share" id="invNative">${esc(tr(UI.shareNative))}</button>`:""}
+    ${inviteLinks().map(([l,c,h])=>`<a class="share" data-inv="${c}" href="${esc(h)}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}
+    <button type="button" class="share ${native?"":"main"}" data-inv="copy" id="invCopy">${esc(tr(UI.shareCopy))}</button>
+    <button type="button" class="share ghostlink" id="invReset" ${S.inviteMsg==null?"hidden":""}>${esc(tr(UI.invReset))}</button></div>
+   <p class="status" id="invMsg">${esc(tr(UI.shareHint))}</p></div>`}
+function refreshInviteLinks(){const ls=inviteLinks();document.querySelectorAll(".invite a[data-inv]").forEach(a=>{const m=ls.find(x=>x[1]===a.dataset.inv);if(m)a.href=m[2]})}
+/* people who open the form through an invitation: arrived_via = friend */
+try{if(/[?&]via=friend\b/.test(location.search)&&!S.via){S.via="friend";persist()}}catch(e){}
 
 /* ===== Finish ===== */
 function sentBoxHTML(){return `<div class="sentbox" role="status"><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>${esc(tr(UI.sentHead))}</h3><p><b>${esc(tr(UI.sentAnon))}</b> · ${esc(codeValue()||"—")}</p><p>${esc(tr(UI.sentBody))}</p></div>`}
@@ -1413,6 +1479,7 @@ function flatRow(rec){
   if(typeof SHOW_INTERVIEW==="undefined"||SHOW_INTERVIEW){r.money_currency=respCur();r.spend_now_eur=toEur(rec.answers.spend_now);r.spend_wish_eur=toEur(rec.answers.spend_wish)}
   delete r.spend_wish_old;delete r.best_quote;delete r.surprise;delete r.weather;   /* columns removed from the sheet on 14 Nov */
   r.share_channels=(S.shareCh||[]).join("; ");r.downloaded=S.downloaded||"no";
+  r.invite_channels=(S.invCh||[]).join("; ");r.invite_edited=S.invEdited==="yes"?"yes":"no";r.arrived_via=S.via||"";   /* personal invitation; the note itself is never sent */
   {const st=S.vid||{},mx=+st.max||0,f=mx/VIDEO_SEC,on=st.played==="yes";   /* founder video: played, furthest second watched (not skipped to), quarter reached, heart */
    r.video_played=on?"yes":"no";r.video_seconds=on?Math.round(mx):"";r.video_watched=on?(f>=.95?100:Math.floor(f*4)*25):"";r.video_heart=st.heart==="yes"?"yes":"no"}   /* old slider, no longer asked */
   if(!SHOW_COSTS)return r;   /* interview file: no cost columns */
@@ -1436,7 +1503,7 @@ function reportInner(){
   <p style="font:12px monospace;color:#555;margin:0 0 16px">${esc(codeValue()||"—")} · ${esc(tr(UI.version))} ${esc(FORM_VERSION)} · ${esc(tr(UI.started))}: ${esc(new Date(S.startedAt).toLocaleString())} · ${esc(tr(UI.exported))}: ${esc(new Date().toLocaleString())} · ${lang.toUpperCase()}</p>
   <div style="border:2px solid #333;border-radius:14px;padding:14px;margin-bottom:14px;font-size:15px">${esc(tr(resultMessage()))}</div>`;
   {const ti=sliderIndex(Q("time_daily")),when=labels("time_when");
-   if(ti!=null||when.length)h+=`<div style="background:#EEEBE3;border-radius:14px;padding:14px 16px;margin-bottom:14px"><div style="font:600 12px sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#66795C;margin-bottom:6px">${esc(tr(UI.commitHead))}</div>
+   if(ti!=null||when.length)h+=`<div style="background:#F8EBDF;border-radius:14px;padding:14px 16px;margin-bottom:14px"><div style="font:600 12px sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#7A5E2C;margin-bottom:6px">${esc(tr(UI.commitHead))}</div>
     <table style="border-collapse:collapse;font-size:15px">${ti==null?"":`<tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitTime))}</td><td style="padding:3px 0"><b>${esc(sliderLabel(Q("time_daily"),ti))+" "+esc(tr(UI.perDayShort))}</b></td></tr>`}
     ${when.length?`<tr><td style="padding:3px 16px 3px 0;color:#555">${esc(tr(UI.commitWhen))}</td><td style="padding:3px 0"><b>${esc(when.join(", "))}</b></td></tr>`:""}</table></div>`}
   const w=S.calc.weather;
@@ -1451,7 +1518,7 @@ function reportInner(){
   return h+`<p style="font-size:11px;color:#555;margin-top:16px">${esc(tr(UI.gdpr))}${CONTACT_EMAIL?" "+esc(tr(UI.contact))+" "+esc(CONTACT_EMAIL)+".":""}</p>`;
 }
 function reportDoc(){return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tysha Mental Health Reflection ${esc(codeValue())}</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@400;600&display=swap"><style>body{font:14px/1.55 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:20px;color:#111;background:#fff}button{font:600 14px sans-serif;padding:10px 18px;border-radius:999px;border:0;background:#66795C;color:#fff;margin-bottom:16px}@media print{button{display:none}}</style></head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@400;600&display=swap"><style>body{font:14px/1.55 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:20px;color:#111;background:#fff}button{font:600 14px sans-serif;padding:10px 18px;border-radius:999px;border:0;background:#7A5E2C;color:#fff;margin-bottom:16px}@media print{button{display:none}}</style></head>
 <body><button onclick="window.print()">${esc(tr(UI.print))}</button>${reportInner()}</body></html>`}
 const stamp=()=>new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
 /* the reflection on the screen: for phones and apps where a file download does not arrive */
@@ -1557,6 +1624,13 @@ function go(page){if(page>0&&!S.consent&&!PREVIEW){showNavMsg();return}S.page=Ma
 function trackShare(c){if(!c)return;S.shareCh=[...new Set([...(S.shareCh||[]),c])];persist()}
 app.addEventListener("click",async e=>{
   const t=e.target;
+  if(t.id==="privLink"){e.preventDefault();const d=document.getElementById("privacy");if(d){d.open=true;d.scrollIntoView({behavior:"smooth",block:"center"})}return}
+  {const iv=t.closest("[data-inv]");if(iv){S.invCh=[...new Set([...(S.invCh||[]),iv.dataset.inv])];persist();
+    const m=document.getElementById("invMsg");
+    if(iv.id==="invCopy"){try{await navigator.clipboard.writeText(inviteFull());m.className="status ok";m.textContent=tr(UI.invCopied)}catch(_){m.className="status err";m.textContent="Ctrl/Cmd + C"}return}
+    if(iv.id==="invNative"){try{await navigator.share({title:tr(UI.invSubj),text:inviteText(),url:INVITE_URL})}catch(_){}return}
+    return}}
+  if(t.id==="invReset"){S.inviteMsg=null;persist();const ta=document.getElementById("friendNote");if(ta)ta.value=inviteText();t.hidden=true;refreshInviteLinks();return}
   {const sc=t.closest("[data-ch],#shareNative,#shareCopy");if(sc)trackShare(sc.dataset.ch||(sc.id==="shareNative"?"phone_share":"copy"))}const g=t.closest("[data-goto]");if(g)return go(+g.dataset.goto);
   const n=t.closest("[data-nav]");if(n)return go(S.page+ +n.dataset.nav);
   const ls=t.closest("[data-listen]");if(ls)return speak(ls.dataset.listen,ls);
@@ -1622,6 +1696,7 @@ app.addEventListener("change",e=>{
 });
 app.addEventListener("input",e=>{
   const t=e.target;
+  if(t.id==="friendNote"){S.inviteMsg=t.value;S.invEdited="yes";persist();refreshInviteLinks();const r=document.getElementById("invReset");if(r)r.hidden=false;return}
   if(t.dataset.slider){const q=Q(t.dataset.slider),i=+t.value,r=sliderRange(q);
     S.answers[q.id]=q.steps?q.steps[i].k:i;persist();
     const box=document.getElementById("sl_"+q.id);box.classList.remove("untouched");box.style.setProperty("--p",((i-r.min)/(r.max-r.min)*100)+"%");
