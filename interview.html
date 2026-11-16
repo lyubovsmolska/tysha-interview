@@ -351,7 +351,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.20.14-interview (2026-11-16)";
+const FORM_VERSION = "v0.20.15-interview (2026-11-16)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -1246,8 +1246,7 @@ function resultsHTML(){
   const wishV=S.answers.spend_wish,wish=wishV===""||wishV==null?null:+wishV,now=sliderIndex(Q("spend_now")),cur=S.calc.cur||"EUR";
   const facts=[];
   if(mins!=null)facts.push(`<div class="fact"><b>${esc(mins)}</b><span>${esc(tr(UI.minDay))}${(a.time_when||[]).length?" · "+esc(labels("time_when").join(", ")):""}</span></div>`);
-  if(wish!=null)facts.push(`<div class="fact"><b>${esc(fmt(wish,respCur()))}</b><span>${esc(tr(UI.budget))}</span></div>`);
-  if(now!=null)facts.push(`<div class="fact"><b>${esc(sliderLabel(Q("spend_now"),now))}</b><span>${esc(tr(UI.spendNow))}</span></div>`);
+  /* founder 16 Nov: "Your daily window" shows the time only; the money answers stay in the sheet, not on the reflection */
   let eq="";const w=S.calc.weather;
   if(SHOW_COSTS&&w!=null){const {money,time}=equivalents(w);const top=[money[0],money[3]].concat(time.slice(0,1)).filter(Boolean);
     eq=`<div class="card" style="--c:var(${COLS[w]})"><div class="ch"><h3>${esc(tr(UI.canTake[w]))}</h3></div><div class="eq">${top.map(e=>`<div class="eqi ${e.unit?"":"time"}"><span class="em" aria-hidden="true">${e.em}</span><span class="eqn">${nFmt(e.n)}</span><span>${esc(tr(e.t))}</span></div>`).join("")}</div></div>`}
