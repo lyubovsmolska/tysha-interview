@@ -157,6 +157,7 @@ button.btn:disabled{opacity:.4;cursor:not-allowed}
 .vidbox video{width:100%;height:100%;display:block;object-fit:cover}
 video::cue{font:500 15px/1.4 var(--f-body);background:rgba(0,0,0,.62);color:#fff}
 .vidfoot{display:flex;justify-content:center}
+.card.soft{padding:16px 18px;gap:6px}.card.soft h3{font-size:17px}.card.soft p{margin:0;font-size:15px;line-height:1.6;color:var(--ink)}
 .invite textarea{font:15px/1.55 var(--f-body);min-height:200px;background:color-mix(in srgb,var(--accent-soft) 45%,var(--surface))}
 .share.ghostlink{background:none;border-color:transparent;color:var(--muted);text-decoration:underline}
 .vidlen{font:400 12px var(--f-body);color:var(--muted);letter-spacing:0;vertical-align:middle}
@@ -376,7 +377,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.21.3-interview (2026-11-16)";
+const FORM_VERSION = "v0.21.4-interview (2026-11-16)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -489,6 +490,29 @@ const UI={
   since:L("for","seit","вже"), helps:L("It helps","Es hilft","Допомагає"), impact:L("Impact","Wirkung","Вплив"),
   helpStart:L("What could help you start","Was dir beim Start helfen könnte","Що може допомогти почати"),
   calmHead:L("What calms and grounds you","Was dich beruhigt und erdet","Що вас заспокоює і заземлює"),
+  /* soft, free-flowing reflection texts (founder 16 Nov 19:06: "short soft recommendations rather than instructions") */
+  andW:L("and","und","і"), orW:L("or","oder","або"),
+  sCalm1:L("{x} helps you settle.","{x} hilft dir, zur Ruhe zu kommen.","Вам допомагає заспокоїтися: {x}."),
+  sYes:L("You already make room for {x}","Du nimmst dir schon Zeit für {x}","Ви вже знаходите час для себе: {x}"),
+  sYesNone:L("You already have something that helps your mind","Du hast schon etwas, das deinem Kopf guttut","У вас уже є те, що допомагає вашій психіці"),
+  sSince:L(", for {t} now",", und das schon {t} lang",", і вже {t}"),
+  sImpHi:L("It seems to do you real good, so keep giving it room.","Es scheint dir richtig gutzutun – gib ihm weiter Raum.","Схоже, це справді вам допомагає, тож залишайте для цього місце."),
+  sImpMid:L("It already helps a little. Maybe another time of day or a softer rhythm could make it feel even better.","Es hilft schon ein wenig. Vielleicht macht eine andere Tageszeit oder ein sanfterer Rhythmus es noch angenehmer.","Це вже трохи допомагає. Можливо, інший час дня чи м'якший ритм зроблять це ще приємнішим."),
+  sImpLo:L("If it doesn't feel helpful yet, it's okay to try something gentler or different.","Wenn es sich noch nicht hilfreich anfühlt, darfst du auch etwas Sanfteres oder anderes ausprobieren.","Якщо поки не відчуваєте користі, можна спробувати щось м'якше чи інше."),
+  sNo:L("These might make starting easier: {x}. Small is enough, even a few minutes count.","Das könnte dir den Anfang leichter machen: {x}. Klein reicht, schon ein paar Minuten zählen.","Почати може бути легше, якщо є: {x}. Достатньо малого, навіть кілька хвилин мають значення."),
+  sCalm:L("{x} help you settle.","{x} helfen dir, zur Ruhe zu kommen.","Вам допомагає заспокоїтися: {x}."),
+  sRank:{breath:L("Breathing seems to be your easiest way in, so a few slow breaths could be a gentle start.","Der Atem scheint dein leichtester Zugang zu sein, ein paar langsame Atemzüge könnten ein sanfter Anfang sein.","Схоже, дихання — ваш найлегший шлях, тож кілька повільних вдихів можуть стати м'яким початком."),
+    body:L("Your body seems to be your way in, so gentle movement could be a good start.","Dein Körper scheint dein Zugang zu sein, sanfte Bewegung könnte ein guter Anfang sein.","Схоже, ваш шлях лежить через тіло, тож м'який рух може бути добрим початком."),
+    mind:L("Mental exercises seem to suit you most, so a short quiet moment for your thoughts could be a good start.","Mentale Übungen scheinen dir am meisten zu liegen, ein kurzer stiller Moment für deine Gedanken könnte ein guter Anfang sein.","Вам, схоже, найбільше підходять ментальні вправи, тож коротка тиха хвилина для думок може стати добрим початком.")},
+  sWin:L("{n} minutes a day{w} could become your quiet window. That's enough to begin.","{n} Minuten am Tag{w} könnten dein stilles Zeitfenster werden. Das reicht für den Anfang.","{n} {mu} на день{w} можуть стати вашим тихим віконцем. Для початку цього достатньо."),
+  sWin0:L("Right now there is hardly any time left in your day, and that's okay. Even one calm breath counts.","Gerade bleibt kaum Zeit in deinem Tag, und das ist in Ordnung. Schon ein ruhiger Atemzug zählt.","Зараз у вашому дні майже не лишається часу, і це нормально. Навіть один спокійний вдих має значення."),
+  sWhenOnly:L("A quiet moment {w} could suit you well.","Ein stiller Moment {w} könnte gut zu dir passen.","Тиха хвилина {w} може вам добре підійти."),
+  ph:{ /* answer keys as phrases that sit naturally inside a sentence */
+   calm:{music:L("music, reading or a podcast","Musik, Lesen oder ein Podcast","музика, читання чи подкаст"),nature:L("time in nature","Zeit in der Natur","час на природі"),silence:L("silence","Stille","тиша"),breath:L("breathing","dein Atem","дихання"),bath:L("a warm bath or shower","ein warmes Bad oder eine Dusche","тепла ванна чи душ"),people:L("talking to someone","ein Gespräch mit jemandem","розмова з кимось"),sport:L("moving your body","Bewegung","рух"),pets:L("your pets","deine Tiere","ваші тварини"),sleep:L("good sleep","guter Schlaf","добрий сон"),
+     body:L("feeling your body","das Spüren deines Körpers","відчуття свого тіла"),floor:L("lying on the floor","das Liegen auf dem Boden","полежати на підлозі"),routine:L("a steady routine","eine feste Routine","стала рутина"),home:L("your home","dein Zuhause","ваш дім"),faith:L("faith","dein Glaube","віра"),hands:L("doing something with your hands","etwas mit den Händen zu tun","справа для рук")},
+   doing:{meditation:L("meditation","Meditation","медитація"),yoga:L("yoga","Yoga","йога"),sport:L("sport","Sport","спорт"),nature:L("walks in nature","Spaziergänge in der Natur","прогулянки на природі"),therapy:L("therapy","Therapie","терапія"),coach:L("coaching","Coaching","коучинг"),journal:L("journaling","Journaling","щоденник"),apps:L("apps for your mind","Apps für deinen Kopf","застосунки для психіки"),sleep:L("better sleep","besseren Schlaf","кращий сон"),offline:L("phone-free time","handyfreie Zeit","час без телефона"),friends:L("time with friends","Zeit mit Freund:innen","зустрічі з друзями")},
+   habit:{time:L("a fixed time","eine feste Uhrzeit","сталий час"),place:L("a fixed place at home","ein fester Ort zu Hause","стале місце вдома"),short:L("short sessions of 5–10 minutes","kurze Einheiten von 5–10 Minuten","короткі заняття по 5–10 хвилин"),reminder:L("a gentle reminder","eine sanfte Erinnerung","м'яке нагадування"),together:L("someone doing it with you","jemand, der mitmacht","хтось, хто робить це разом з вами"),progress:L("feeling that it works","das Gefühl, dass es wirkt","відчуття, що це працює"),nophone:L("time without your phone","Zeit ohne Handy","час без телефона"),beautiful:L("something beautiful to use","etwas Schönes, das du gern benutzt","щось красиве для практики")}},
+  whenPh:{morning:L("in the morning","am Morgen","вранці"),lunch:L("at lunch","in der Mittagspause","в обідню перерву"),afterwork:L("after work","nach der Arbeit","після роботи"),evening:L("in the evening","am Abend","ввечері"),bed:L("before sleep","vor dem Schlafen","перед сном")},
   windowHead:L("Your daily window","Dein tägliches Zeitfenster","Ваше щоденне вікно"),
   minDay:L("minutes a day","Minuten am Tag","хвилин на день"),
   budget:L("a month for something that truly helps","im Monat für etwas, das wirklich hilft","на місяць за те, що справді допомагає"),
@@ -1282,6 +1306,34 @@ function resultMessage(){const s=sliderIndex(Q("stress")),w=sliderIndex(Q("wish"
   if(s>=7)return w>=6?UI.mHighReady:UI.mHighFar;
   if(s<=4)return UI.mCalm;
   return UI.mMid}
+/* free-flowing sentences instead of chip lists */
+const lowFirst=t=>lang==="de"?t:t.charAt(0).toLowerCase()+t.slice(1);
+const capFirst=t=>t.charAt(0).toUpperCase()+t.slice(1);
+function joinSoft(xs,word){xs=xs.filter(Boolean);if(xs.length<2)return xs.join("");return xs.slice(0,-1).join(", ")+" "+tr(word)+" "+xs[xs.length-1]}
+function softCards(){
+  const a=S.answers,out={};
+  const phr=(grp,ids)=>{const out=[];ids.forEach(id=>(Array.isArray(a[id])?a[id]:a[id]?[a[id]]:[]).forEach(k=>{if(k==="nothing"||k==="other")return;const m=UI.ph[grp][k];const t=m?tr(m):null;if(t&&!out.includes(t))out.push(t)}));return out};
+  const yDo=phr("doing",["y_doing"]),since=a.y_since?sliderLabel(Q("y_since"),sliderIndex(Q("y_since"))):"",imp=a.y_impact!=null&&a.y_impact!==""?+a.y_impact:null;
+  if(isYes(a)&&(yDo.length||since||imp!=null)){
+    let t=yDo.length?tr(UI.sYes).replace("{x}",joinSoft(yDo,UI.andW)):tr(UI.sYesNone);
+    t+=(since?tr(UI.sSince).replace("{t}",lowFirst(since)):"")+".";
+    if(imp!=null)t+=" "+tr(imp>=7?UI.sImpHi:imp>=4?UI.sImpMid:UI.sImpLo);
+    out.path={h:UI.pathYes,t}}
+  else if(isNo(a)){const nh=phr("habit",["n_habit"]);if(nh.length)out.path={h:UI.pathNo,t:tr(UI.sNo).replace("{x}",joinSoft(nh,UI.andW))}}
+  const calm=phr("calm",["n_calm","n_ground","y_down"]),rk=(a.ex_rank||[])[0];
+  if(calm.length||rk){let t=calm.length?capFirst(tr(calm.length===1?UI.sCalm1:UI.sCalm).replace("{x}",joinSoft(calm,UI.andW))):"";
+    if(rk&&UI.sRank[rk])t+=(t?" ":"")+tr(UI.sRank[rk]);out.calm={h:UI.calmHead,t}}
+  const tIdx=sliderIndex(Q("time_daily")),mins=tIdx==null?null:String(Q("time_daily").steps[tIdx].k);
+  const wh=(a.time_when||[]).map(k=>UI.whenPh[k]?tr(UI.whenPh[k]):null).filter(Boolean),whTxt=wh.length?joinSoft(wh,UI.orW):"";
+  if(mins!=null){let t;
+    if(mins==="0")t=tr(UI.sWin0);
+    else{const num=parseInt(mins,10),mu=(/1[2-4]$/.test(String(num))||!/[234]$/.test(String(num))||/\+/.test(mins))?"хвилин":"хвилини";
+      t=tr(UI.sWin).replace("{n}",mins).replace("{mu}",mu).replace("{w}",whTxt?", "+whTxt+",":"");if(!whTxt)t=t.replace(/,\s*$/,"")}
+    out.win={h:UI.windowHead,t}}
+  else if(whTxt)out.win={h:UI.windowHead,t:tr(UI.sWhenOnly).replace("{w}",whTxt)};
+  return out;
+}
+const softCard=c=>c?`<div class="card soft"><div class="ch"><h3>${esc(tr(c.h))}</h3></div><p>${esc(c.t)}</p></div>`:"";
 function resultsHTML(){
   const a=S.answers,s=sliderIndex(Q("stress"));
   /* founder 16 Nov: no empty boxes: a card or line only shows when the person answered it */
@@ -1300,9 +1352,7 @@ function resultsHTML(){
     eq=`<div class="card" style="--c:var(${COLS[w]})"><div class="ch"><h3>${esc(tr(UI.canTake[w]))}</h3></div><div class="eq">${top.map(e=>`<div class="eqi ${e.unit?"":"time"}"><span class="em" aria-hidden="true">${e.em}</span><span class="eqn">${nFmt(e.n)}</span><span>${esc(tr(e.t))}</span></div>`).join("")}</div></div>`}
   return `<div class="stack">
    <div class="card">${s!=null?bar("stress",UI.rStress,"stress"):""}${drained(S.answers)&&sliderIndex(Q("wish"))!=null?bar("wish",UI.rWish,"wish"):""}<p class="msg">${esc(tr(resultMessage()))}</p>${s!=null&&s>=9?`<p class="note">${esc(tr(UI.crisis))}</p>`:""}</div>
-   ${pathCard}
-   ${calm.length||(a.ex_rank||[]).length?`<div class="card"><div class="ch"><h3>${esc(tr(UI.calmHead))}</h3></div>${calm.length?tags(calm):""}${(a.ex_rank||[]).length?`<p class="note">${esc(tr(UI.rankRes))}: ${esc(answerText(Q("ex_rank")))}</p>`:""}</div>`:""}
-   ${facts.length?`<div class="card"><div class="ch"><h3>${esc(tr(UI.windowHead))}</h3></div><div class="facts">${facts.join("")}</div></div>`:""}
+   ${(()=>{const sc=softCards();return softCard(sc.path)+softCard(sc.calm)+softCard(sc.win)})()}
    ${eq}${shareHTML()}${inviteHTML()}</div>`;
 }
 
