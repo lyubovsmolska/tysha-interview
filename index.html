@@ -376,7 +376,7 @@ body{background-attachment:fixed}
 
 <script>
 /* ===== Settings you can change ===== */
-const FORM_VERSION = "v0.21.7-interview (2026-11-19)";
+const FORM_VERSION = "v0.21.8-interview (2026-11-19)";
 const CONTACT_EMAIL = "Lyubov.smolska@gmail.com";       // address for data requests and for sending downloaded files
 const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbygtQXiZxALEGFmPX3Nr5PTq5tkfVk1z_loYTNzM8km0owVVtAYwiFgkunvhlQ9ZCd1cQ/exec";          // your Google Apps Script web app URL (ends in /exec); answers then go only to your Google Sheet
 const PLANNED_PRICE = 9.99;
@@ -1496,8 +1496,9 @@ function answerText(q){const a=S.answers;const parts=[];
   return parts.join(" — ")||"—";
 }
 function reportInner(){
-  let h=`<h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:40px;margin:0 0 4px">Tysha · ${esc(tr(UI.report))}</h1>
-  <p style="font:12px monospace;color:#555;margin:0 0 16px">${esc(codeValue()||"—")} · ${esc(tr(UI.version))} ${esc(FORM_VERSION)} · ${esc(tr(UI.started))}: ${esc(new Date(S.startedAt).toLocaleString())} · ${esc(tr(UI.exported))}: ${esc(new Date().toLocaleString())} · ${lang.toUpperCase()}</p>
+  let h=`<div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:8px 0 22px;color:#2B2219;font-family:Jost,Inter,sans-serif" role="img" aria-label="Tysha, guided by silence"><svg viewBox="0 0 68 38" width="58" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M17 11 Q34 2 51 11"/><path d="M9 22 Q34 6 59 22"/><path d="M3 33 Q34 12 65 33"/></svg><div style="font-weight:400;font-size:26px;line-height:1;letter-spacing:.42em;margin-right:-.42em">TYSHA</div><div style="display:flex;align-items:center;gap:8px"><span style="width:22px;height:1px;background:currentColor"></span><span style="font-weight:500;font-size:8px;line-height:1;letter-spacing:.34em;margin-right:-.34em">GUIDED BY SILENCE</span><span style="width:22px;height:1px;background:currentColor"></span></div></div>
+  <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:36px;line-height:1.1;text-align:center;color:#3A2A12;margin:0 0 10px">${esc(tr(UI.report))}</h1>
+  <p style="font:12px monospace;color:#555;margin:0 0 16px;text-align:center">${esc(codeValue()||"—")} · ${esc(tr(UI.version))} ${esc(FORM_VERSION)} · ${esc(tr(UI.started))}: ${esc(new Date(S.startedAt).toLocaleString())} · ${esc(tr(UI.exported))}: ${esc(new Date().toLocaleString())} · ${lang.toUpperCase()}</p>
   <div style="border:2px solid #333;border-radius:14px;padding:14px;margin-bottom:14px;font-size:15px">${esc(tr(resultMessage()))}</div>`;
   {const ti=sliderIndex(Q("time_daily")),when=labels("time_when");
    if(ti!=null||when.length)h+=`<div style="background:#F8EBDF;border-radius:14px;padding:14px 16px;margin-bottom:14px"><div style="font:600 12px sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#7A5E2C;margin-bottom:6px">${esc(tr(UI.commitHead))}</div>
@@ -1515,7 +1516,7 @@ function reportInner(){
   return h+`<p style="font-size:11px;color:#555;margin-top:16px">${esc(tr(UI.gdpr))}${CONTACT_EMAIL?" "+esc(tr(UI.contact))+" "+esc(CONTACT_EMAIL)+".":""}</p>`;
 }
 function reportDoc(){return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tysha Mental Health Reflection ${esc(codeValue())}</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@400;600&display=swap"><style>body{font:14px/1.55 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:20px;color:#111;background:#fff}button{font:600 14px sans-serif;padding:10px 18px;border-radius:999px;border:0;background:#7A5E2C;color:#fff;margin-bottom:16px}@media print{button{display:none}}</style></head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@400;500&family=Inter:wght@400;600&display=swap"><style>body{font:14px/1.55 Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:20px;color:#111;background:#fff}button{font:600 14px sans-serif;padding:10px 18px;border-radius:999px;border:0;background:#7A5E2C;color:#fff;margin-bottom:16px}@media print{button{display:none}}</style></head>
 <body><button onclick="window.print()">${esc(tr(UI.print))}</button>${reportInner()}</body></html>`}
 const stamp=()=>new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
 /* the reflection on the screen: for phones and apps where a file download does not arrive */
